@@ -7,7 +7,12 @@ class KataDasar_Model extends CI_Model
 {
 	public function getAllData()
 	{
-		return $this->db->get('a_katadasar')->result();
+		$this->db->select('*');
+		$this->db->from('a_katadasar');
+		$this->db->limit(3000);
+		$query = $this->db->get()->result();
+		return $query;
+		// return $this->db->get('a_katadasar')->result();
 	}
 
 	public function tambah_data()

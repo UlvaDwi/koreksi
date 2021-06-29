@@ -15,6 +15,7 @@ class DataSoalKunci extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('SoalKunci_Model');
+		$this->load->model('Mapel_Model');
 		$this->load->model('PreSoalKunci_Model');
 		$this->load->library('form_validation');
 	}
@@ -31,11 +32,24 @@ class DataSoalKunci extends CI_Controller
 	function index()
 	{
 
-		$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
+		//$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
+		$data['mapel'] = $this->Mapel_Model->getAllData();
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('soalkunci/index', $data);
+		$this->load->view('templates/footer');
+	}
+
+	function tambah($id)
+	{
+		$data['ubah'] = $this->SoalKunci_Model->detail_data_mapel($id);
+		$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
+		// var_dump($data);
+		// die();
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/tambah', $data);
 		$this->load->view('templates/footer');
 	}
 

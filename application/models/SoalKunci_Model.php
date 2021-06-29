@@ -45,4 +45,9 @@ class SoalKunci_Model extends CI_Model
 	{
 		return $this->db->get_where('a_soalkunci', ['id_soal' => $kode])->row_array();
 	}
+
+	public function detail_data_mapel($id)
+	{
+		return $this->db->get_where('a_mapel', ['id_mapel' => $id])->row_array();
+	}
 }
