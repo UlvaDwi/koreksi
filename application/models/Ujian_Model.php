@@ -5,6 +5,10 @@
  */
 class Ujian_Model extends CI_Model
 {
+	// public function getAllData()
+	// {
+	// 	return $this->db->get('a_ujian')->result();
+	// }
 	public function getAllData($id_tugas = null)
 	{
 		$this->db->select('id_ujian, a_tugasguru.id_tugas, nama_ujian');
@@ -15,17 +19,6 @@ class Ujian_Model extends CI_Model
 		}
 		return $this->db->get()->result();
 	}
-
-	// public function getAllDatabyKelas($kode_kelas = null)
-	// {
-	// 	$this->db->select('kode_kelas, kelas, a_jurusan.nama_jurusan, nama_kelas');
-	// 	$this->db->from('a_kelas');
-	// 	$this->db->join('a_jurusan', 'a_jurusan.kode_jurusan = a_kelas.kode_jurusan');
-	// 	if ($kode_kelas != null) {
-	// 		$this->db->where('a_kelas.kode_kelas', $kode_kelas);
-	// 	}
-	// 	return $this->db->get()->result();
-	// }
 
 	public function getAllData_jurusan()
 	{

@@ -4,13 +4,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1> Ubah Data </h1>
+          <h1> Ubah Data Jenis Ujian</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
-            <li class="breadcrumb-item">Data Ujian</li>
-            <li class="breadcrumb-item active">Ubah Data Ujian</li>
+            <li class="breadcrumb-item">Data Jenis Ujian</li>
+            <li class="breadcrumb-item active">Ubah Data Jenis Ujian</li>
           </ol>
         </div>
       </div>
@@ -33,31 +33,13 @@
                 <form action="" method="post" accept-charset="utf-8">
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">id Ujian</label>
-                      <input type="text" class="form-control disabled" name="kd_kelas" value="<?= $ubah['id_ujian'] ?>" readonly>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">id penugasan</label>
-                      <select class="form-control" name="id_tugas">
-                        <?php
-                        foreach ($jurusan as $value) {
-                          $selected = '';
-                          if ($ubah['id_tugas'] == $value->id_tugas) {
-                            $selected = 'selected';
-                          }
-                        ?>
-                          <option value="<?php echo $value->id_tugas ?>" <?php echo $selected ?>><?php echo $value->id_tugas ?></option>
-                        <?php
-                        }
-                        ?>
-                      </select>
+                      <label for="exampleInputEmail1">Kode Jenis Ujian</label>
+                      <input type="text" class="form-control disabled" name="kode_jenis" value="<?= $ubah['kode_jenis'] ?>" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Nama Ujian</label>
-                      <input type="text" class="form-control" name="nama_ujian" value="<?= $ubah['nama_ujian'] ?>">
+                      <label for="exampleInputPassword1">Nama Ujian</label>
+                      <input type="text" class="form-control" name="nama_jenis" value="<?= $ubah['nama_jenis'] ?>">
                     </div>
-
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>
                   <!-- /.card-body -->

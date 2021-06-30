@@ -91,6 +91,14 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="<?= base_url() ?>DataJenisUjian" class="nav-link ml-3">
+                <i class="fas fa-user-edit"></i>
+                <p>
+                  Jenis Ujian
+                </p>
+              </a>
+            </li>
           </ul>
         </li>
         <li class="nav-item">
@@ -138,6 +146,14 @@
             <i class="fas fa-stack-exchange"></i>
             <p>
               Preprocessing Jawaban Siswa
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>DataUjian/" class="nav-link">
+            <i class="fas fa-stack-exchange"></i>
+            <p>
+              Ujian
             </p>
           </a>
         </li>

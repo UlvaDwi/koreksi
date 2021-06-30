@@ -15,14 +15,16 @@ class DataUjian extends CI_Controller
 		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
-
+		$this->load->model('JenisUjian_Model');
+		$this->load->model('Ujian_Model');
 		$this->load->model('PenugasanGuru_Model');
 		$this->load->library('form_validation');
 	}
 	function index()
 	{
-		// tampil list kelas
+		$data['ujian'] = $this->Ujian_Model->getAllData();
 		$data['penugasanguru'] = $this->PenugasanGuru_Model->getAllData();
+		$data['jenisujian'] = $this->JenisUjian_Model->getAllData();
 		// untuk dropdown
 
 
@@ -40,7 +42,7 @@ class DataUjian extends CI_Controller
 		}
 
 		$this->form_validation->set_rules("id_tugas", "id tugas", "callback_check_select_jurusan");
-		$this->form_validation->set_rules("nama_ujian", "Nama ujian", "callback_check_select_nama_kelas");
+		$this->form_validation->set_rules("nama_ujian", "Nama ujian", "callback_check_select_jenis");
 
 		if (!$this->form_validation->run()) {
 			$this->index();
@@ -55,6 +57,15 @@ class DataUjian extends CI_Controller
 	{
 		if ($this->input->post('id_tugas') == '--Pilih Guru --') {
 			$this->form_validation->set_message('check_select_jurusan', 'pilih guru yang benar!!!!!!');
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+	public function check_select_jenis()
+	{
+		if ($this->input->post('kode_jenis') == '--Pilih Jenis Ujian --') {
+			$this->form_validation->set_message('check_select_jenis', 'pilih jenis ujian yang benar!!!!!!');
 			return FALSE;
 		} else {
 			return TRUE;

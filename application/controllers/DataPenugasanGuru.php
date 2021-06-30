@@ -47,8 +47,6 @@ class DataPenugasanGuru extends CI_Controller
 				$html .= '<input type="text" value="' . $value->id_mapel . '" name="id_mapel[]">';
 				// $html .= '<input type="text" value="' . $value->kode_mapel . '" name="kode_mapel[]">';
 			}
-
-
 			// $html .= '<select name="guru[]" class="form-control" disabled >';
 			$html .= ($value->id_user == null) ? '<select name="guru[]" class="form-control">' : '<select name="guru[]" class="form-control" disabled >';
 			$html .= ($value->id_user != null) ? '<option selected="selected">Pilih Guru</option>' : '';

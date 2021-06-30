@@ -89,7 +89,7 @@
                     <td><?= $no ?></td>
                     <td><?= $ValueListMapel->nama_mapel ?></td>
                     <td>
-                      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#TugasGuru" data-kodemapel="<?= $ValueListMapel->kode_mapel ?>" data-mapel="<?= $ValueListMapel->nama_mapel ?>">Tambah Guru Pengajar</button> -->
+
                       <a href="<?= base_url('DataPenugasanGuru/tampilan_tambah/' . $ValueListMapel->nama_mapel) ?>"><button class="btn <?= ($ValueListMapel->jumlah_kosong == 0) ? 'btn-success' : 'btn-danger'; ?>">Lihat Guru Pengajar</button></a>
                     </td>
                   </tr>

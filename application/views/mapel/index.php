@@ -121,7 +121,7 @@
 										<th>Nama Mapel</th>
 										<th>Kelas</th>
 										<th>Jurusan</th>
-										<th>Tahun Ajaran</th>
+										<!-- <th>Tahun Ajaran</th> -->
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -136,7 +136,7 @@
 											<td><?= $row->nama_mapel ?></td>
 											<td><?= $row->kelas ?></td>
 											<td><?= $row->nama_jurusan ?></td>
-											<td><?= $row->tahun_ajaran ?></td>
+											<!-- <td><?= $row->tahun_ajaran ?></td> -->
 											<td>
 												<div class="btn-group">
 													<!-- <button data-ref="<?= base_url('DataMapel/hapus') ?>" data-id="<?= $row->id_mapel ?>" class="btn btn-danger hapus">Hapus</button> -->
