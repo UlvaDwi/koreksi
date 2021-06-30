@@ -41,7 +41,7 @@
         <div class="card">
           <div class="card-header">
 
-            <h5 class="card-title">Tambah Soal</h5>
+            <h5 class="card-title">Tambah Soal <?= $ubah['nama_mapel'] ?></h5>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -57,9 +57,9 @@
                   <div class="card-body">
 
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                       <label for="exampleInputPassword1">Nama Mapel Ujian</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $ubah['nama_mapel'] ?>" readonly>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $ubah['id_mapel'] ?>" readonly>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Soal</label>

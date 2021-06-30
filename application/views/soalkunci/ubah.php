@@ -36,7 +36,7 @@
                       <label for="exampleInputEmail1">Id Soal</label>
                       <input type="text" class="form-control disabled" name="id_soal" value="<?= $ubah['id_soal'] ?>" readonly>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                       <label for="exampleInputPassword1">Id Mapel Ujian</label>
                       <input type="text" class="form-control" name="id_mapel_ujian" value="<?= $ubah['id_mapel_ujian'] ?>">
                     </div>
