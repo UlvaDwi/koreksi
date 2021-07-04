@@ -42,7 +42,7 @@ class User_Model extends CI_Model
 
     public function detail_data($id)
     {
-        return $this->db->get_where('a_guru', ['id_user' => $id])->row_array();
+        return $this->db->get_where('a_guru', ['id_user' => $id])->row();
     }
 
     public function ubah_data($id, $data)

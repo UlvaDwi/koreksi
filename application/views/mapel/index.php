@@ -24,7 +24,7 @@
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 				<h6>
 					<i class="icon fas fa-check"></i>
-					Data Berhasil
+					Data
 					<strong>
 						<?= $this->session->flashdata('flash_mapel');   ?>
 					</strong>
@@ -61,12 +61,15 @@
 									<form action="<?= base_url() ?>DataMapel/validation_form" method="post" accept-charset="utf-8">
 										<div class="card-body">
 											<div class="form-group">
+												<label for="exampleInputPassword1">Kode Mapel</label>
+												<input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel">
+											</div>
+											<div class="form-group">
 												<label for="exampleInputPassword1">Nama Mapel</label>
 												<input type="text" class="form-control" id="exampleInputPassword1" name="nama_mapel">
 											</div>
 
-											<div class="form-group">
-
+											<!-- <div class="form-group">
 												<label for="exampleInputEmail1">Kelas</label>
 												<br>
 												<?php
@@ -77,7 +80,7 @@
 														<label class="form-check-label" for="<?= $valueKls ?>"><?= $valueKls ?></label>
 													</div>
 												<?php } ?>
-												<!-- <input type="text" class="form-control" id="exampleInputEmail1" name="kls"> -->
+												
 											</div>
 											<div class="form-group">
 												<label>Jurusan</label>
@@ -90,7 +93,7 @@
 														<label class="form-check-label" for="<?= $jur->kode_jurusan ?>"><?= $jur->nama_jurusan  ?></label>
 													</div>
 												<?php } ?>
-											</div>
+											</div> -->
 
 											<input type="submit" name="save" class="btn btn-primary" value="Save">
 										</div>
@@ -118,9 +121,10 @@
 								<thead>
 									<tr>
 										<th>No</th>
+										<th>id Mapel</th>
 										<th>Nama Mapel</th>
-										<th>Kelas</th>
-										<th>Jurusan</th>
+										<!-- <th>Kelas</th>
+										<th>Jurusan</th> -->
 										<!-- <th>Tahun Ajaran</th> -->
 										<th>Action</th>
 									</tr>
@@ -133,10 +137,9 @@
 									?>
 										<tr>
 											<td><?= $no ?></td>
+											<td><?= $row->id_mapel ?></td>
 											<td><?= $row->nama_mapel ?></td>
-											<td><?= $row->kelas ?></td>
-											<td><?= $row->nama_jurusan ?></td>
-											<!-- <td><?= $row->tahun_ajaran ?></td> -->
+
 											<td>
 												<div class="btn-group">
 													<!-- <button data-ref="<?= base_url('DataMapel/hapus') ?>" data-id="<?= $row->id_mapel ?>" class="btn btn-danger hapus">Hapus</button> -->

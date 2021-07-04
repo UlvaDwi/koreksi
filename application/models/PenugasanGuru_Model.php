@@ -15,6 +15,11 @@ class PenugasanGuru_Model extends CI_Model
 		return $this->db->get()->result();
 	}
 
+	public function getData_by(array $where)
+	{
+		return $this->db->get_where('a_tugasguru', $where);
+	}
+
 
 
 	public function getDatatugasByidGuru($id_user, $kode_kelas)
@@ -38,33 +43,49 @@ class PenugasanGuru_Model extends CI_Model
 
 	public function getAllDataBykode_kelas($kode_kelas)
 	{
-		return $this->db->query("SELECT  a_mapel.nama_mapel from a_tugasguru left join a_mapel on a_tugasguru.id_mapel = a_mapel.id_mapel where a_tugasguru.kode_kelas= '" . $kode_kelas . "' GROUP by id_tugas")->result();
+		return $this->db->query("SELECT  a_mapel.nama_mapel from a_tugasguru left join 
+		a_mapel on a_tugasguru.id_mapel = a_mapel.id_mapel where a_tugasguru.kode_kelas= '" . $kode_kelas . "' 
+		GROUP by id_tugas")->result();
 	}
 
-
-
-	public function tambah_data()
+	public  function gettugasguru($id_guru)
 	{
 
-		echo $jumlah = count($this->input->post('guru'));
-		$kode_kelas = $this->input->post('kode_kelas');
-		$id_mapel = $this->input->post('id_mapel');
-		$id_user = $this->input->post('guru');
-		print_r($id_user);
-		echo '<br>';
-		for ($i = 0; $i < $jumlah; $i++) {
-			if ($id_user[$i] != 'Pilih Guru') {
-				$data = array(
-					'id_tugas' => $id_user[$i] . '-' . $id_mapel[$i] . '-' . $kode_kelas[$i],
-					'id_user' => $id_user[$i],
-					'id_mapel' => $id_mapel[$i],
-					'kode_kelas' => $kode_kelas[$i]
-				);
-				print_r($data);
-				echo '<br>';
+		return $this->db->get_where('a_tugasguru', ['id_user' => $id_guru])->result();
+	}
+
+	public function tambah_data($guru, $ta)
+	{
+		$jmlDataMasuk = 0;
+		$kelas = $this->input->post('kelas');
+		foreach ($this->input->post('mapel') as $key => $valueMapel) {
+			if ($this->checkExist($valueMapel, $kelas[$key], $ta)) {
+				$data = [
+					'id_user' => $guru,
+					'id_mapel' => $valueMapel,
+					'kode_kelas' => $kelas[$key],
+					'kode_ta' => $ta
+				];
 				$this->db->insert('a_tugasguru', $data);
+				// increment jika ada data yang masuk
+				$jmlDataMasuk++;
 			}
 		}
+
+		// cek jumlah data yang masuk ke database
+		return ($jmlDataMasuk == 0) ? false : true;
+	}
+
+	public function checkExist($id_mapel, $kode_kelas, $kode_ta)
+	{
+		$this->db->where('id_mapel', $id_mapel);
+		$this->db->where('kode_kelas', $kode_kelas);
+		$this->db->where('kode_ta', $kode_ta);
+		$query = $this->db->get('a_tugasguru');
+		if ($query->num_rows() == 0) {
+			return true;
+		}
+		return false;
 	}
 
 	public function ubah_data()
@@ -98,11 +119,6 @@ class PenugasanGuru_Model extends CI_Model
 	public function listDataMapelyangKosong()
 	{
 		return $this->db->query("SELECT a_mapel.id_mapel, a_mapel.nama_mapel, sum(case when a_tugasguru.id_tugas IS NULL then 1 else 0 end) AS jumlah_kosong FROM `a_mapel` INNER join a_kelas on (a_mapel.kelas = a_kelas.kelas && a_mapel.kode_jurusan = a_kelas.kode_jurusan) LEFT JOIN a_tugasguru on (a_kelas.kode_kelas = a_tugasguru.kode_kelas && a_mapel.id_mapel = a_tugasguru.id_mapel) GROUP by nama_mapel ORDER BY a_mapel.nama_mapel ASC")->result();
-	}
-
-	public function hapusDosa()
-	{
-		return $this->db->query("SELECT * FROM `a_tugasguru` LEFT JOIN a_mapel ON a_tugasguru.id_mapel = a_mapel.id_mapel ORDER BY `a_mapel`.`id_mapel` ASC ")->result();
 	}
 
 	public function DataKelasYgDiajarGuru($id_user)

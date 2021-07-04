@@ -12,15 +12,19 @@ class Mapel_Model extends CI_Model
 
 {
 
-	public function getAllData($kode_jurusan = null)
+	// public function getAllData($kode_jurusan = null)
+	// {
+	// 	$this->db->select('id_mapel, nama_mapel, kelas, a_jurusan.nama_jurusan');
+	// 	$this->db->from('a_mapel');
+	// 	$this->db->join('a_jurusan', 'a_jurusan.kode_jurusan = a_mapel.kode_jurusan');
+	// 	if ($kode_jurusan != null) {
+	// 		$this->db->where('a_mapel.kode_jurusan', $kode_jurusan);
+	// 	}
+	// 	return $this->db->get()->result();
+	// }
+	public function getAllData()
 	{
-		$this->db->select('id_mapel, nama_mapel, kelas, a_jurusan.nama_jurusan');
-		$this->db->from('a_mapel');
-		$this->db->join('a_jurusan', 'a_jurusan.kode_jurusan = a_mapel.kode_jurusan');
-		if ($kode_jurusan != null) {
-			$this->db->where('a_mapel.kode_jurusan', $kode_jurusan);
-		}
-		return $this->db->get()->result();
+		return $this->db->get('a_mapel')->result();
 	}
 
 	public function getMapel()
@@ -48,58 +52,16 @@ class Mapel_Model extends CI_Model
 
 	{
 
-		foreach ($this->input->post('chkKelas') as $valueKls) {
+		$data = array(
+			'id_mapel' => $this->input->post('id_mapel', true),
+			'nama_mapel' => $this->input->post('nama_mapel', true)
+		);
 
-			foreach ($this->input->post('chkJurusan') as $valueJur) {
-
-				$data = [
-
-					'id_mapel' => $this->input->post('id_mapel'),
-
-					'nama_mapel' => $this->input->post('nama_mapel'),
-
-					'kelas' => $valueKls,
-
-					'kode_jurusan' => $valueJur
-
-
-				];
-
-				if ($this->checkExist($this->input->post('id_mapel'), $this->input->post('kelompok_mapel'), $valueKls, $valueJur)) {
-
-					$this->db->insert('a_mapel', $data);
-				}
-			}
-		}
+		$this->db->insert('a_mapel', $data);
 	}
 
 
 
-	public function checkExist($id_mapel, $nama_mapel, $kelas, $id_jurusan)
-
-	{
-
-		$data = [
-
-			'id_mapel' => $id_mapel,
-
-			'kelas' => $kelas,
-
-			'nama_mapel' => $nama_mapel,
-
-			'kode_jurusan' => $id_jurusan
-
-		];
-
-		$query = $this->db->get_where('a_mapel', $data)->num_rows();
-
-		if ($query > 0) {
-
-			return false;
-		}
-
-		return true;
-	}
 	public function getMapelbyKodeMapel($id_mapel)
 
 	{
@@ -119,23 +81,10 @@ class Mapel_Model extends CI_Model
 	{
 
 		$data = array(
-
-			'id_mapel' => $this->input->post('id_mapel', true),
-
-			'nama_mapel' => $this->input->post('nama_mapel', true),
-
-			'kelas' => $this->input->post('kelas', true),
-
-			'kode_jurusan' => $this->input->post('kode_jurusan', true)
-
+			'nama_mapel' => $this->input->post('nama_mapel', true)
 		);
-
-		if ($this->checkExist($this->input->post('id_mapel'), $this->input->post('nama_mapel'), $this->input->post('kelas', true), $this->input->post('kode_jurusan', true))) {
-
-			$this->db->where('id_mapel', $this->input->post('id_mapel', true));
-
-			$this->db->update('a_mapel', $data);
-		}
+		$this->db->where('id_mapel', $this->input->post('id_mapel', true));
+		$this->db->update('a_mapel', $data);
 	}
 
 	public function detail_data($id)

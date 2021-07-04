@@ -102,6 +102,14 @@
           </ul>
         </li>
         <li class="nav-item">
+          <a href="<?= base_url() ?>DataUjian/" class="nav-link">
+            <i class="fas fa-stack-exchange"></i>
+            <p>
+              Atur Ujian
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="<?= base_url() ?>DataKataDasar" class="nav-link">
             <i class="fas fa-atlas"></i>
             <p>
@@ -121,7 +129,7 @@
           <a href="<?= base_url() ?>DataSoalKunci" class="nav-link">
             <i class="fas fa-question-circle"></i>
             <p>
-              Data Soal & Kunci Jawaban
+              Soal & Kunci Jawaban
             </p>
           </a>
         </li>
@@ -149,14 +157,7 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataUjian/" class="nav-link">
-            <i class="fas fa-stack-exchange"></i>
-            <p>
-              Ujian
-            </p>
-          </a>
-        </li>
+
 
 
 

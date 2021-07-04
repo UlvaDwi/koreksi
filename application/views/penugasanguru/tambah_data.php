@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Penugasan Guru</h1>
+                    <h1>Data Penugasan Guru : <?= $guru->nama_guru ?></h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -36,61 +36,85 @@
                 <!-- Default box -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tambah Penugasan Guru Mapel : <br> <b> <?= $nama_mapel ?></b></h3>
+                        <h3 class="card-title">Tambah Penugasan Guru </b></h3>
+                        <div class="card-tools">
+                            <div class="btn btn-primary btn-sm float-right add_button">Tambah Tugas</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="<?= base_url('DataPenugasanGuru/tambah/' . $this->uri->segment(3)) ?>" method="POST">
+
+                            <!-- select mapel -->
+                            <div class="row input_penugasan">
+                                <div class="form-group col-6">
+                                    <label for="mapel">Mapel</label>
+                                    <select class="form-control" name="mapel[]" id="mapel">
+                                        <?php
+                                        foreach ($mapel as $valueMapel) { ?>
+                                            <option value="<?= $valueMapel->id_mapel ?>"><?= $valueMapel->nama_mapel ?></option>
+                                        <?php  }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="kelas">Kelas</label>
+                                    <select class="form-control" name="kelas[]" id="kelas">
+                                        <?php
+                                        foreach ($kelas as $valuekelas) { ?>
+                                            <option value="<?= $valuekelas->kode_kelas ?>"><?= "$valuekelas->kelas $valuekelas->kode_jurusan $valuekelas->nama_kelas" ?></option>
+                                        <?php  }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="field_wrapper">
+                            </div>
+
+
+                            <input type="submit" class="btn btn-success" value="Simpan">
+                        </form>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- input penugasan guru -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Tugas Guru</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-minus"></i></button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="<?= base_url('DataPenugasanGuru/tambah') ?>" method="POST">
-                            <input type="hidden" value="<?= count($dataMapel) ?>" name="jml_data">
-                            <input type="hidden" value="<?= $kodeMapel ?>" name="id_mapel">
-                            <?php
-                            $data = 0;
-                            foreach ($dataMapel as $value) { ?>
-                                <div class="form-group" data-group='<?= $data ?>'>
-                                    <label for="exampleFormControlInput1"><?= $value->kelas ?> <?= $value->kode_jurusan ?> <?= $value->nama_kelas ?></label>
-                                    <?php if ($value->id_user == null) { ?>
-                                        <input type="hidden" value="<?= $value->kode_kelas ?>" name="kode_kelas[]">
-                                        <input type="hidden" value="<?= $value->id_mapel ?>" name="id_mapel[]">
-                                    <?php } else { ?>
-                                        <input type="hidden" class="form-kelas" value="<?= $value->kode_kelas ?>" name="kode_kelas[]" disabled>
-                                        <input type="hidden" class="form-mapel" value="<?= $value->id_mapel ?>" name="id_mapel[]" disabled>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>No</th>
+                                <th>Mapel</th>
+                                <th>Kelas</th>
+                                <th>Action</th>
 
-                                    <?php } ?>
-                                    <?php if ($value->id_user == null) { ?>
-                                        <div class="row">
-                                            <div class="col-10">
-                                                <select name="guru[]" class="form-control">
-                                                    <option selected="selected">Pilih Guru</option>
-                                                    <?php foreach ($guru as $datalistGuru) : ?>
-                                                        <option value="<?= $datalistGuru->id_user ?>"><?= $datalistGuru->nama_guru ?> </option>;
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    <?php } else { ?>
-                                        <div class="row">
-                                            <div class="col-10">
-                                                <select name="guru[]" class="form-control select-guru" disabled>
-                                                    <?php foreach ($guru as $datalistGuru) :
-                                                        $selected = ($value->id_user == $datalistGuru->id_user) ? 'selected' : ''; ?>
-                                                        <option value="<?= $datalistGuru->id_user ?>" <?= $selected ?>><?= $datalistGuru->nama_guru ?> </option>;
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-2">
-                                                <div class="btn btn-danger hapus-data" data-idtugas="<?= $value->id_tugas ?>" data-group="<?= $data ?>">hapus</div>
-                                            </div>
-                                        </div>
-                                    <?php } ?>
-                                </div>
+                            </tr>
                             <?php
-                                $data++;
+                            $no = 1;
+                            foreach ($tugas_guru as $row) { ?>
+                                <tr>
+                                    <td><?= $no ?></td>
+                                    <td><?= $row->id_mapel ?></td>
+                                    <td><?= $row->kode_kelas ?></td>
+                                    <td>
+                                        <a href="<?= base_url() ?>DataPenugasanGuru/hapus/<?= $row->id_tugas ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
+                                    </td>
+                                </tr>
+                            <?php
+                                $no++;
                             } ?>
-                            <input type="submit" class="btn btn-success" value="Simpan">
-                        </form>
+                        </table>
                     </div>
                 </div>
                 <!-- /.card -->

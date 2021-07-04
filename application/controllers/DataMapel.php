@@ -54,8 +54,8 @@ class DataMapel extends CI_Controller
 		// $this->form_validation->set_rules("id_map", "ID Mapel", "required|max_length[5]");
 		$this->form_validation->set_rules("id_mapel", "id mapel", "required");
 		$this->form_validation->set_rules("nama_mapel", "nama Mapel", "required");
-		$this->form_validation->set_rules("kelas", "Kelas", "required");
-		$this->form_validation->set_rules("kode_jurusan", "Jurusan", "required");
+		// $this->form_validation->set_rules("kelas", "Kelas", "required");
+		// $this->form_validation->set_rules("kode_jurusan", "Jurusan", "required");
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->Mapel_Model->detail_data($id_map);

@@ -22,6 +22,7 @@ class DataUjian extends CI_Controller
 	}
 	function index()
 	{
+
 		$data['ujian'] = $this->Ujian_Model->getAllData();
 		$data['penugasanguru'] = $this->PenugasanGuru_Model->getAllData();
 		$data['jenisujian'] = $this->JenisUjian_Model->getAllData();
@@ -42,7 +43,7 @@ class DataUjian extends CI_Controller
 		}
 
 		$this->form_validation->set_rules("id_tugas", "id tugas", "callback_check_select_jurusan");
-		$this->form_validation->set_rules("nama_ujian", "Nama ujian", "callback_check_select_jenis");
+		$this->form_validation->set_rules("kode_jenis", "Nama ujian", "callback_check_select_jenis");
 
 		if (!$this->form_validation->run()) {
 			$this->index();
@@ -89,7 +90,7 @@ class DataUjian extends CI_Controller
 		}
 
 		$this->form_validation->set_rules("id_tugas", "tugas", "required");
-		$this->form_validation->set_rules("nama_ujian", "Nama Ujian", "required");
+		$this->form_validation->set_rules("kode_jenis", "Nama Ujian", "required");
 		if ($this->form_validation->run() == FALSE) {
 			$data['penugasanguru'] = $this->PenugasanGuru_Model->getAllData();
 			$data['ubah'] = $this->Ujian_Model->detail_data($id);

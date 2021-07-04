@@ -41,7 +41,7 @@
                       <input type="text" class="form-control" name="nama_mapel" value="<?= $ubah['nama_mapel'] ?>">
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputPassword1">Kelas</label>
                       <select class="form-control" name="kelas">
                         <?php
@@ -54,7 +54,7 @@
                           <option value="<?= $kls ?>" <?= $selected ?>><?= $kls ?></option>
                         <?php } ?>
                       </select>
-                      <!-- <input type="text" class="form-control" name="kls" value="<?= $ubah['kelas'] ?>"> -->
+                      
                     </div>
 
                     <div class="form-group">
@@ -69,7 +69,7 @@
                           <option value="<?= $jur->kode_jurusan ?>" <?= $selected ?>><?= $jur->nama_jurusan ?></option>
                         <?php } ?>
                       </select>
-                    </div>
+                    </div> -->
 
                     <input type="submit" name="save" class="btn btn-primary" value="Save">
                   </div>

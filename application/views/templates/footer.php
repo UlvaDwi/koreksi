@@ -87,38 +87,28 @@
             })
         })
 
-        // $("#btnaddForm").click(function() {
-        // 	var html = `
-        // 	<div class="row inputFormRow">
-        // 	    <div class="col-3">
-        // 	      <div class="form-group">
-        // 	        <select class="form-control"  id="mapelSelectForm" name="mapel[] data-mapelselect="` + numberForm +
-        // 		`" >
-        // 	          <option selected="selected">Pilih Mapel</option>
-        // 	        </select>
-        // 	      </div>
-        // 	    </div>
-        // 	    <div class="col-3">
-        // 	      <div class="form-group">
-        // 	        <select class="form-control" data-kelasselect="` + numberForm +
-        // 		`" >
-        // 	          <option selected="selected">Pilih Mapel</option>
-        // 	        </select>
-        // 	      </div>
-        // 	    </div>
-        // 	    <div class="col-3">
-        // 	      <button type="button" id="removeForm" class="btn btn-block btn-danger">
-        // 	        Remove
-        // 	      </button>
-        // 	    </div>
-        // 	  </div>`;
-        // 	numberForm++;
-        // 	$(".select-form").after(html);
-        // 	// remove
-        // 	$("#removeForm").click(function() {
-        // 		$(this).closest('.inputFormRow').remove();
-        // 	});
-        // });
+        // add form
+        var maxField = 10; //Input fields increment limitation
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = $('.input_penugasan'); //New input field html 
+        var link = '<a href="#" class="remove_field">Remove</a>';
+        var x = 1; //Initial field counter is 1
+        $('.add_button').click(function() { //Once add button is clicked
+            if (x < maxField) { //Check maximum number of input fields
+                x++; //Increment field counter
+                $(wrapper).append(fieldHTML.clone(), link); // Add field html
+            }
+        });
+        $(wrapper).on('click', '.remove_field', function(e) { //Once remove button is clicked
+            e.preventDefault();
+            $(this).prev().remove();
+            x--;
+            $(this).remove(".remove_field");
+
+            // $(this).parent('div').remove(); //Remove field html
+            // x--; //Decrement field counter
+        });
+
 
         $('div.hapus-data').on('click', function() {
             const form = $(this);

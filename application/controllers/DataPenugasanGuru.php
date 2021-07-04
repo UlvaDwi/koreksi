@@ -5,7 +5,6 @@
  */
 class DataPenugasanGuru extends CI_Controller
 {
-	public $ta;
 	public function __construct()
 	{
 		parent::__construct();
@@ -17,16 +16,15 @@ class DataPenugasanGuru extends CI_Controller
 		$this->load->model('Mapel_Model');
 		$this->load->model('Kelas_Model');
 		$this->load->model('Jurusan_Model');
+		$this->load->model('TahunAjaran_Model');
 		$this->load->library('form_validation');
 	}
 	function index()
 	{
 		// tampil list penugasan guru
-		$data['tugas_guru'] = $this->PenugasanGuru_Model->getAllData();
+
 		$data['listGuru'] = $this->User_Model->getData();
-		$data['listMapel'] = $this->PenugasanGuru_Model->listDataMapelyangKosong();
-		$data['kelas'] = $this->Kelas_Model->getAllData();
-		$data['jurusan'] = $this->Jurusan_Model->getAllData();
+
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('penugasanguru/index', $data);
@@ -67,40 +65,40 @@ class DataPenugasanGuru extends CI_Controller
 		echo $html;
 	}
 
-	function tampilan_tambah($id_mapel)
+	function tampilan_tambah($id_guru)
 	{
-		// tampil list penugasan guru
-		$data['kodeMapel'] = $id_mapel;
-		$data['dataMapel'] = $this->PenugasanGuru_Model->dataKelasByKodeMapel($id_mapel);
-		$data['guru'] = $this->User_Model->getData();
-		$data['nama_mapel'] = $this->Mapel_Model->getMapelbyKodeMapel($id_mapel);
 
-		if (empty($data['dataMapel'])) {
-			redirect('DataPenugasanGuru');
-		}
+		// tampil list penugasan guru
+		$data['tugas_guru'] = $this->PenugasanGuru_Model->gettugasguru($id_guru);
+		$data['guru'] = $this->User_Model->detail_data($id_guru);
+		$data['mapel'] = $this->Mapel_Model->getAllData();
+		$data['kelas'] = $this->Kelas_Model->getAllData();
+
+
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('penugasanguru/tambah_data', $data);
 		$this->load->view('templates/footer');
 	}
 
-	public function tambah()
+	public function tambah($id_guru)
 	{
-		$this->PenugasanGuru_Model->tambah_data();
-		$this->session->set_flashdata('flash_penugasanguru', 'Disimpan');
-		redirect('DataPenugasanGuru');
+		echo $id_guru . $this->TahunAjaran_Model->tahunAjaranAktif;
+		$query = $this->PenugasanGuru_Model->tambah_data($id_guru, $this->TahunAjaran_Model->tahunAjaranAktif);
+		$status = 'Disimpan';
+		if (!$query) {
+			$status = 'gagal Disimpan';
+		}
+		$this->session->set_flashdata('flash_penugasanguru', $status);
+		redirect('DataPenugasanGuru/tampilan_tambah/' . $id_guru);
 	}
 
-	// public function validation_form()
-	// {
-	// 	$this->PenugasanGuru_Model->tambah_data();
-	// 	$this->session->set_flashdata('flash_penugasanguru', 'Disimpan');
-	// 	redirect('DataPenugasanGuru/tampilan_tambah');
-	// }
-
-	public function hapus()
+	public function hapus($id)
 	{
-		$this->PenugasanGuru_Model->hapus_data($this->input->post('id_tugas'));
+		$id_guru = $this->PenugasanGuru_Model->getData_by(['id_tugas' => $id])->row()->id_user;
+		$this->PenugasanGuru_Model->hapus_data($id);
+		$this->session->set_flashdata('flash_penugasanguru', 'Dihapus');
+		redirect('DataPenugasanGuru/tampilan_tambah/' . $id_guru);
 	}
 
 	public function ubah($id_pen)

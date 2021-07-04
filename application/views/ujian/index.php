@@ -124,7 +124,7 @@
                       <td><?= $no ?></td>
                       <td><?= $row->id_ujian ?></td>
                       <td><?= $row->id_tugas ?></td>
-                      <td><?= $row->nama_ujian ?></td>
+                      <td><?= $row->nama_jenis ?></td>
                       <?php if ($this->session->userdata('level') == 'admin') { ?>
                         <td>
                           <!-- <button data-ref="<?= base_url('DataUjian/hapus') ?>" data-id="<?= $row->id_ujian ?>" class="btn btn-danger hapus">Hapus</button> -->
