@@ -104,7 +104,7 @@
                   <tr>
                     <th>No</th>
                     <th>Id Soal</th>
-                    <th>Id Mapel Ujian</th>
+                    <!-- <th>Mapel Ujian</th> -->
                     <th>Soal</th>
                     <th>Kunci Jawaban</th>
                     <th>Skor Soal</th>
@@ -117,17 +117,17 @@
                   foreach ($soalkunci as $row) { ?>
                     <tr>
                       <td><?= $no ?></td>
-                      <td><?= $row->id_soal ?></td>
-                      <td><?= $row->id_mapel_ujian ?></td>
-                      <td><?= $row->soal ?></td>
-                      <td><?= $row->kunci_jawaban ?></td>
-                      <td><?= $row->skor_soal ?></td>
+                      <td><?= $row['id_soal'] ?></td>
+                      <!-- <td><= $row['id_mapel_ujian'] ?></td> -->
+                      <td><?= $row['soal'] ?></td>
+                      <td><?= $row['kunci_jawaban'] ?></td>
+                      <td><?= $row['skor_soal'] ?></td>
 
                       <td>
                         <div class="btn-group">
 
-                          <a href="<?= base_url() ?>DataSoalKunci/hapus/<?= $row->id_soal ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                          <a href="<?= base_url() ?>DataSoalKunci/ubah/<?= $row->id_soal ?>" class="btn btn-warning">Update</a>
+                          <a href="<?= base_url() ?>DataSoalKunci/hapus/<?= $row['id_soal'] ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
+                          <a href="<?= base_url() ?>DataSoalKunci/ubah/<?= $row['id_soal'] ?>" class="btn btn-warning">Update</a>
                         </div>
                       </td>
                     <?php

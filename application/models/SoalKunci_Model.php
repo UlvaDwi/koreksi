@@ -5,14 +5,23 @@
  */
 class SoalKunci_Model extends CI_Model
 {
-	public function getAllData()
+	public function getAllData($id_ujian)
 	{
-		return $this->db->get('a_soalkunci')->result();
+		//return $this->db->get_where('a_soalkunci', ['id_ujian' => $id_ujian])->row_array();
+		$query = "SELECT * from a_soalkunci
+		WHERE id_ujian = $id_ujian
+		";
+		
+		return $this->db->query($query)->result_array();
+	}
+
+	public function getDataUjian($id_tugas)
+	{
+		return $this->db->get_where('a_ujian', ['id_tugas' => $id_tugas])->row_array();
 	}
 
 	public function tambah_data($id)
 	{
-
 		$data = array(
 			'id_soal' => $id,
 			'id_mapel_ujian' => $this->input->post('id_mapel_ujian', true),

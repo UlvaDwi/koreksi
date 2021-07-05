@@ -43,10 +43,19 @@ class DataSoalKunci extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	function tambah($id)
+	function tambah()
 	{
+		$id = $_GET['id'];
+		$id_tugas = $_GET['id_tugas'];
+		// var_dump($id);
+		// var_dump($id_tugas);
 		$data['ubah'] = $this->SoalKunci_Model->detail_data_mapel($id);
-		$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
+		$data['ujian'] = $this->SoalKunci_Model->getDataUjian($id_tugas);
+
+		$id_ujian = $data['ujian']['id_ujian'];
+		// var_dump($id_ujian);
+		// die();
+		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian); 
 		// var_dump($data);
 		// die();
 		$this->load->view('templates/header');

@@ -55,7 +55,7 @@
               <div class="icon">
                 <i class="fas fa-user-graduate"></i>
               </div>
-              <a href="<?= base_url() ?>DataSoalKunci/tambah/<?= $row['id_mapel']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url() ?>DataSoalKunci/tambah?id=<?= $row['id_mapel']; ?>&id_tugas=<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               <!-- <a href="<= base_url('DataSoalKunci/tambah') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
