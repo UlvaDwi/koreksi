@@ -56,11 +56,14 @@
                 <form action="<?= base_url() ?>DataSoalKunci/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
 
-
-                    <div class="form-group" hidden>
-                      <label for="exampleInputPassword1">Nama Mapel Ujian</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $ubah['id_mapel'] ?>" readonly>
+                    <div class="form-group" >
+                        <label for="exampleInputPassword1">Id</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="id_ujian" value="<?= $id_ujian ?>" readonly>
                     </div>
+                    <!-- <div class="form-group">
+                      <label for="exampleInputPassword1">Nama Mapel Ujian</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<= $ubah['id_mapel'] ?>" readonly>
+                    </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Soal</label>
                       <textarea type="text" class="form-control" id="exampleInputPassword1" name="soal"></textarea>

@@ -28,19 +28,20 @@ class SoalKunci_Model extends CI_Model
 	{
 		$data = array(
 			'id_soal' => $id,
-			'id_mapel_ujian' => $this->input->post('id_mapel_ujian', true),
+			'id_ujian' => $this->input->post('id_ujian', true),
 			'soal' => $this->input->post('soal', true),
 			'kunci_jawaban' => $this->input->post('kunci_jawaban', true),
 			'skor_soal' => $this->input->post('skor_soal', true)
 		);
-
+		// var_dump($data);
+		// die();
 		$this->db->insert('a_soalkunci', $data);
 	}
 
 	public function ubah_data()
 	{
 		$data = array(
-			'id_mapel_ujian' => $this->input->post('id_mapel_ujian', true),
+			'id_ujian' => $this->input->post('id_ujian', true),
 			'soal' => $this->input->post('soal', true),
 			'kunci_jawaban' => $this->input->post('kunci_jawaban', true),
 			'skor_soal' => $this->input->post('skor_soal', true)

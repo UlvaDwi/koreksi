@@ -75,6 +75,7 @@ class DataSoalKunci extends CI_Controller
 		$id_ujian = $data['ujian']['id_ujian'];
 
 		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian); 
+		$data['id_ujian'] = $id_ujian;
 		// var_dump($data);
 		// die();
 		$this->load->view('templates/header');
@@ -86,7 +87,7 @@ class DataSoalKunci extends CI_Controller
 	public function validation_form()
 	{
 
-		$this->form_validation->set_rules("id_mapel_ujian", "id mapel ujian", "required");
+		$this->form_validation->set_rules("id_ujian", "id mapel ujian", "required");
 		$this->form_validation->set_rules("soal", "soal", "required");
 		$this->form_validation->set_rules("kunci_jawaban", "kunci_jawaban", "required");
 		$this->form_validation->set_rules("skor_soal", "skor soal", "required");
