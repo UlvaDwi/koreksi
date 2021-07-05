@@ -24,13 +24,24 @@ class Mapel_Model extends CI_Model
 	// }
 	public function getAllData()
 	{
-		return $this->db->get('a_mapel')->result();
+		return $this->db->get('a_mapel')->result();	
 	}
 
 	public function getMapel()
 
 	{
 		return $this->db->query("SELECT * FROM `mapel` inner join kelas on (mapel.kelas = kelas.kelas && mapel.id_jurusan = kelas.id_jurusan) ORDER BY `mapel`.`id_mapel` ASC ")->result();
+	}
+
+	public function getMapelDashboard($id_guru){
+		$query = "SELECT a.*, b.*, c.*, d.* from a_mapel a 
+		INNER JOIN a_tugasguru b ON a.id_mapel = b.id_mapel
+		INNER JOIN a_kelas c ON b.kode_kelas = c.kode_kelas
+		INNER JOIN a_jurusan d ON c.kode_jurusan = d.kode_jurusan
+		WHERE b.id_user = $id_guru
+		";
+		
+		return $this->db->query($query)->result_array();
 	}
 
 	public function listDataMapel()

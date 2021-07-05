@@ -31,10 +31,12 @@ class DataSoalKunci extends CI_Controller
 
 	function index()
 	{
-
+		$id_guru = $this->session->userdata('id_user');
 		//$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
-		$data['mapel'] = $this->Mapel_Model->getAllData();
-
+		// $data['mapel'] = $this->Mapel_Model->getAllData();
+		$data['mapel'] = $this->Mapel_Model->getMapelDashboard($id_guru);
+		// var_dump($data);
+		// die();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('soalkunci/index', $data);

@@ -49,13 +49,13 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><td><?= $row->nama_jurusan ?></td></h3>
-                <p> <td><?= $row->nama_mapel ?></td></p>
+                <h3><td><?= $row['nama_jurusan']; ?></td></h3>
+                <p> <td><?= $row['nama_mapel']; ?></td></p>
               </div>
               <div class="icon">
                 <i class="fas fa-user-graduate"></i>
               </div>
-              <a href="<?= base_url() ?>DataSoalKunci/tambah/<?= $row->id_mapel ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url() ?>DataSoalKunci/tambah/<?= $row['id_mapel']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               <!-- <a href="<= base_url('DataSoalKunci/tambah') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
             </div>
           </div>
