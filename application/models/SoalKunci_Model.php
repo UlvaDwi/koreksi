@@ -15,9 +15,13 @@ class SoalKunci_Model extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
-	public function getDataUjian($id_tugas)
+	public function getDataUjian($id_tugas, $jenis_ujian)
 	{
-		return $this->db->get_where('a_ujian', ['id_tugas' => $id_tugas])->row_array();
+		$query = "SELECT * from a_ujian
+		WHERE id_tugas = $id_tugas && kode_jenis = '$jenis_ujian'
+		";
+		return $this->db->query($query)->row_array();
+		// return $this->db->get_where('a_ujian', ['id_tugas' => $id_tugas])->row_array();
 	}
 
 	public function tambah_data($id)

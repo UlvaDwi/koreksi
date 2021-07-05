@@ -43,25 +43,28 @@
       </div>
       <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') { ?>
         <!-- Info boxes -->
-        <?php foreach ($mapel as $row) { ?>
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><td><?= $row['nama_jurusan']; ?></td></h3>
-                <p> <td><?= $row['nama_mapel']; ?></td></p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-user-graduate"></i>
-              </div>
-              <a href="<?= base_url() ?>DataSoalKunci/jenis?id=<?= $row['id_mapel']; ?>&id_tugas=<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              <!-- <a href="<= base_url('DataSoalKunci/tambah') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+        <form action="<?= base_url() ?>DataSoalKunci/tambah" method="post" accept-charset="utf-8">
+            <div class="form-group" hidden>
+                <label for="exampleInputPassword1">Id</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $_GET['id']; ?>" readonly>
             </div>
-          </div>
-          <!-- /.col -->
-        </div>
-        <?php } ?>
+            <div class="form-group" hidden>
+                <label for="exampleInputPassword1">Id tugas</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="id_tugas" value="<?= $_GET['id_tugas']; ?>" readonly>
+            </div>
+            <div class="form-group">
+            <label>Jenis Ujian</label>
+            <select class="form-control" name="jenis_ujian">
+                <option>--Pilih Jenis Ujian--</option>
+                <?php
+                foreach ($jenisujian as $row) { ?>
+
+                <option value="<?= $row->kode_jenis ?>"><?= $row->nama_jenis ?></option>
+                <?php } ?>
+            </select>
+            </div>
+            <input type="submit" name="save" class="btn btn-primary" value="SUBMIT">
+        </form>
         <!-- /.row -->
       <?php } ?>
 

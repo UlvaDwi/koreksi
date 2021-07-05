@@ -17,6 +17,7 @@ class DataSoalKunci extends CI_Controller
 		$this->load->model('SoalKunci_Model');
 		$this->load->model('Mapel_Model');
 		$this->load->model('PreSoalKunci_Model');
+		$this->load->model('JenisUjian_Model');
 		$this->load->library('form_validation');
 	}
 	function indexpre()
@@ -43,18 +44,36 @@ class DataSoalKunci extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	function jenis()
+	{
+		$id_guru = $this->session->userdata('id_user');
+		//$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
+		// $data['mapel'] = $this->Mapel_Model->getAllData();
+		$data['jenisujian'] = $this->JenisUjian_Model->getAllData();
+		// var_dump($data);
+		// die();
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/jenis', $data);
+		$this->load->view('templates/footer');
+	}
+
 	function tambah()
 	{
-		$id = $_GET['id'];
-		$id_tugas = $_GET['id_tugas'];
+		// $id = $_GET['id'];
+		// $id_tugas = $_GET['id_tugas'];
+		$id =  $this->input->post('id_mapel_ujian');
+		$id_tugas =  $this->input->post('id_tugas');
+		$jenis_ujian =  $this->input->post('jenis_ujian');
 		// var_dump($id);
 		// var_dump($id_tugas);
-		$data['ubah'] = $this->SoalKunci_Model->detail_data_mapel($id);
-		$data['ujian'] = $this->SoalKunci_Model->getDataUjian($id_tugas);
-
-		$id_ujian = $data['ujian']['id_ujian'];
-		// var_dump($id_ujian);
+		// var_dump($jenis_ujian);
 		// die();
+		$data['ubah'] = $this->SoalKunci_Model->detail_data_mapel($id);
+		$data['ujian'] = $this->SoalKunci_Model->getDataUjian($id_tugas, $jenis_ujian);
+	
+		$id_ujian = $data['ujian']['id_ujian'];
+
 		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian); 
 		// var_dump($data);
 		// die();
