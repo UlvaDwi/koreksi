@@ -64,6 +64,17 @@
                         <input type="text" class="form-control" id="exampleInputPassword1" name="nama_siswa">
                       </div>
                       <div class="form-group">
+                        <label>Jurusan</label>
+                        <select class="form-control" name="kode_jurusan">
+                          <option>--Pilih Jurusan--</option>
+                          <?php
+                          foreach ($jurusan as $jur) { ?>
+
+                            <option value="<?= $jur->kode_jurusan ?>"><?= $jur->nama_jurusan ?></option>
+                          <?php } ?>
+                        </select>
+                      </div>
+                      <div class="form-group">
                         <label for="exampleInputPassword1">Username</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" name="username">
                       </div>
@@ -104,6 +115,7 @@
                     <th>No</th>
                     <th>NISN</th>
                     <th>Nama Siswa</th>
+                    <th>Jurusan</th>
                     <th>Username</th>
                     <th>Password</th>
                     <?php if ($this->session->userdata('level') == 'admin') { ?>
@@ -121,6 +133,7 @@
                       <td><?= $no ?></td>
                       <td><?= $row->id_siswa ?></td>
                       <td><?= $row->nama_siswa ?></td>
+                      <td><?= $row->kode_jurusan ?></td>
                       <td><?= $row->username ?></td>
                       <td><?= $row->password ?></td>
                       <?php if ($this->session->userdata('level') == 'admin') { ?>

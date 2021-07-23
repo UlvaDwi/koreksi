@@ -41,6 +41,22 @@
                       <input type="text" class="form-control" name="nama_siswa" value="<?= $ubah['nama_siswa'] ?>">
                     </div>
                     <div class="form-group">
+                      <label for="exampleInputPassword1">Nama Jurusan</label>
+                      <select class="form-control" name="kode_jurusan">
+                        <?php
+                        foreach ($jurusan as $value) {
+                          $selected = '';
+                          if ($ubah['kode_jurusan'] == $value->kode_jurusan) {
+                            $selected = 'selected';
+                          }
+                        ?>
+                          <option value="<?php echo $value->kode_jurusan ?>" <?php echo $selected ?>><?php echo $value->nama_jurusan ?></option>
+                        <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label for="exampleInputPassword1">Username</label>
                       <input type="text" class="form-control" name="username" value="<?= $ubah['username'] ?>">
                     </div>

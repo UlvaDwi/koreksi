@@ -47,6 +47,30 @@
         })
     });
 
+    <?php if ($this->uri->segment(1) == "DataKelas") : ?>
+        console.log('alfrizal');
+
+        $('#listSiswa').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget);
+            $.ajax({
+                url: "<?= base_url('DataSiswa/listSiswaNaikKelas') ?>",
+                type: "post",
+                data: {
+                    kelas: "<?= $kelas['kelas'] ?>",
+                    jurusan: "<?= $kelas['kode_jurusan'] ?>"
+                },
+                success: function(result) {
+                    alert(result);
+                }
+            });
+
+            var modal = $(this)
+            // modal.find('.modal-title').text('New message to ' + recipient)
+            // modal.find('.modal-body input').val(recipient)
+        })
+
+    <?php endif; ?>
+
     <?php if ($this->uri->segment(1) == "DataPenugasanGuru") : ?>
         var numberForm = 2;
         $("#mapelSelectForm").on('change', function() {

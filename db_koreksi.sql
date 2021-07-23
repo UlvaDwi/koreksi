@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Jul 2021 pada 13.34
+-- Waktu pembuatan: 23 Jul 2021 pada 14.55
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `a_guru` (
   `id_user` int(11) NOT NULL,
-  `nama_guru` varchar(50) NOT NULL,
+  `nama_guru` varchar(255) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `level` varchar(100) NOT NULL
@@ -40,9 +40,9 @@ CREATE TABLE `a_guru` (
 --
 
 INSERT INTO `a_guru` (`id_user`, `nama_guru`, `username`, `password`, `level`) VALUES
-(1, 'a', 'a', 'a', 'guru'),
-(2, 'bima sakti', 'bima', '123', 'admin'),
-(23456, 'ulva', 'ulva', '123', 'guru');
+(1, 'admin', 'admin', '123', 'admin'),
+(2, 'bima sakti', 'bima', '123', 'guru'),
+(3, 'ulva', 'ulva', '123', 'guru');
 
 -- --------------------------------------------------------
 
@@ -52,10 +52,17 @@ INSERT INTO `a_guru` (`id_user`, `nama_guru`, `username`, `password`, `level`) V
 
 CREATE TABLE `a_histori_kelas` (
   `id_histori` int(10) NOT NULL,
-  `kode_kelas` varchar(10) NOT NULL,
-  `id_siswa` varchar(10) NOT NULL,
-  `kode_ta` int(10) NOT NULL
+  `kode_kelas` varchar(20) NOT NULL,
+  `id_siswa` varchar(50) NOT NULL,
+  `kode_ta` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `a_histori_kelas`
+--
+
+INSERT INTO `a_histori_kelas` (`id_histori`, `kode_kelas`, `id_siswa`, `kode_ta`) VALUES
+(1, 'X_mm_A', '1', 3);
 
 -- --------------------------------------------------------
 
@@ -65,7 +72,7 @@ CREATE TABLE `a_histori_kelas` (
 
 CREATE TABLE `a_jawabansiswa` (
   `id_jawaban_siswa` int(50) NOT NULL,
-  `id_ujian_siswa` int(50) NOT NULL,
+  `id_ujian_siswa` int(15) NOT NULL,
   `id_soal` int(50) NOT NULL,
   `jawaban` text NOT NULL,
   `skor_siswa` int(20) NOT NULL
@@ -88,7 +95,7 @@ CREATE TABLE `a_jenisujian` (
 
 INSERT INTO `a_jenisujian` (`kode_jenis`, `nama_jenis`) VALUES
 ('uas', 'Ujian Akhir Semester'),
-('uh', 'ulangan harian'),
+('uh', 'Ulangan Harian'),
 ('uts', 'Ujian Tengah Semester');
 
 -- --------------------------------------------------------
@@ -30088,8 +30095,11 @@ CREATE TABLE `a_kelas` (
 
 INSERT INTO `a_kelas` (`kode_kelas`, `kelas`, `kode_jurusan`, `nama_kelas`) VALUES
 ('XII_mm_A', 'XII', 'mm', 'A'),
+('XII_otkp_A', 'XII', 'otkp', 'A'),
 ('XI_mm_A', 'XI', 'mm', 'A'),
-('X_mm_A', 'X', 'mm', 'A');
+('XI_otkp_A', 'XI', 'otkp', 'A'),
+('X_mm_A', 'X', 'mm', 'A'),
+('X_otkp_A', 'X', 'otkp', 'A');
 
 -- --------------------------------------------------------
 
@@ -30108,7 +30118,8 @@ CREATE TABLE `a_mapel` (
 
 INSERT INTO `a_mapel` (`id_mapel`, `nama_mapel`) VALUES
 ('bin', 'bahasa indonesia'),
-('mtk', 'matematika');
+('mtk', 'matematika'),
+('sjrh', 'sejarah');
 
 -- --------------------------------------------------------
 
@@ -30118,7 +30129,7 @@ INSERT INTO `a_mapel` (`id_mapel`, `nama_mapel`) VALUES
 
 CREATE TABLE `a_pre_jawabansiswa` (
   `id_pre_jawabansiswa` int(11) NOT NULL,
-  `id_jawaban_siswa` int(11) DEFAULT NULL,
+  `id_jawaban_siswa` int(50) DEFAULT NULL,
   `token` text DEFAULT NULL,
   `filter` text DEFAULT NULL,
   `stem` text DEFAULT NULL
@@ -30132,7 +30143,7 @@ CREATE TABLE `a_pre_jawabansiswa` (
 
 CREATE TABLE `a_pre_soalkunci` (
   `id_pre_soalkunci` int(11) NOT NULL,
-  `id_soal` int(11) NOT NULL,
+  `id_soal` int(10) NOT NULL,
   `token` text NOT NULL,
   `filter` text NOT NULL,
   `stem` text NOT NULL
@@ -30143,8 +30154,7 @@ CREATE TABLE `a_pre_soalkunci` (
 --
 
 INSERT INTO `a_pre_soalkunci` (`id_pre_soalkunci`, `id_soal`, `token`, `filter`, `stem`) VALUES
-(8, 1, 'puasa adalah menahan lapar dan haus  serta menahan nafsu dan amarah', 'puasa menahan lapar haus  serta menahan nafsu amarah', 'puasa tahan lapar haus  serta tahan nafsu amarah'),
-(9, 2, 'algoritma adalah struktur data yang digunakan dalam sistem', 'algoritma struktur data sistem', 'algoritma struktur data sistem');
+(11, 1, 'puasa adalah menahan lapar dan haus', 'puasa menahan lapar haus', 'puasa tahan lapar haus');
 
 -- --------------------------------------------------------
 
@@ -30153,19 +30163,26 @@ INSERT INTO `a_pre_soalkunci` (`id_pre_soalkunci`, `id_soal`, `token`, `filter`,
 --
 
 CREATE TABLE `a_siswa` (
-  `id_siswa` int(11) NOT NULL,
+  `id_siswa` varchar(50) NOT NULL,
   `nama_siswa` varchar(50) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `kode_jurusan` varchar(20) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `a_siswa`
 --
 
-INSERT INTO `a_siswa` (`id_siswa`, `nama_siswa`, `username`, `password`) VALUES
-(1, 'ulva', 'ulva', '123'),
-(456, 'siska', 'siska', '123');
+INSERT INTO `a_siswa` (`id_siswa`, `nama_siswa`, `kode_jurusan`, `username`, `password`) VALUES
+('1', 'ulva', 'otkp', 'ulva', '123'),
+('2', 'dwi', 'otkp', 'dwi', '123'),
+('3', 'Mariyani', 'otkp', 'mariyani', '123'),
+('4', 'alfrizal', 'mm', 'alfrizal', '123'),
+('5', 'rhama', 'mm', 'rhama', '123'),
+('6', 'setia', 'mm', 'setia', '123'),
+('7', 'putra', 'mm', 'putra', '123'),
+('8', 'utomo', 'otkp', 'utomo', '123');
 
 -- --------------------------------------------------------
 
@@ -30175,9 +30192,9 @@ INSERT INTO `a_siswa` (`id_siswa`, `nama_siswa`, `username`, `password`) VALUES
 
 CREATE TABLE `a_soalkunci` (
   `id_soal` int(10) NOT NULL,
-  `id_ujian` int(10) NOT NULL,
-  `soal` varchar(100) NOT NULL,
-  `kunci_jawaban` varchar(100) NOT NULL,
+  `id_ujian` int(20) NOT NULL,
+  `soal` text NOT NULL,
+  `kunci_jawaban` text NOT NULL,
   `skor_soal` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -30186,8 +30203,7 @@ CREATE TABLE `a_soalkunci` (
 --
 
 INSERT INTO `a_soalkunci` (`id_soal`, `id_ujian`, `soal`, `kunci_jawaban`, `skor_soal`) VALUES
-(1, 1, 'jelaskan yang dimaksud puasa', 'puasa adalah menahan lapar dan haus, serta MENAHAN NAFSU dan Amarah', 10),
-(2, 2, 'apa yang disebut algoritma', 'ALGORITMA adalah struktur data yang digunakan dalam sistem', 20);
+(1, 9, 'jelaskan yang dimaksud puasa', 'puasa adalah menahan LAPAR dan HAUS', 20);
 
 -- --------------------------------------------------------
 
@@ -30197,7 +30213,7 @@ INSERT INTO `a_soalkunci` (`id_soal`, `id_ujian`, `soal`, `kunci_jawaban`, `skor
 
 CREATE TABLE `a_stopwords` (
   `id_stopwords` int(11) NOT NULL,
-  `kata_stopwords` varchar(30) NOT NULL
+  `kata_stopwords` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -31403,7 +31419,8 @@ CREATE TABLE `a_tahun_ajaran` (
 
 INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
 (3, '2019/2020', 'tidak aktif'),
-(4, '2020/2021', 'aktif');
+(4, '2020/2021', 'tidak aktif'),
+(5, '2021/2022', 'aktif');
 
 -- --------------------------------------------------------
 
@@ -31412,7 +31429,7 @@ INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
 --
 
 CREATE TABLE `a_tugasguru` (
-  `id_tugas` bigint(20) NOT NULL,
+  `id_tugas` int(20) NOT NULL,
   `id_user` int(10) NOT NULL,
   `id_mapel` varchar(10) NOT NULL,
   `kode_kelas` varchar(20) NOT NULL,
@@ -31424,10 +31441,10 @@ CREATE TABLE `a_tugasguru` (
 --
 
 INSERT INTO `a_tugasguru` (`id_tugas`, `id_user`, `id_mapel`, `kode_kelas`, `kode_ta`) VALUES
-(16, 2, 'bin', 'XII_mm_A', 4),
-(17, 2, 'mtk', 'XII_mm_A', 4),
-(18, 23456, 'bin', 'XI_mm_A', 4),
-(19, 23456, 'mtk', 'XI_mm_A', 4);
+(20, 2, 'bin', 'X_otkp_A', 4),
+(21, 2, 'bin', 'X_mm_A', 4),
+(22, 3, 'mtk', 'XI_mm_A', 4),
+(23, 3, 'mtk', 'XI_otkp_A', 4);
 
 -- --------------------------------------------------------
 
@@ -31437,8 +31454,8 @@ INSERT INTO `a_tugasguru` (`id_tugas`, `id_user`, `id_mapel`, `kode_kelas`, `kod
 
 CREATE TABLE `a_ujian` (
   `id_ujian` int(20) NOT NULL,
-  `id_tugas` varchar(20) NOT NULL,
-  `kode_jenis` varchar(100) NOT NULL
+  `id_tugas` int(20) NOT NULL,
+  `kode_jenis` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -31446,8 +31463,10 @@ CREATE TABLE `a_ujian` (
 --
 
 INSERT INTO `a_ujian` (`id_ujian`, `id_tugas`, `kode_jenis`) VALUES
-(4, '16', 'uas'),
-(8, '16', 'uts');
+(9, 20, 'uas'),
+(10, 21, 'uas'),
+(11, 22, 'uas'),
+(12, 23, 'uas');
 
 -- --------------------------------------------------------
 
@@ -31457,10 +31476,25 @@ INSERT INTO `a_ujian` (`id_ujian`, `id_tugas`, `kode_jenis`) VALUES
 
 CREATE TABLE `a_ujian_siswa` (
   `id_ujian_siswa` int(15) NOT NULL,
-  `id_ujian` int(15) NOT NULL,
-  `id_siswa` int(15) NOT NULL,
+  `id_ujian` int(20) NOT NULL,
+  `id_siswa` varchar(50) NOT NULL,
   `nilai` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in struktur untuk tampilan `v_histori`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `v_histori` (
+`id_histori` int(10)
+,`id_siswa` varchar(50)
+,`nama_siswa` varchar(50)
+,`kode_kelas` varchar(20)
+,`kode_ta` int(15)
+,`tahun_ajaran` varchar(15)
+);
 
 -- --------------------------------------------------------
 
@@ -31469,9 +31503,9 @@ CREATE TABLE `a_ujian_siswa` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_penugasan` (
-`id_tugas` bigint(20)
+`id_tugas` int(20)
 ,`id_user` int(11)
-,`nama_guru` varchar(50)
+,`nama_guru` varchar(255)
 ,`id_mapel` varchar(20)
 ,`nama_mapel` varchar(50)
 ,`kode_kelas` varchar(20)
@@ -31486,9 +31520,9 @@ CREATE TABLE `v_penugasan` (
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_penugasanujian` (
-`id_tugas` bigint(20)
+`id_tugas` int(20)
 ,`id_user` int(11)
-,`nama_guru` varchar(50)
+,`nama_guru` varchar(255)
 ,`id_mapel` varchar(20)
 ,`nama_mapel` varchar(50)
 ,`kode_kelas` varchar(20)
@@ -31497,6 +31531,15 @@ CREATE TABLE `v_penugasanujian` (
 ,`id_ujian` int(20)
 ,`nama_jenis` varchar(100)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `v_histori`
+--
+DROP TABLE IF EXISTS `v_histori`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_histori`  AS SELECT `a_histori_kelas`.`id_histori` AS `id_histori`, `a_siswa`.`id_siswa` AS `id_siswa`, `a_siswa`.`nama_siswa` AS `nama_siswa`, `a_kelas`.`kode_kelas` AS `kode_kelas`, `a_tahun_ajaran`.`kode_ta` AS `kode_ta`, `a_tahun_ajaran`.`tahun_ajaran` AS `tahun_ajaran` FROM (((`a_histori_kelas` join `a_siswa` on(`a_siswa`.`id_siswa` = `a_histori_kelas`.`id_siswa`)) join `a_kelas` on(`a_kelas`.`kode_kelas` = `a_histori_kelas`.`kode_kelas`)) join `a_tahun_ajaran` on(`a_tahun_ajaran`.`kode_ta` = `a_histori_kelas`.`kode_ta`)) ;
 
 -- --------------------------------------------------------
 
@@ -31637,7 +31680,7 @@ ALTER TABLE `a_guru`
 -- AUTO_INCREMENT untuk tabel `a_histori_kelas`
 --
 ALTER TABLE `a_histori_kelas`
-  MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_jawabansiswa`
@@ -31661,7 +31704,7 @@ ALTER TABLE `a_pre_jawabansiswa`
 -- AUTO_INCREMENT untuk tabel `a_pre_soalkunci`
 --
 ALTER TABLE `a_pre_soalkunci`
-  MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_soalkunci`
@@ -31679,13 +31722,13 @@ ALTER TABLE `a_stopwords`
 -- AUTO_INCREMENT untuk tabel `a_tugasguru`
 --
 ALTER TABLE `a_tugasguru`
-  MODIFY `id_tugas` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_tugas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_ujian`
 --
 ALTER TABLE `a_ujian`
-  MODIFY `id_ujian` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_ujian` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_ujian_siswa`

@@ -29,7 +29,7 @@
                     <center>
                       <p></p>
                       <!-- <h1 style="font-family: 'Times New Roman', Times, serif;"><b>--SELAMAT DATANG <= $this->session->userdata('username') ?>--</b></h1> -->
-                      <h1 style="font-family: 'Times New Roman', Times, serif;"><b>Silahkan pilih mata pelajaran</b></h1>
+                      <h1 style="font-family: 'Times New Roman', Times, serif;"><b>Silahkan Pilih Jenis Ujian</b></h1>
                       <p></p>
                     </center>
 
@@ -44,26 +44,26 @@
       <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') { ?>
         <!-- Info boxes -->
         <form action="<?= base_url() ?>DataSoalKunci/tambah" method="post" accept-charset="utf-8">
-            <div class="form-group" hidden>
-                <label for="exampleInputPassword1">Id</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $_GET['id']; ?>" readonly>
-            </div>
-            <div class="form-group" hidden>
-                <label for="exampleInputPassword1">Id tugas</label>
-                <input type="text" class="form-control" id="exampleInputPassword1" name="id_tugas" value="<?= $_GET['id_tugas']; ?>" readonly>
-            </div>
-            <div class="form-group">
+          <div class="form-group" hidden>
+            <label for="exampleInputPassword1">Id</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $_GET['id']; ?>" readonly>
+          </div>
+          <div class="form-group" hidden>
+            <label for="exampleInputPassword1">Id tugas</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" name="id_tugas" value="<?= $_GET['id_tugas']; ?>" readonly>
+          </div>
+          <div class="form-group">
             <label>Jenis Ujian</label>
             <select class="form-control" name="jenis_ujian">
-                <option>--Pilih Jenis Ujian--</option>
-                <?php
-                foreach ($jenisujian as $row) { ?>
+              <option>--Pilih Jenis Ujian--</option>
+              <?php
+              foreach ($jenisujian as $row) { ?>
 
                 <option value="<?= $row->kode_jenis ?>"><?= $row->nama_jenis ?></option>
-                <?php } ?>
+              <?php } ?>
             </select>
-            </div>
-            <input type="submit" name="save" class="btn btn-primary" value="SUBMIT">
+          </div>
+          <input type="submit" name="save" class="btn btn-primary" value="SUBMIT">
         </form>
         <!-- /.row -->
       <?php } ?>

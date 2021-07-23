@@ -28,8 +28,8 @@
 
 
 
-            <a href="<?= base_url('assets/') ?>index2.html"><b>SMKM 2 Pagak</b></a>
-            <p style="font-size: smaller;"><b>Sistem Koreksi</b></p>
+            <a href="<?= base_url('assets/') ?>index2.html"><b>SMK Muhammadiyah 2 Pagak</b></a>
+            <p style="font-size: smaller;"><b>Sistem Koreksi Jawaban Esai</b></p>
 
         </div>
         <!-- /.login-logo -->

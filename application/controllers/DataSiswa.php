@@ -15,6 +15,8 @@ class DataSiswa extends CI_Controller
 			show_404();
 		}
 		$this->load->model('Siswa_Model');
+		$this->load->model('HistoriKelas_Model');
+		$this->load->model('Jurusan_Model');
 		$this->load->library('form_validation');
 	}
 
@@ -22,6 +24,7 @@ class DataSiswa extends CI_Controller
 	{
 
 		$data['siswa'] = $this->Siswa_Model->getAllData();
+		$data['jurusan'] = $this->Jurusan_Model->getAllData();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('siswa/index', $data);
@@ -35,6 +38,7 @@ class DataSiswa extends CI_Controller
 		}
 		$this->form_validation->set_rules("id_siswa", "Kode siswa", "required");
 		$this->form_validation->set_rules("nama_siswa", "Nama Siswa", "required");
+		$this->form_validation->set_rules("kode_jurusan", "Kode Jurusan", "required");
 		$this->form_validation->set_rules("username", "Username", "required");
 		$this->form_validation->set_rules("password", "Password", "required");
 		if ($this->form_validation->run() == FALSE) {
@@ -63,10 +67,12 @@ class DataSiswa extends CI_Controller
 		}
 		$this->form_validation->set_rules("id_siswa", "Kode siswa", "required");
 		$this->form_validation->set_rules("nama_siswa", "Nama Siswa", "required");
+		$this->form_validation->set_rules("kode_jurusan", "Nama jurusan", "required");
 		$this->form_validation->set_rules("username", "Username", "required");
 		$this->form_validation->set_rules("password", "Password", "required");
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->Siswa_Model->detail_data($kd);
+			$data['jurusan'] = $this->Jurusan_Model->getAllData();
 			$this->load->view('templates/header');
 			$this->load->view('templates/sidebar');
 			$this->load->view('siswa/ubah', $data);
@@ -93,5 +99,24 @@ class DataSiswa extends CI_Controller
 	{
 		$data = $this->Siswa_Model->checkForeign($this->input->post('id'));
 		echo json_encode($data);
+	}
+
+	// untuk mengambil data siswa untuk naik kelas
+	public function listSiswaNaikKelas()
+	{
+		$kelas = $this->input->post('kelas');
+		$jurusan = $this->input->post('jurusan');
+		switch ($kelas) {
+			case 'X':
+				$kelas = 'baru';
+				break;
+			case 'XI':
+				$kelas = 'X';
+				break;
+			case 'XII':
+				$kelas = 'XI';
+				break;
+		}
+		echo json_encode($this->HistoriKelas_Model->siswaNaikKelas($kelas, $jurusan));
 	}
 }

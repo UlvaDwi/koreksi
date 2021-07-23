@@ -140,6 +140,7 @@
                           <!-- <button data-ref="<?= base_url('DataKelas/hapus') ?>" data-id="<?= $row->kode_kelas ?>" class="btn btn-danger hapus">Hapus</button> -->
                           <a href="<?= base_url() ?>DataKelas/hapus/<?= $row->kode_kelas ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
                           <a href="<?= base_url() ?>DataKelas/ubah/<?= $row->kode_kelas ?>" class="btn btn-warning">update</a>
+                          <a href="<?= base_url() ?>DataKelas/siswa/<?= $row->kode_kelas ?>" class="btn btn-success">lihat Kelas</a>
                         </td>
                       <?php } ?>
                     </tr>

@@ -29,102 +29,105 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="fas fa-file-alt"></i>
-            <p> Mastering <i class="right fas fa-angle-left"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataUser" class="nav-link ml-3">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <p>
-                  Guru
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataSiswa" class="nav-link ml-3">
-                <i class="fas fa-users"></i>
-                <p>
-                  Siswa
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataJurusan" class="nav-link ml-3">
-                <i class="fas fa-address-card"></i>
-                <p>
-                  Jurusan
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataKelas" class="nav-link ml-3">
-                <i class="fas fa-home"></i>
-                <p>
-                  Kelas
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataTahunAjaran" class="nav-link ml-3">
-                <i class="fas fa-calendar-week"></i>
-                <p>
-                  Tahun Ajaran
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataMapel" class="nav-link ml-3">
-                <i class="fas fa-book-open"></i>
-                <p>
-                  Mata Pelajaran
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataPenugasanGuru" class="nav-link ml-3">
-                <i class="fas fa-user-edit"></i>
-                <p>
-                  Penugasan Guru
-                </p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url() ?>DataJenisUjian" class="nav-link ml-3">
-                <i class="fas fa-user-edit"></i>
-                <p>
-                  Jenis Ujian
-                </p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataUjian/" class="nav-link">
-            <i class="fas fa-stack-exchange"></i>
-            <p>
-              Atur Ujian
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataKataDasar" class="nav-link">
-            <i class="fas fa-atlas"></i>
-            <p>
-              Kata Dasar
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>DataStopwords" class="nav-link">
-            <i class="fas fa-book"></i>
-            <p>
-              Stopwords
-            </p>
-          </a>
-        </li>
+        <?php if ($this->session->userdata('level') == 'admin') { ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-file-alt"></i>
+              <p> Mastering <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataUser" class="nav-link ml-3">
+                  <i class="fas fa-chalkboard-teacher"></i>
+                  <p>
+                    Guru
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataSiswa" class="nav-link ml-3">
+                  <i class="fas fa-users"></i>
+                  <p>
+                    Siswa
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataJurusan" class="nav-link ml-3">
+                  <i class="fas fa-address-card"></i>
+                  <p>
+                    Jurusan
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataKelas" class="nav-link ml-3">
+                  <i class="fas fa-home"></i>
+                  <p>
+                    Kelas
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataTahunAjaran" class="nav-link ml-3">
+                  <i class="fas fa-calendar-week"></i>
+                  <p>
+                    Tahun Ajaran
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataMapel" class="nav-link ml-3">
+                  <i class="fas fa-book-open"></i>
+                  <p>
+                    Mata Pelajaran
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataPenugasanGuru" class="nav-link ml-3">
+                  <i class="fas fa-user-edit"></i>
+                  <p>
+                    Penugasan Guru
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url() ?>DataJenisUjian" class="nav-link ml-3">
+                  <i class="fas fa-user-edit"></i>
+                  <p>
+                    Jenis Ujian
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataUjian/" class="nav-link">
+              <i class="fas fa-stack-exchange"></i>
+              <p>
+                Atur Ujian
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataKataDasar" class="nav-link">
+              <i class="fas fa-atlas"></i>
+              <p>
+                Kata Dasar
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>DataStopwords" class="nav-link">
+              <i class="fas fa-book"></i>
+              <p>
+                Stopwords
+              </p>
+            </a>
+          </li>
+        <?php } ?>
         <li class="nav-item">
           <a href="<?= base_url() ?>DataSoalKunci" class="nav-link">
             <i class="fas fa-question-circle"></i>

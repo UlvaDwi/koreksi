@@ -15,6 +15,7 @@ class Siswa_Model extends CI_Model
 		$data = array(
 			'id_siswa' => $this->input->post('id_siswa', true),
 			'nama_siswa' => $this->input->post('nama_siswa', true),
+			'kode_jurusan' => $this->input->post('kode_jurusan', true),
 			'username' => $this->input->post('username', true),
 			'password' => $this->input->post('password', true)
 		);
@@ -26,6 +27,7 @@ class Siswa_Model extends CI_Model
 	{
 		$data = array(
 			'nama_siswa' => $this->input->post('nama_siswa', true),
+			'kode_jurusan' => $this->input->post('kode_jurusan', true),
 			'username' => $this->input->post('username', true),
 			'password' => $this->input->post('password', true)
 		);

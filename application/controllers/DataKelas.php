@@ -15,7 +15,6 @@ class DataKelas extends CI_Controller
 		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
-
 		$this->load->model('Kelas_Model');
 		$this->load->model('Jurusan_Model');
 		$this->load->library('form_validation');
@@ -126,4 +125,15 @@ class DataKelas extends CI_Controller
 	// 	$data = $this->Kelas_Model->checkForeign($this->input->post('id'));
 	// 	echo json_encode($data);
 	// }
+
+	// menampilkan data kelas per siswa
+	public function siswa($id_kelas)
+	{
+		// tampil list kelas
+		$data['kelas'] = $this->Kelas_Model->detail_data($id_kelas);
+		$this->load->view('templates/header');
+		$this->load->view('templates/sidebar');
+		$this->load->view('kelas/listsiswa', $data);
+		$this->load->view('templates/footer');
+	}
 }
