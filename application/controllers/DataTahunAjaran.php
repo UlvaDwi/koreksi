@@ -123,6 +123,12 @@ class DataTahunAjaran extends CI_Controller
 		}
 	}
 
+	public function setActive($id_ta)
+	{
+		$this->TahunAjaran_Model->setActive($id_ta);
+		redirect('DataTahunAjaran');
+	}
+
 
 
 

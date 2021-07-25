@@ -15,6 +15,7 @@ class DataSiswa extends CI_Controller
 			show_404();
 		}
 		$this->load->model('Siswa_Model');
+		$this->load->model('TahunAjaran_Model');
 		$this->load->model('HistoriKelas_Model');
 		$this->load->model('Jurusan_Model');
 		$this->load->library('form_validation');
@@ -117,6 +118,29 @@ class DataSiswa extends CI_Controller
 				$kelas = 'XI';
 				break;
 		}
-		echo json_encode($this->HistoriKelas_Model->siswaNaikKelas($kelas, $jurusan));
+		$getData = $this->HistoriKelas_Model->siswaNaikKelas($kelas, $jurusan, $this->TahunAjaran_Model->tahunAjaranAktif);
+		if ($getData['status'] == 'failed') {
+			echo json_encode([
+				'status' => 'failed',
+				'data' => $getData['result']
+			]);
+		} else {
+			$html = '<table class="table table-striped">';
+			$html .= "<tr>";
+			$html .= "<th>Check</th>";
+			$html .= "<th>Nama Siswa</th>";
+			$html .= "</tr>";
+			foreach ($getData['result'] as $value) {
+				$html .= "<tr onclick='selectRow(this)'>";
+				$html .= "<td><input id='row$value->id_siswa' type='checkbox' name='siswa[]' value='$value->id_siswa'></td>";
+				$html .= "<td>$value->nama_siswa</td>";
+				$html .= "</tr>";
+			}
+			$html .= '</table>';
+			echo json_encode([
+				'status' => 'success',
+				'data' => $html
+			]);
+		}
 	}
 }

@@ -5,75 +5,46 @@
  */
 class HistoriKelas_Model extends CI_Model
 {
-	public function siswaNaikKelas($kelas, $jurusan)
+	public function siswaNaikKelas($kelas, $jurusan, $tahun_ajaran)
 	{
 		if ($kelas == 'baru') {
 			$this->db->select('a_siswa.id_siswa, a_siswa.nama_siswa');
 			$this->db->from('a_siswa');
 			$this->db->where('kode_jurusan', $jurusan);
 			$this->db->where('v_histori.id_siswa', null);
-			return $this->db->join('v_histori', 'a_siswa.id_siswa = v_histori.id_siswa', 'left')->get()->result();
+			$query = $this->db->join('v_histori', 'a_siswa.id_siswa = v_histori.id_siswa', 'left')->get()->result();
+		} else {
+			$this->db->select('a_siswa.id_siswa, a_siswa.nama_siswa');
+			$this->db->from('a_siswa');
+			/* 
+				*note : id tahun ajaran harus urut, kalau tidak maka tidak akan muncul id tahun ajaran sebelumnya
+			*/
+			// akan mengecek data tahun sebelumnya
+			$this->db->or_where('v_histori.kode_ta', ($tahun_ajaran - 1));
+			// kalaupun tidak ada, maka akan dicarikan siswa tingkat bawah yang sejurusan
+			$this->db->like('v_histori.kode_kelas', "$kelas" . "_" . $jurusan);
+			$this->db->where('v_histori.id_siswa', null);
+			$query = $this->db->join('v_histori', 'a_siswa.id_siswa = v_histori.id_siswa', 'left')->get()->result();
 		}
-		$this->db->like('kode_kelas', "$kelas" . "_" . $jurusan);
-		return $this->db->get('v_histori')->result();
-	}
-
-	public function getAllData($kode_jurusan = null)
-	{
-		$this->db->select('kode_kelas, kelas, a_jurusan.nama_jurusan, nama_kelas, a_kelas.kode_jurusan');
-		$this->db->from('a_kelas');
-		$this->db->join('a_jurusan', 'a_jurusan.kode_jurusan = a_kelas.kode_jurusan');
-		if ($kode_jurusan != null) {
-			$this->db->where('a_kelas.kode_jurusan', $kode_jurusan);
+		if ($query) {
+			return ['status' => 'success', 'result' => $query];
+		} else {
+			return ['status' => 'failed', 'result' => $this->db->error()];
 		}
-		return $this->db->get()->result();
 	}
 
-	public function getAllDatabyKelas($kode_kelas = null)
-	{
-		$this->db->select('kode_kelas, kelas, a_jurusan.nama_jurusan, nama_kelas');
-		$this->db->from('a_kelas');
-		$this->db->join('a_jurusan', 'a_jurusan.kode_jurusan = a_kelas.kode_jurusan');
-		if ($kode_kelas != null) {
-			$this->db->where('a_kelas.kode_kelas', $kode_kelas);
-		}
-		return $this->db->get()->result();
-	}
-
-	public function getAllData_jurusan()
-	{
-		return $this->db->get('a_jurusan')->result();
-	}
-
-	public function tambah_data()
+	public function tambah_data($id_siswa, $id_kelas, $id_ta)
 	{
 		$data = array(
-			'kode_kelas' => $this->input->post('kelas') . "_" . $this->input->post('kd_jur') . "_" . $this->input->post('nm_kelas'),
-			'kelas' => $this->input->post('kelas'),
-			'kode_jurusan' => $this->input->post('kd_jur'),
-			'nama_kelas' => $this->input->post('nm_kelas')
+			'kode_kelas' => $id_kelas,
+			'id_siswa' => $id_siswa,
+			'kode_ta' => $id_ta
 		);
-		$this->db->insert('a_kelas', $data);
-	}
-	public function ubah_data()
-	{
-		$data = array(
-			'kode_kelas' => $this->input->post('kelas') . "_" . $this->input->post('kd_jur') . "_" . $this->input->post('nm_kelas'),
-			'kelas' => $this->input->post('kelas'),
-			'kode_jurusan' => $this->input->post('kd_jur'),
-			'nama_kelas' => $this->input->post('nm_kelas')
-		);
-		$this->db->where('kode_kelas', $this->input->post('kd_kelas', true));
-		$this->db->update('a_kelas', $data);
+		$this->db->insert('a_histori_kelas', $data);
 	}
 
 	public function hapus_data($kd)
 	{
-		$this->db->delete('a_kelas', ['kode_kelas' => $kd]);
-	}
-
-	public function detail_data($kd)
-	{
-		return $this->db->get_where('a_kelas', ['kode_kelas' => $kd])->row_array();
+		$this->db->delete('a_histori_kelas', ['id_histori' => $kd]);
 	}
 }

@@ -10,6 +10,11 @@ class Siswa_Model extends CI_Model
 		return $this->db->get('a_siswa')->result();
 	}
 
+	public function getSiswa($id_kelas, $id_ta)
+	{
+		return $this->db->get_where('v_histori', ['kode_kelas' => $id_kelas, 'kode_ta' => $id_ta])->result();
+	}
+
 	public function tambah_data()
 	{
 		$data = array(

@@ -17,6 +17,9 @@ class DataKelas extends CI_Controller
 		}
 		$this->load->model('Kelas_Model');
 		$this->load->model('Jurusan_Model');
+		$this->load->model('TahunAjaran_Model');
+		$this->load->model('HistoriKelas_Model');
+		$this->load->model('Siswa_Model');
 		$this->load->library('form_validation');
 	}
 	function index()
@@ -126,14 +129,32 @@ class DataKelas extends CI_Controller
 	// 	echo json_encode($data);
 	// }
 
+
+	// histori
 	// menampilkan data kelas per siswa
 	public function siswa($id_kelas)
 	{
 		// tampil list kelas
 		$data['kelas'] = $this->Kelas_Model->detail_data($id_kelas);
+		$data['siswa'] = $this->Siswa_Model->getSiswa($id_kelas, $this->TahunAjaran_Model->tahunAjaranAktif);
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
 		$this->load->view('kelas/listsiswa', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function hapusHistoriKelasSiswa($id_histori, $id_kelas)
+	{
+		$this->HistoriKelas_Model->hapus_data($id_histori);
+		redirect("DataKelas/siswa/$id_kelas");
+	}
+
+	public function InsertKelasSiswa($id_kelas)
+	{
+		$siswa = $this->input->post('siswa');
+		foreach ($siswa as $id_siswa) {
+			$this->HistoriKelas_Model->tambah_data($id_siswa, $id_kelas, $this->TahunAjaran_Model->tahunAjaranAktif);
+		}
+		redirect("DataKelas/siswa/$id_kelas");
 	}
 }

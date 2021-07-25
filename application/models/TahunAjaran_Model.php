@@ -82,6 +82,14 @@ class TahunAjaran_Model extends CI_Model
 		$this->db->order_by('kode_ta', 'DESC');
 		return $this->db->get('a_tahun_ajaran')->row();
 	}
+
+	public function setActive($kode_ta)
+	{
+		if ($this->db->update('a_tahun_ajaran', ['status' => 'tidak aktif'])) {
+			$this->db->update('a_tahun_ajaran', ['status' => 'aktif'], ['kode_ta' => $kode_ta]);
+		}
+	}
+
 	// public function checkForeign($id)
 	// {
 	// 	$where = ['kode_ta' => $id];
