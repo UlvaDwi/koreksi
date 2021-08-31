@@ -49,7 +49,7 @@
                     <th>TOKENIZING</th>
                     <th>FILTERING</th>
                     <th>STEMMING</th>
-
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -62,6 +62,7 @@
                       <td><?= $row->token ?></td>
                       <td><?= $row->filter ?></td>
                       <td><?= $row->stem ?></td>
+                      <td><a href="btn btn-warning">Lihat</a></td>
                     </tr>
                   <?php
                     $no++;

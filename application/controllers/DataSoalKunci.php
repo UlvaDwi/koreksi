@@ -15,6 +15,7 @@ class DataSoalKunci extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('SoalKunci_Model');
+		$this->load->model('Tfidf_Model');
 		$this->load->model('Mapel_Model');
 		$this->load->model('PreSoalKunci_Model');
 		$this->load->model('JenisUjian_Model');
@@ -71,10 +72,10 @@ class DataSoalKunci extends CI_Controller
 		// die();
 		$data['ubah'] = $this->SoalKunci_Model->detail_data_mapel($id);
 		$data['ujian'] = $this->SoalKunci_Model->getDataUjian($id_tugas, $jenis_ujian);
-	
+
 		$id_ujian = $data['ujian']['id_ujian'];
 
-		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian); 
+		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian);
 		$data['id_ujian'] = $id_ujian;
 		// var_dump($data);
 		// die();
@@ -114,6 +115,18 @@ class DataSoalKunci extends CI_Controller
 			$hasilstemming = $this->stemming($hasilfilter);
 
 			$this->PreSoalKunci_Model->tambah_data($id, $hasiltoken, $hasilfilter, $hasilstemming);
+
+
+			$kalimat = $hasilstemming;
+			$arr_kalimat = explode(" ", $hasilstemming);
+
+
+			$this->Tfidf_Model->tambah_data($arr_kalimat);
+
+			// var_dump($arr_kalimat);
+			// die();
+
+
 
 			$this->session->set_flashdata('flash_soalkunci', 'Disimpan');
 			redirect('DataSoalKunci');
