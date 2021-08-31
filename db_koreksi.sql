@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Jul 2021 pada 14.55
+-- Waktu pembuatan: 31 Agu 2021 pada 15.23
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -62,7 +62,9 @@ CREATE TABLE `a_histori_kelas` (
 --
 
 INSERT INTO `a_histori_kelas` (`id_histori`, `kode_kelas`, `id_siswa`, `kode_ta`) VALUES
-(1, 'X_mm_A', '1', 3);
+(1, 'X_mm_A', '1', 3),
+(2, 'X_mm_A', '4', 5),
+(3, 'X_mm_A', '5', 5);
 
 -- --------------------------------------------------------
 
@@ -30154,7 +30156,7 @@ CREATE TABLE `a_pre_soalkunci` (
 --
 
 INSERT INTO `a_pre_soalkunci` (`id_pre_soalkunci`, `id_soal`, `token`, `filter`, `stem`) VALUES
-(11, 1, 'puasa adalah menahan lapar dan haus', 'puasa menahan lapar haus', 'puasa tahan lapar haus');
+(73, 1, 'animasi adalah gambar yang disusun dan digerakkan  animasi yang baik adalah animasi yang bergerak', 'animasi gambar disusun digerakkan  animasi animasi bergerak', 'animasi gambar susun gerak  animasi animasi gerak');
 
 -- --------------------------------------------------------
 
@@ -30203,7 +30205,7 @@ CREATE TABLE `a_soalkunci` (
 --
 
 INSERT INTO `a_soalkunci` (`id_soal`, `id_ujian`, `soal`, `kunci_jawaban`, `skor_soal`) VALUES
-(1, 9, 'jelaskan yang dimaksud puasa', 'puasa adalah menahan LAPAR dan HAUS', 20);
+(1, 9, 'pertama', 'Animasi adalah gambar yang disusun dan digerakkan, animasi yang baik adalah animasi yang bergerak', 10);
 
 -- --------------------------------------------------------
 
@@ -31420,7 +31422,34 @@ CREATE TABLE `a_tahun_ajaran` (
 INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
 (3, '2019/2020', 'tidak aktif'),
 (4, '2020/2021', 'tidak aktif'),
-(5, '2021/2022', 'aktif');
+(5, '2021/2022', 'tidak aktif'),
+(6, '2022/2023', 'aktif');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `a_tfidf`
+--
+
+CREATE TABLE `a_tfidf` (
+  `id_tfidf` int(11) NOT NULL,
+  `kata` varchar(100) NOT NULL,
+  `jumlah` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `a_tfidf`
+--
+
+INSERT INTO `a_tfidf` (`id_tfidf`, `kata`, `jumlah`) VALUES
+(166, 'animasi', 1),
+(167, 'gambar', 1),
+(168, 'susun', 1),
+(169, 'gerak', 1),
+(170, '', 1),
+(171, 'animasi', 1),
+(172, 'animasi', 1),
+(173, 'gerak', 1);
 
 -- --------------------------------------------------------
 
@@ -31649,6 +31678,12 @@ ALTER TABLE `a_tahun_ajaran`
   ADD PRIMARY KEY (`kode_ta`);
 
 --
+-- Indeks untuk tabel `a_tfidf`
+--
+ALTER TABLE `a_tfidf`
+  ADD PRIMARY KEY (`id_tfidf`);
+
+--
 -- Indeks untuk tabel `a_tugasguru`
 --
 ALTER TABLE `a_tugasguru`
@@ -31680,7 +31715,7 @@ ALTER TABLE `a_guru`
 -- AUTO_INCREMENT untuk tabel `a_histori_kelas`
 --
 ALTER TABLE `a_histori_kelas`
-  MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_jawabansiswa`
@@ -31704,19 +31739,25 @@ ALTER TABLE `a_pre_jawabansiswa`
 -- AUTO_INCREMENT untuk tabel `a_pre_soalkunci`
 --
 ALTER TABLE `a_pre_soalkunci`
-  MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_soalkunci`
 --
 ALTER TABLE `a_soalkunci`
-  MODIFY `id_soal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_soal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_stopwords`
 --
 ALTER TABLE `a_stopwords`
   MODIFY `id_stopwords` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1184;
+
+--
+-- AUTO_INCREMENT untuk tabel `a_tfidf`
+--
+ALTER TABLE `a_tfidf`
+  MODIFY `id_tfidf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_tugasguru`
