@@ -14,7 +14,7 @@ class Login extends CI_Controller
     }
     function index()
     {
-        // tampil list range jam
+
         $this->load->view('login');
     }
 
@@ -41,14 +41,13 @@ class Login extends CI_Controller
             } else if (is_object($validationSiswa)) {
                 $newdata = array(
                     'id_user'     => $validationSiswa->id_siswa,
-                    'username'  => $validationSiswa->nama_siswa,
+                    'username'  => $validationSiswa->username,
                     'level' => 'siswa'
                 );
                 $this->session->set_userdata($newdata);
                 redirect('Welcome');
             } else {
-                $this->session->set_flashdata('flash_rangejam', 'Dihapus');
-                redirect('Login');
+                redirect('Welcome');
             }
         }
     }

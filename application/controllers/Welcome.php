@@ -4,24 +4,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Welcome extends CI_Controller
 {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('TahunAjaran_Model');
+		if ($this->session->userdata('level') == 'guru') {
+			$this->load->model('PenugasanGuru_Model');
+		}
+	}
+
 	public function index()
 	{
-		$this->load->view("templates/header");
+		$data = [
+			'menu_mapels' => []
+		];
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		}
+		$this->load->view("templates/header", $data);
 		$this->load->view("templates/sidebar");
 		$this->load->view("index.php");
 		$this->load->view("templates/footer");

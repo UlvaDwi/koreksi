@@ -76,13 +76,13 @@ class DataJenisUjian extends CI_Controller
 
 	public function hapus($id)
 	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
+		// if ($this->session->userdata('level') != 'admin') {
+		// 	show_404();
+		// }
 
 		$this->JenisUjian_Model->hapus_data($id);
 		$this->session->set_flashdata('flash_mapel', 'Dihapus');
-		redirect('DataJenisUjian');
+		redirect('DataSoalKunci/jenis');
 	}
 
 	public function checkForeign()

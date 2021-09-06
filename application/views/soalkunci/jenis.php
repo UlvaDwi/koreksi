@@ -19,52 +19,55 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <div class="col-md-12">
-        <center>
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div>
-                    <center>
-                      <p></p>
-                      <!-- <h1 style="font-family: 'Times New Roman', Times, serif;"><b>--SELAMAT DATANG <= $this->session->userdata('username') ?>--</b></h1> -->
-                      <h1 style="font-family: 'Times New Roman', Times, serif;"><b>Silahkan Pilih Jenis Ujian</b></h1>
-                      <p></p>
-                    </center>
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </center>
-      </div>
       <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') { ?>
         <!-- Info boxes -->
-        <form action="<?= base_url() ?>DataSoalKunci/tambah" method="post" accept-charset="utf-8">
-          <div class="form-group" hidden>
-            <label for="exampleInputPassword1">Id</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $_GET['id']; ?>" readonly>
-          </div>
-          <div class="form-group" hidden>
-            <label for="exampleInputPassword1">Id tugas</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="id_tugas" value="<?= $_GET['id_tugas']; ?>" readonly>
-          </div>
-          <div class="form-group">
-            <label>Jenis Ujian</label>
-            <select class="form-control" name="jenis_ujian">
-              <option>--Pilih Jenis Ujian--</option>
-              <?php
-              foreach ($jenisujian as $row) { ?>
+        <div class="card">
+          <div class="card-body">
 
-                <option value="<?= $row->kode_jenis ?>"><?= $row->nama_jenis ?></option>
-              <?php } ?>
-            </select>
+            <form class="form-inline" action="<?= base_url("DataSoalKunci/storeUjian/" . $this->uri->segment(3)) ?>" method="post" accept-charset="utf-8">
+              <!-- <div class="form-group" hidden>
+                <label for="exampleInputPassword1">Id</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="id_mapel_ujian" value="<?= $_GET['id']; ?>" readonly>
+              </div> -->
+              <div class="form-group" hidden>
+                <label for="exampleInputPassword1">Id tugas</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="id_tugas" value="<?= $this->uri->segment(3) ?>" readonly>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Jenis Ujian</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" name="kode_jenis">
+              </div>
+
+              <input type="submit" name="save" class="btn btn-primary" value="Simpan">
+
+            </form>
+            <hr>
+            <table class="table table-bordered table-striped responsive">
+              <tr>
+                <th>No</th>
+                <th>Nama Ujian</th>
+                <th>Action</th>
+              </tr>
+              <?php
+              foreach ($ujians as $key => $ujian) : ?>
+                <tr>
+                  <td><?= $key + 1 ?></td>
+                  <td><?= $ujian->kode_jenis ?></td>
+                  <td>
+                    <a href="<?= base_url("DataSoalKunci/tambah/$ujian->id_ujian") ?>" class="btn btn-success">Buat Soal</a>
+                    <a href="<?= base_url("DataUjian/hapus/$ujian->id_ujian") ?>" class="btn btn-danger">Hapus Ujian</a>
+                    <a href="<?= base_url("DataSiswaJawaban/lihatjawaban/$ujian->id_ujian") ?>" class="btn btn-warning">Lihat Ujian Siswa</a>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+              <?php if (empty($ujians)) : ?>
+                <tr>
+                  <td colspan="3">Belum Ada Data Ujian</td>
+                </tr>
+              <?php endif; ?>
+            </table>
           </div>
-          <input type="submit" name="save" class="btn btn-primary" value="SUBMIT">
-        </form>
+        </div>
         <!-- /.row -->
       <?php } ?>
 

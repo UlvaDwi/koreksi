@@ -18,6 +18,7 @@ class DataPenugasanGuru extends CI_Controller
 		$this->load->model('Jurusan_Model');
 		$this->load->model('TahunAjaran_Model');
 		$this->load->library('form_validation');
+		// $this->load->library('JenisUjian_Model');
 	}
 	function index()
 	{
@@ -85,7 +86,8 @@ class DataPenugasanGuru extends CI_Controller
 	{
 		echo $id_guru . $this->TahunAjaran_Model->tahunAjaranAktif;
 		$query = $this->PenugasanGuru_Model->tambah_data($id_guru, $this->TahunAjaran_Model->tahunAjaranAktif);
-		$status = 'Disimpan';
+		$this->JenisUjian_Model = 'Disimpan';
+
 		if (!$query) {
 			$status = 'gagal Disimpan';
 		}

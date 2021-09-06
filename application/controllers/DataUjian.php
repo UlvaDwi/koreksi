@@ -15,9 +15,12 @@ class DataUjian extends CI_Controller
 		if ($this->session->userdata('level') == 'siswa') {
 			show_404();
 		}
-		$this->load->model('JenisUjian_Model');
-		$this->load->model('Ujian_Model');
-		$this->load->model('PenugasanGuru_Model');
+		$this->load->model([
+			'JenisUjian_Model',
+			'UjianSiswa_Model',
+			'Ujian_Model',
+			'PenugasanGuru_Model'
+		]);
 		$this->load->library('form_validation');
 	}
 	function index()
@@ -75,12 +78,11 @@ class DataUjian extends CI_Controller
 
 	public function hapus($kd)
 	{
-		if ($this->session->userdata('level') != 'admin') {
-			show_404();
-		}
+		$id_tugas = $this->Ujian_Model->getData(['id_ujian', $kd])->row('id_tugas');
+		$this->UjianSiswa_Model->destroy(['id_ujian' => $kd]);
 		$this->Ujian_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_ujian', 'Dihapus');
-		redirect('DataUjian');
+		redirect("DataSoalKunci/jenis/$id_tugas");
 	}
 
 	public function ubah($id)

@@ -20,7 +20,15 @@ class PenugasanGuru_Model extends CI_Model
 		return $this->db->get_where('a_tugasguru', $where);
 	}
 
+	public function getViewData_by(array $where)
+	{
+		return $this->db->get_where('v_penugasan', $where);
+	}
 
+	public function getViewPenugasanUjian_by(array $where)
+	{
+		return $this->db->get_where('v_penugasanujian', $where);
+	}
 
 	public function getDatatugasByidGuru($id_user, $kode_kelas)
 	{

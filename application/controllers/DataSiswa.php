@@ -107,6 +107,8 @@ class DataSiswa extends CI_Controller
 	{
 		$kelas = $this->input->post('kelas');
 		$jurusan = $this->input->post('jurusan');
+		// $kelas = 'XI';
+		// $jurusan = 'mm';
 		switch ($kelas) {
 			case 'X':
 				$kelas = 'baru';
@@ -118,7 +120,12 @@ class DataSiswa extends CI_Controller
 				$kelas = 'XI';
 				break;
 		}
+		// echo $this->TahunAjaran_Model->tahunAjaranAktif;
+		// echo '<br>';
 		$getData = $this->HistoriKelas_Model->siswaNaikKelas($kelas, $jurusan, $this->TahunAjaran_Model->tahunAjaranAktif);
+		// echo '<pre>';
+		// print_r($getData);
+		// echo '</pre>';
 		if ($getData['status'] == 'failed') {
 			echo json_encode([
 				'status' => 'failed',

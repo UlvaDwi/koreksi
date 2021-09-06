@@ -43,8 +43,8 @@
       </div>
       <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') { ?>
         <!-- Info boxes -->
-        <?php foreach ($mapel as $row) { ?>
-          <div class="row">
+        <div class="row">
+          <?php foreach ($mapel as $row) { ?>
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-info">
@@ -59,13 +59,14 @@
                 <div class="icon">
                   <i class="fas fa-user-graduate"></i>
                 </div>
-                <a href="<?= base_url() ?>DataSoalKunci/jenis?id=<?= $row['id_mapel']; ?>&id_tugas=<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <!-- <a href="<?= base_url() ?>DataSoalKunci/jenis?id=<?= $row['id_mapel']; ?>&id_tugas=<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                <a href="<?= base_url() ?>DataSoalKunci/jenis/<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 <!-- <a href="<= base_url('DataSoalKunci/tambah') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
               </div>
             </div>
             <!-- /.col -->
-          </div>
-        <?php } ?>
+          <?php } ?>
+        </div>
         <!-- /.row -->
       <?php } ?>
 

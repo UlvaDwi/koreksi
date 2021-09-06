@@ -92,17 +92,17 @@
 									</p>
 								</a>
 							</li>
-							<li class="nav-item">
+							<!-- <li class="nav-item">
 								<a href="<?= base_url() ?>DataJenisUjian" class="nav-link ml-3">
 									<i class="fas fa-user-edit"></i>
 									<p>
 										Jenis Ujian
 									</p>
 								</a>
-							</li>
+							</li> -->
 						</ul>
 					</li>
-
+					<!--  -->
 					<li class="nav-item">
 						<a href="<?= base_url() ?>DataUjian/" class="nav-link">
 							<i class="fas fa-stack-exchange"></i>
@@ -127,6 +127,8 @@
 							</p>
 						</a>
 					</li>
+
+					<!--  -->
 				<?php } ?>
 				<li class="nav-item">
 					<a href="<?= base_url() ?>DataSoalKunci" class="nav-link">
@@ -160,7 +162,48 @@
 						</p>
 					</a>
 				</li>
-
+				<?php if ($this->session->userdata('level') == 'guru') {
+					if (!empty($menu_mapels)) {
+						foreach ($menu_mapels as $menu_mapel) {
+				?>
+							<!-- ------------------ -->
+							<li class="nav-item">
+								<a href="#" class="nav-link">
+									<i class="fas fa-file-alt"></i>
+									<p> <?= "$menu_mapel->nama_mapel ($menu_mapel->kode_kelas)" ?> <i class="right fas fa-angle-left"></i></p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href='<?= base_url("DataSiswaNilai/index/$menu_mapel->id_tugas") ?>' class="nav-link ml-3">
+											<i class="fas fa-chalkboard-teacher"></i>
+											<p>
+												Daftar Siswa
+											</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url('DataSoalKunci/jenis/') . $menu_mapel->id_tugas ?>" class="nav-link ml-3">
+											<i class="fas fa-users"></i>
+											<p>
+												Ujian Siswa
+											</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+						<?php
+						}
+					} else {
+						?>
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<p>Belum mendapatkan Penugasan</p>
+							</a>
+						</li>
+				<?php
+					}
+				}
+				?>
 
 
 
