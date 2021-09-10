@@ -5,10 +5,13 @@ class DataSiswaJawaban extends CI_Controller
     {
         parent::__construct();
 
-        $this->load->model('Siswa_Model');
-        $this->load->model('TahunAjaran_Model');
-        $this->load->model('PenugasanGuru_Model');
-        $this->load->model('HistoriKelas_Model');
+        $this->load->model([
+            'Siswa_Model',
+            'TahunAjaran_Model',
+            'PenugasanGuru_Model',
+            'HistoriKelas_Model',
+            'SoalKunci_Model'
+        ]);
     }
 
     public function lihatjawaban($id_tugas)
@@ -24,7 +27,10 @@ class DataSiswaJawaban extends CI_Controller
             'kode_kelas' => $guru->kode_kelas,
             'kode_ta' => $guru->kode_ta
         ])->result();
-
+        $jenisUjian = $this->Ujian_Model->getData(['id_tugas' => $id_tugas])->result();
+        if (empty($jenisUjian) || empty($jenisUjian)) {
+            return redirect('welcome');
+        }
         // untuk sidebar
         if ($this->session->userdata('level') == 'guru') {
             $id_user = $this->session->userdata('id_user');
@@ -34,9 +40,9 @@ class DataSiswaJawaban extends CI_Controller
         // /sidebar
 
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar');
-        $this->load->view('SiswaJawaban/index');
+        $this->load->view('templates/header', compact('siswa', 'jenisUjian'));
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('SiswaNilai/index');
         $this->load->view('templates/footer');
     }
 }

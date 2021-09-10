@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Agu 2021 pada 15.23
+-- Waktu pembuatan: 10 Sep 2021 pada 16.11
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -42,7 +42,7 @@ CREATE TABLE `a_guru` (
 INSERT INTO `a_guru` (`id_user`, `nama_guru`, `username`, `password`, `level`) VALUES
 (1, 'admin', 'admin', '123', 'admin'),
 (2, 'bima sakti', 'bima', '123', 'guru'),
-(3, 'ulva', 'ulva', '123', 'guru');
+(3, 'ibrahim', 'ibrahim', '123', 'guru');
 
 -- --------------------------------------------------------
 
@@ -62,9 +62,10 @@ CREATE TABLE `a_histori_kelas` (
 --
 
 INSERT INTO `a_histori_kelas` (`id_histori`, `kode_kelas`, `id_siswa`, `kode_ta`) VALUES
-(1, 'X_mm_A', '1', 3),
-(2, 'X_mm_A', '4', 5),
-(3, 'X_mm_A', '5', 5);
+(6, 'X_mm_A', '4', 3),
+(7, 'X_mm_A', '5', 3),
+(8, 'X_mm_A', '6', 3),
+(9, 'X_mm_A', '7', 3);
 
 -- --------------------------------------------------------
 
@@ -90,15 +91,6 @@ CREATE TABLE `a_jenisujian` (
   `kode_jenis` varchar(20) NOT NULL,
   `nama_jenis` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `a_jenisujian`
---
-
-INSERT INTO `a_jenisujian` (`kode_jenis`, `nama_jenis`) VALUES
-('uas', 'Ujian Akhir Semester'),
-('uh', 'Ulangan Harian'),
-('uts', 'Ujian Tengah Semester');
 
 -- --------------------------------------------------------
 
@@ -30156,7 +30148,8 @@ CREATE TABLE `a_pre_soalkunci` (
 --
 
 INSERT INTO `a_pre_soalkunci` (`id_pre_soalkunci`, `id_soal`, `token`, `filter`, `stem`) VALUES
-(73, 1, 'animasi adalah gambar yang disusun dan digerakkan  animasi yang baik adalah animasi yang bergerak', 'animasi gambar disusun digerakkan  animasi animasi bergerak', 'animasi gambar susun gerak  animasi animasi gerak');
+(82, 1, 'ini kunci jawaban uts genap', 'kunci uts genap', 'kunci uts genap'),
+(83, 2, 'ini kunci jawaban uas genap', 'kunci uas genap', 'kunci uas genap');
 
 -- --------------------------------------------------------
 
@@ -30205,7 +30198,8 @@ CREATE TABLE `a_soalkunci` (
 --
 
 INSERT INTO `a_soalkunci` (`id_soal`, `id_ujian`, `soal`, `kunci_jawaban`, `skor_soal`) VALUES
-(1, 9, 'pertama', 'Animasi adalah gambar yang disusun dan digerakkan, animasi yang baik adalah animasi yang bergerak', 10);
+(1, 34, 'ini soal uts genap', 'ini kunci jawaban uts genap', 20),
+(2, 35, 'ini soal uas genap', 'ini kunci jawaban uas genap', 20);
 
 -- --------------------------------------------------------
 
@@ -31420,10 +31414,9 @@ CREATE TABLE `a_tahun_ajaran` (
 --
 
 INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
-(3, '2019/2020', 'tidak aktif'),
+(3, '2019/2020', 'aktif'),
 (4, '2020/2021', 'tidak aktif'),
-(5, '2021/2022', 'tidak aktif'),
-(6, '2022/2023', 'aktif');
+(5, '2021/2022', 'tidak aktif');
 
 -- --------------------------------------------------------
 
@@ -31442,14 +31435,40 @@ CREATE TABLE `a_tfidf` (
 --
 
 INSERT INTO `a_tfidf` (`id_tfidf`, `kata`, `jumlah`) VALUES
-(166, 'animasi', 1),
-(167, 'gambar', 1),
-(168, 'susun', 1),
-(169, 'gerak', 1),
-(170, '', 1),
-(171, 'animasi', 1),
-(172, 'animasi', 1),
-(173, 'gerak', 1);
+(174, 'animasi', 1),
+(175, 'gambar', 1),
+(176, 'susun', 1),
+(177, 'gerak', 1),
+(178, '', 1),
+(179, 'animasi', 1),
+(180, 'animasi', 1),
+(181, 'gerak', 1),
+(182, 'baca', 2),
+(183, 'buku', 2),
+(184, 'buku', 2),
+(185, 'alfrizal', 1),
+(186, 'ulva', 1),
+(187, 'baca', 1),
+(188, 'buku', 1),
+(189, 'ulva', 1),
+(190, 'dwi', 1),
+(191, 'anak', 1),
+(192, 'gembala', 1),
+(193, 'hewan', 1),
+(194, 'makhluk', 1),
+(195, 'hidup', 1),
+(196, 'tumbuh', 1),
+(197, 'makhluk', 1),
+(198, 'warna', 1),
+(199, 'hijau', 1),
+(200, 'uas', 1),
+(201, 'genap', 1),
+(202, 'kunci', 1),
+(203, 'uts', 1),
+(204, 'genap', 1),
+(205, 'kunci', 1),
+(206, 'uas', 1),
+(207, 'genap', 1);
 
 -- --------------------------------------------------------
 
@@ -31470,10 +31489,12 @@ CREATE TABLE `a_tugasguru` (
 --
 
 INSERT INTO `a_tugasguru` (`id_tugas`, `id_user`, `id_mapel`, `kode_kelas`, `kode_ta`) VALUES
-(20, 2, 'bin', 'X_otkp_A', 4),
-(21, 2, 'bin', 'X_mm_A', 4),
-(22, 3, 'mtk', 'XI_mm_A', 4),
-(23, 3, 'mtk', 'XI_otkp_A', 4);
+(25, 2, 'bin', 'X_mm_A', 3),
+(26, 2, 'mtk', 'X_mm_A', 3),
+(27, 2, 'sjrh', 'X_mm_A', 3),
+(28, 3, 'bin', 'XI_mm_A', 3),
+(29, 3, 'mtk', 'XI_mm_A', 3),
+(30, 3, 'sjrh', 'XI_mm_A', 3);
 
 -- --------------------------------------------------------
 
@@ -31492,10 +31513,8 @@ CREATE TABLE `a_ujian` (
 --
 
 INSERT INTO `a_ujian` (`id_ujian`, `id_tugas`, `kode_jenis`) VALUES
-(9, 20, 'uas'),
-(10, 21, 'uas'),
-(11, 22, 'uas'),
-(12, 23, 'uas');
+(34, 27, 'UTS genap'),
+(35, 27, 'UAS genap');
 
 -- --------------------------------------------------------
 
@@ -31507,8 +31526,22 @@ CREATE TABLE `a_ujian_siswa` (
   `id_ujian_siswa` int(15) NOT NULL,
   `id_ujian` int(20) NOT NULL,
   `id_siswa` varchar(50) NOT NULL,
-  `nilai` int(15) NOT NULL
+  `nilai` int(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `a_ujian_siswa`
+--
+
+INSERT INTO `a_ujian_siswa` (`id_ujian_siswa`, `id_ujian`, `id_siswa`, `nilai`) VALUES
+(45, 34, '4', NULL),
+(46, 34, '5', NULL),
+(47, 34, '6', NULL),
+(48, 34, '7', NULL),
+(49, 35, '4', NULL),
+(50, 35, '5', NULL),
+(51, 35, '6', NULL),
+(52, 35, '7', NULL);
 
 -- --------------------------------------------------------
 
@@ -31558,7 +31591,7 @@ CREATE TABLE `v_penugasanujian` (
 ,`kode_ta` int(15)
 ,`tahun_ajaran` varchar(15)
 ,`id_ujian` int(20)
-,`nama_jenis` varchar(100)
+,`kode_jenis` varchar(20)
 );
 
 -- --------------------------------------------------------
@@ -31586,7 +31619,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_penugasanujian`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_penugasanujian`  AS SELECT `a_tugasguru`.`id_tugas` AS `id_tugas`, `a_guru`.`id_user` AS `id_user`, `a_guru`.`nama_guru` AS `nama_guru`, `a_mapel`.`id_mapel` AS `id_mapel`, `a_mapel`.`nama_mapel` AS `nama_mapel`, `a_kelas`.`kode_kelas` AS `kode_kelas`, `a_tahun_ajaran`.`kode_ta` AS `kode_ta`, `a_tahun_ajaran`.`tahun_ajaran` AS `tahun_ajaran`, `a_ujian`.`id_ujian` AS `id_ujian`, `a_jenisujian`.`nama_jenis` AS `nama_jenis` FROM ((((((`a_tugasguru` join `a_guru` on(`a_tugasguru`.`id_user` = `a_guru`.`id_user`)) join `a_mapel` on(`a_mapel`.`id_mapel` = `a_tugasguru`.`id_mapel`)) join `a_kelas` on(`a_kelas`.`kode_kelas` = `a_tugasguru`.`kode_kelas`)) join `a_tahun_ajaran` on(`a_tahun_ajaran`.`kode_ta` = `a_tugasguru`.`kode_ta`)) join `a_ujian` on(`a_ujian`.`id_tugas` = `a_tugasguru`.`id_tugas`)) join `a_jenisujian` on(`a_jenisujian`.`kode_jenis` = `a_ujian`.`kode_jenis`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_penugasanujian`  AS SELECT `a_tugasguru`.`id_tugas` AS `id_tugas`, `a_guru`.`id_user` AS `id_user`, `a_guru`.`nama_guru` AS `nama_guru`, `a_mapel`.`id_mapel` AS `id_mapel`, `a_mapel`.`nama_mapel` AS `nama_mapel`, `a_kelas`.`kode_kelas` AS `kode_kelas`, `a_tahun_ajaran`.`kode_ta` AS `kode_ta`, `a_tahun_ajaran`.`tahun_ajaran` AS `tahun_ajaran`, `a_ujian`.`id_ujian` AS `id_ujian`, `a_ujian`.`kode_jenis` AS `kode_jenis` FROM (((((`a_tugasguru` join `a_guru` on(`a_tugasguru`.`id_user` = `a_guru`.`id_user`)) join `a_mapel` on(`a_mapel`.`id_mapel` = `a_tugasguru`.`id_mapel`)) join `a_kelas` on(`a_kelas`.`kode_kelas` = `a_tugasguru`.`kode_kelas`)) join `a_tahun_ajaran` on(`a_tahun_ajaran`.`kode_ta` = `a_tugasguru`.`kode_ta`)) join `a_ujian` on(`a_ujian`.`id_tugas` = `a_tugasguru`.`id_tugas`)) ;
 
 --
 -- Indexes for dumped tables
@@ -31715,7 +31748,7 @@ ALTER TABLE `a_guru`
 -- AUTO_INCREMENT untuk tabel `a_histori_kelas`
 --
 ALTER TABLE `a_histori_kelas`
-  MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_jawabansiswa`
@@ -31739,7 +31772,7 @@ ALTER TABLE `a_pre_jawabansiswa`
 -- AUTO_INCREMENT untuk tabel `a_pre_soalkunci`
 --
 ALTER TABLE `a_pre_soalkunci`
-  MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_soalkunci`
@@ -31757,25 +31790,25 @@ ALTER TABLE `a_stopwords`
 -- AUTO_INCREMENT untuk tabel `a_tfidf`
 --
 ALTER TABLE `a_tfidf`
-  MODIFY `id_tfidf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `id_tfidf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_tugasguru`
 --
 ALTER TABLE `a_tugasguru`
-  MODIFY `id_tugas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_tugas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_ujian`
 --
 ALTER TABLE `a_ujian`
-  MODIFY `id_ujian` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_ujian` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_ujian_siswa`
 --
 ALTER TABLE `a_ujian_siswa`
-  MODIFY `id_ujian_siswa` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ujian_siswa` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

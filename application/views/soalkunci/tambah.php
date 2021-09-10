@@ -56,9 +56,9 @@
                 <form action="<?= base_url() ?>DataSoalKunci/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
 
-                    <div class="form-group" >
-                        <label for="exampleInputPassword1">Id</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" name="id_ujian" value="<?= $id_ujian ?>" readonly>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Id Ujian</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="id_ujian" value="<?= $id_ujian ?>" readonly>
                     </div>
                     <!-- <div class="form-group">
                       <label for="exampleInputPassword1">Nama Mapel Ujian</label>
@@ -66,11 +66,12 @@
                     </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Soal</label>
-                      <textarea type="text" class="form-control" id="exampleInputPassword1" name="soal"></textarea>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="soal">
                     </div>
+
                     <div class="form-group">
                       <label for="exampleInputPassword1">Kunci Jawaban</label>
-                      <textarea type="text" class="form-control" id="exampleInputPassword1" name="kunci_jawaban"></textarea>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="kunci_jawaban">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Skor Soal</label>
@@ -106,7 +107,7 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Id Soal</th>
+                    <!-- <th>Id Soal</th> -->
                     <!-- <th>Mapel Ujian</th> -->
                     <th>Soal</th>
                     <th>Kunci Jawaban</th>
@@ -120,7 +121,7 @@
                   foreach ($soalkunci as $row) { ?>
                     <tr>
                       <td><?= $no ?></td>
-                      <td><?= $row['id_soal'] ?></td>
+                      <!-- <td><?= $row['id_soal'] ?></td> -->
                       <!-- <td><= $row['id_mapel_ujian'] ?></td> -->
                       <td><?= $row['soal'] ?></td>
                       <td><?= $row['kunci_jawaban'] ?></td>

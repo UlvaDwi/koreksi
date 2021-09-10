@@ -191,17 +191,24 @@ class DataSoalKunci extends CI_Controller
 	{
 
 		$this->form_validation->set_rules("id_soal", "id soal", "required");
-		$this->form_validation->set_rules("id_mapel_ujian", "id mapel ujian", "required");
+		// $this->form_validation->set_rules("id_mapel_ujian", "id mapel ujian", "required");
 		$this->form_validation->set_rules("soal", "soal", "required");
 		$this->form_validation->set_rules("kunci_jawaban", "kunci_jawaban", "required");
 		$this->form_validation->set_rules("skor_soal", "skor soal", "required");
 
+		// untuk sidebar
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		}
+		// /sidebar
 
 		if ($this->form_validation->run() == FALSE) {
 			$data['ubah'] = $this->SoalKunci_Model->detail_data($kd);
-			$this->load->view('templates/header');
+			$this->load->view('templates/header', $data);
 			$this->load->view('templates/sidebar');
-			$this->load->view('soalkunci/ubah', $data);
+			$this->load->view('soalkunci/ubah');
 			$this->load->view('templates/footer');
 		} else {
 			$this->SoalKunci_Model->ubah_data();

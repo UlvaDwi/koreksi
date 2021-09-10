@@ -92,25 +92,18 @@
 									</p>
 								</a>
 							</li>
-							<!-- <li class="nav-item">
-								<a href="<?= base_url() ?>DataJenisUjian" class="nav-link ml-3">
-									<i class="fas fa-user-edit"></i>
-									<p>
-										Jenis Ujian
-									</p>
-								</a>
-							</li> -->
+
 						</ul>
 					</li>
 					<!--  -->
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<a href="<?= base_url() ?>DataUjian/" class="nav-link">
 							<i class="fas fa-stack-exchange"></i>
 							<p>
 								Atur Ujian
 							</p>
 						</a>
-					</li>
+					</li> -->
 					<li class="nav-item">
 						<a href="<?= base_url() ?>DataKataDasar" class="nav-link">
 							<i class="fas fa-atlas"></i>
