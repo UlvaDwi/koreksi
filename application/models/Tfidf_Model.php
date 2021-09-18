@@ -12,27 +12,16 @@ class Tfidf_Model extends CI_Model
 
     public function tambah_data($arr_kalimat)
     {
-
-
-        //$hasilexplode = explode(" ", $arr_kalimat);
-        //var_dump($arr_kalimat);
-        //$data = array();
-        foreach ($arr_kalimat as $row) {
-            //$hasil = count($arr_kalimat);
+        $data = array();
             $jumlah = array_count_values($arr_kalimat);
-            foreach ($jumlah as $baris) {
+            foreach ($jumlah as $baris=>$value) {
 
                 var_dump($baris);
-                $data = array(
-                    'kata' => $row,
-                    'jumlah' => $baris,
+                $data[] = array(
+                    'kata' => $baris,
+                    'jumlah' => $value,
                 );
-            }
-            //var_dump($arr_kalimat);
-            var_dump($jumlah);
-
-            $tes = array_count_values($data);
-            $this->db->insert('a_tfidf', $tes);
         }
+        return $this->db->insert_batch('a_tfidf', $data);
     }
 }
