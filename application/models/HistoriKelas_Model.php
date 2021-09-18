@@ -5,12 +5,9 @@
  */
 class HistoriKelas_Model extends CI_Model
 {
-	public function getData_by(array $where)
+	public function getData_by(array $where = [])
 	{
-		if (!empty($where)) {
-			$this->db->where($where);
-		}
-		return $this->db->get('v_histori');
+		return $this->db->get_where('v_histori', $where);
 	}
 	public function siswaNaikKelas($kelas, $jurusan, $tahun_ajaran)
 	{

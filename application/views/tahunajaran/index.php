@@ -58,14 +58,14 @@
 												<label for="exampleInputPassword1">Tahun Ajaran</label>
 												<input type="text" class="form-control" id="exampleInputPassword1" name="thn_ajaran">
 											</div>
-											<div class="form-group">
+											<!-- <div class="form-group">
 												<label for="exampleInputPassword1">Status</label>
 												<select class="form-control" name="stts">
 													<option>--Pilih Status--</option>
 													<option value="aktif">Aktif</option>
 													<option value="tidak aktif">Tidak Aktif</option>
 												</select>
-											</div>
+											</div> -->
 											<input type="submit" name="save" class="btn btn-primary" value="Save">
 										</div>
 										<!-- /.card-body -->

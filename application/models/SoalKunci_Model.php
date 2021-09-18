@@ -5,13 +5,18 @@
  */
 class SoalKunci_Model extends CI_Model
 {
+	public function getData($where = [])
+	{
+		return $this->db->get_where('a_soalkunci', $where);
+	}
+
 	public function getAllData($id_ujian)
 	{
 		//return $this->db->get_where('a_soalkunci', ['id_ujian' => $id_ujian])->row_array();
 		$query = "SELECT * from a_soalkunci
 		WHERE id_ujian = $id_ujian
 		";
-		
+
 		return $this->db->query($query)->result_array();
 	}
 

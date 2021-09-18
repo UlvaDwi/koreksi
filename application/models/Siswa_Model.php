@@ -39,10 +39,10 @@ class Siswa_Model extends CI_Model
 		$this->db->where('id_siswa', $this->input->post('id_siswa', true));
 		$this->db->update('a_siswa', $data);
 	}
-	public function validation($username, $pass)
+	public function validation($username, $password)
 	{
-		$this->db->where('id_siswa', $username);
-		$this->db->where('password', $pass);
+		$this->db->where('username', $username);
+		$this->db->where('password', $password);
 		$query = $this->db->get('a_siswa');
 		if ($query->num_rows() >= 1) {
 			return $query->row();

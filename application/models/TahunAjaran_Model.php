@@ -48,8 +48,8 @@ class TahunAjaran_Model extends CI_Model
 		$data = array(
 			'kode_ta' => $id,
 			'tahun_ajaran' => $this->input->post('thn_ajaran'),
-			'status' => $this->input->post('stts')
-			// 'semester' => $this->input->post('smt')
+			'status' => 'tidak aktif'
+
 		);
 
 		$this->db->insert('a_tahun_ajaran', $data);
@@ -60,7 +60,6 @@ class TahunAjaran_Model extends CI_Model
 		$data = array(
 			'tahun_ajaran' => $this->input->post('thn_ajaran', true),
 			'status' => $this->input->post('stts', true)
-			// 'semester' => $this->input->post('smt', true)
 		);
 
 		$this->db->where('kode_ta', $this->input->post('kd_ta', true));
@@ -89,19 +88,4 @@ class TahunAjaran_Model extends CI_Model
 			$this->db->update('a_tahun_ajaran', ['status' => 'aktif'], ['kode_ta' => $kode_ta]);
 		}
 	}
-
-	// public function checkForeign($id)
-	// {
-	// 	$where = ['kode_ta' => $id];
-	// 	$where2 = ['tahun_keluar' => $id];
-	// 	$query1 = $this->db->get_where('tbl_jenis_pembayaran', $where);
-	// 	$query2 = $this->db->get_where('tbl_pembayaran_spp', $where);
-	// 	$query3 = $this->db->get_where('tbl_pembayaran_ujian', $where);
-	// 	$query4 = $this->db->get_where('tbl_siswa', $where);
-	// 	$query5 = $this->db->get_where('tbl_siswa', $where2);
-	// 	if ($query1->num_rows() >= 1 || $query2->num_rows() >= 1 || $query3->num_rows() >= 1 || $query4->num_rows() >= 1 || $query5->num_rows() >= 1) {
-	// 		return true;
-	// 	}
-	// 	return false;
-	// }
 }

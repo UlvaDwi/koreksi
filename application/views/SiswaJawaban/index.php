@@ -4,12 +4,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Mapel... Kelas...</h1>
+          <h1><?= $mapel ?></h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="Welcome">Dashboard</a></li>
-            <li class="breadcrumb-item active">Data Siswa </li>
+            <li class="breadcrumb-item active">Jawaban Siswa </li>
           </ol>
         </div>
       </div>
@@ -35,11 +35,12 @@
                     <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Total Nilai</th>
-                    <th>QI</th>
-                    <th>Q2</th>
-                    <th>Q3</th>
-                    <th>Q4</th>
-                    <th>Q5</th>
+
+                    <?php
+                    $no = 1;
+                    foreach ($soal as $item) { ?>
+                      <th><?= "Q" . $no++ ?></th>
+                    <?php } ?>
 
                   </tr>
                 </thead>
@@ -51,11 +52,11 @@
                       <td><?= $no ?></td>
                       <td><?= $row->nama_siswa ?></td>
                       <th>Total Nilai</th>
-                      <th>QI</th>
-                      <th>Q2</th>
-                      <th>Q3</th>
-                      <th>Q4</th>
-                      <th>Q5</th>
+                      <?php
+                      $no = 1;
+                      foreach ($soal as $item) { ?>
+                        <th><?= "Q" . $no++ ?></th>
+                      <?php } ?>
 
                     </tr>
                   <?php

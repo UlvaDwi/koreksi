@@ -42,71 +42,46 @@
           </div>
         </center>
       </div>
-      <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') { ?>
-        <!-- Info boxes -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>.............</h3>
+      <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') {
+        if (!empty($mapel)) {
+      ?>
+          <!-- Info boxes -->
+          <div class="row">
+            <?php foreach ($mapel as $row) { ?>
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3>
+                      <td><?= $row['kode_kelas']; ?></td>
+                    </h3>
+                    <p>
+                      <td><?= $row['nama_mapel']; ?></td>
+                    </p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-user-graduate"></i>
+                  </div>
+                  <!-- <a href="<?= base_url() ?>DataSoalKunci/jenis?id=<?= $row['id_mapel']; ?>&id_tugas=<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                  <a href="<?= base_url() ?>DataSoalKunci/jenis/<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <!-- <a href="<= base_url('DataSoalKunci/tambah') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                </div>
+              </div>
+              <!-- /.col -->
+            <?php }
+          } else {
+            ?>
 
-                <p> .............</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-user-graduate"></i>
-              </div>
-              <a href="<?= base_url('DataPembayaranDPP') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+            Belum mendapatkan Penugasan
+
+          <?php
+          }
+
+          ?>
           </div>
-
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-secondary">
-              <div class="inner">
-                <h3>.............</h3>
-
-                <p>.............</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-user-friends"></i>
-              </div>
-              <a href="<?= base_url('#') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>.............</h3>
-
-                <p>.............</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-list"></i>
-              </div>
-              <a href="<?= base_url('#') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>.............</h3>
-                <p>.............</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-list-alt"></i>
-              </div>
-              <a href="<?= base_url('#') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      <?php } ?>
-
+          <!-- /.row -->
+        <?php
+      } ?>
 
     </div>
     <!--/. container-fluid -->

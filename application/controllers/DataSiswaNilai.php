@@ -20,6 +20,7 @@ class DataSiswaNilai extends CI_Controller
         $id_guru = $this->session->userdata('id_user');
         // // cek apakah apakah halaman yang diakses sesuai dengan id_user
         $guru = $this->PenugasanGuru_Model->getData_by(['id_tugas' => $id_tugas])->row();
+        $gurutugas = $this->PenugasanGuru_Model->getViewData_by(['id_tugas' => $id_tugas])->row();
         if ($id_guru != $guru->id_user) {
             show_404();
         }
@@ -28,14 +29,18 @@ class DataSiswaNilai extends CI_Controller
             'kode_ta' => $guru->kode_ta
         ])->result();
         $jenisUjian = $this->Ujian_Model->getData(['id_tugas' => $id_tugas])->result();
-        if (empty($jenisUjian) || empty($jenisUjian)) {
-            return redirect('welcome');
-        }
+        // if (empty($jenisUjian) || empty($jenisUjian)) {
+        //     return redirect('welcome');
+        // }
         // untuk sidebar
         if ($this->session->userdata('level') == 'guru') {
             $id_user = $this->session->userdata('id_user');
             $kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
-            $data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+
+            $data = [
+                'menu_mapels' => $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result(),
+                'mapel' => "Mapel $gurutugas->nama_mapel Kelas " . str_replace("_", " ", $gurutugas->kode_kelas)
+            ];
         }
         // /sidebar
 

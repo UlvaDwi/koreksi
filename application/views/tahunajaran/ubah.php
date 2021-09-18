@@ -41,22 +41,8 @@
                       <input type="text" class="form-control" name="thn_ajaran" value="<?= $ubah['tahun_ajaran'] ?>">
                     </div>
 
-                    <!-- <div class="form-group">
-                      <label for="exampleInputPassword1">Semester</label>
-                      <select class="form-control" name="smt">
-                        <?php
-                        if ($ubah['semester'] == 'ganjil') {
-                          echo "<option value = 'ganjil' selected>Ganjil</option>
-                          <option value ='genap'>Genap</option>";
-                        } else {
-                          echo "<option value = 'ganjil'>Ganjil</option>
-                          <option value ='genap' selected>Genap</option>";
-                        }
-                        ?>
-                      </select>
 
-                    </div> -->
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                       <label for="exampleInputPassword1">Status</label>
                       <select class="form-control" name="stts">
                         <?php

@@ -40,16 +40,39 @@ class DataSoalKunci extends CI_Controller
 	function index()
 	{
 		$id_guru = $this->session->userdata('id_user');
-		//$data['soalkunci'] = $this->SoalKunci_Model->getAllData();
-		// $data['mapel'] = $this->Mapel_Model->getAllData();
-		$data['mapel'] = $this->Mapel_Model->getMapelDashboard($id_guru);
+		$data['mapel'] = $this->Mapel_Model->getDashboard($id_guru);
+
 		// var_dump($data);
 		// die();
 
-
-		$this->load->view('templates/header');
+		// untuk sidebar
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		}
+		// /sidebar
+		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
-		$this->load->view('soalkunci/index', $data);
+		$this->load->view('soalkunci/index');
+		$this->load->view('templates/footer');
+	}
+
+	public function tampilujiansiswa()
+	{
+		$data['soal'] = $this->SoalKunci_Model->getData();
+
+		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+		if ($this->session->userdata('level') == 'siswa') {
+			$id_user = $this->session->userdata('id_siswa');
+			$kode_kelas = $this->HistoriKelas_Model->getData_by(['id_siswa' => $id_user, 'kode_ta' => $kode_ta])->row('kode_kelas');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
+		}
+		// /sidebar
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/ujiansiswa');
 		$this->load->view('templates/footer');
 	}
 
@@ -60,11 +83,14 @@ class DataSoalKunci extends CI_Controller
 		$id_guru = $this->session->userdata('id_user');
 		// cek apakah apakah halaman yang diakses sesuai dengan id_user
 		$tempIdGuru = $this->PenugasanGuru_Model->getData_by(['id_tugas' => $id_tugas])->row('id_user');
+		$guru = $this->PenugasanGuru_Model->getViewData_by(['id_tugas' => $id_tugas])->row();
+
 		if ($id_guru != $tempIdGuru) {
 			show_404();
 		}
 		$data = [
 			'ujians' => $this->Ujian_Model->getData(['id_tugas' => $id_tugas])->result(),
+			'mapel' => "Mapel $guru->nama_mapel Kelas " . str_replace("_", " ", $guru->kode_kelas),
 			'menu_mapels' => []
 		];
 
@@ -105,6 +131,7 @@ class DataSoalKunci extends CI_Controller
 	{
 		$ujian = $this->Ujian_Model->getData(['id_ujian' => $id_ujian])->row();
 		$penugasan = $this->PenugasanGuru_Model->getData_by(['id_tugas' => $ujian->id_tugas])->row();
+
 		$id_mapel =  $penugasan->id_mapel;
 		$id_tugas =  $ujian->id_tugas;
 		$jenis_ujian =  $ujian->kode_jenis;
@@ -116,8 +143,7 @@ class DataSoalKunci extends CI_Controller
 
 		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian);
 		$data['id_ujian'] = $id_ujian;
-		// var_dump($data);
-		// die();
+
 
 		// untuk sidebar
 		if ($this->session->userdata('level') == 'guru') {

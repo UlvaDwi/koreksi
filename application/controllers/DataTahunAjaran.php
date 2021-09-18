@@ -38,8 +38,8 @@ class DataTahunAjaran extends CI_Controller
 		}
 		// $this->form_validation->set_rules("kd_ta", "Kode Tahun Ajaran", "required|is_unique[tbl_tahun_ajaran.kode_ta]|max_length[5]");
 		$this->form_validation->set_rules("thn_ajaran", "Tahun Ajaran", "required|is_unique[a_tahun_ajaran.tahun_ajaran]");
-		// $this->form_validation->set_rules("smt", "Semester", "callback_check_select_semester");
-		$this->form_validation->set_rules("stts", "Status", "callback_check_select_status");
+
+		// $this->form_validation->set_rules("stts", "Status", "callback_check_select_status");
 
 		if (!$this->form_validation->run()) {
 			$this->index();

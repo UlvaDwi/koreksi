@@ -12,19 +12,9 @@ class Mapel_Model extends CI_Model
 
 {
 
-	// public function getAllData($kode_jurusan = null)
-	// {
-	// 	$this->db->select('id_mapel, nama_mapel, kelas, a_jurusan.nama_jurusan');
-	// 	$this->db->from('a_mapel');
-	// 	$this->db->join('a_jurusan', 'a_jurusan.kode_jurusan = a_mapel.kode_jurusan');
-	// 	if ($kode_jurusan != null) {
-	// 		$this->db->where('a_mapel.kode_jurusan', $kode_jurusan);
-	// 	}
-	// 	return $this->db->get()->result();
-	// }
 	public function getAllData()
 	{
-		return $this->db->get('a_mapel')->result();	
+		return $this->db->get('a_mapel')->result();
 	}
 
 	public function getMapel()
@@ -33,14 +23,41 @@ class Mapel_Model extends CI_Model
 		return $this->db->query("SELECT * FROM `mapel` inner join kelas on (mapel.kelas = kelas.kelas && mapel.id_jurusan = kelas.id_jurusan) ORDER BY `mapel`.`id_mapel` ASC ")->result();
 	}
 
-	public function getMapelDashboard($id_guru){
-		$query = "SELECT a.*, b.*, c.*, d.* from a_mapel a 
-		INNER JOIN a_tugasguru b ON a.id_mapel = b.id_mapel
-		INNER JOIN a_kelas c ON b.kode_kelas = c.kode_kelas
-		INNER JOIN a_jurusan d ON c.kode_jurusan = d.kode_jurusan
-		WHERE b.id_user = $id_guru
+
+	public function getDashboard($id_guru, $kode_ta)
+	{
+		$query = " SELECT
+		a_tugasguru.id_tugas ,
+		a_guru.id_user,
+		a_guru.nama_guru, 
+		a_mapel.id_mapel,
+		a_mapel.nama_mapel, 
+		a_kelas.kode_kelas,
+		a_tahun_ajaran.kode_ta, 
+		a_tahun_ajaran.tahun_ajaran
+	FROM
+
+						a_guru
+					JOIN a_tugasguru ON
+					
+							a_guru.id_user = a_tugasguru.id_user
+						
+					
+				JOIN a_mapel ON
+					
+						a_mapel.id_mapel = a_tugasguru.id_mapel
+					
+				
+			JOIN a_kelas ON
+				
+					a_kelas.kode_kelas = a_tugasguru.kode_kelas
+				
+			
+		JOIN a_tahun_ajaran ON
+			
+				a_tahun_ajaran.kode_ta = a_tugasguru.kode_ta WHERE a_guru.id_user= $id_guru && a_tahun_ajaran.kode_ta=$kode_ta
+			
 		";
-		
 		return $this->db->query($query)->result_array();
 	}
 

@@ -16,20 +16,23 @@ class Tfidf_Model extends CI_Model
 
         //$hasilexplode = explode(" ", $arr_kalimat);
         //var_dump($arr_kalimat);
+        //$data = array();
         foreach ($arr_kalimat as $row) {
-            $hasil = count($arr_kalimat);
+            //$hasil = count($arr_kalimat);
             $jumlah = array_count_values($arr_kalimat);
             foreach ($jumlah as $baris) {
 
-                //var_dump($baris);
+                var_dump($baris);
                 $data = array(
                     'kata' => $row,
-                    'jumlah' => $baris
+                    'jumlah' => $baris,
                 );
             }
-            var_dump($data);
-            //die();
-            $this->db->insert('a_tfidf', $data);
+            //var_dump($arr_kalimat);
+            var_dump($jumlah);
+
+            $tes = array_count_values($data);
+            $this->db->insert('a_tfidf', $tes);
         }
     }
 }

@@ -10,16 +10,18 @@ class DataSiswaJawaban extends CI_Controller
             'TahunAjaran_Model',
             'PenugasanGuru_Model',
             'HistoriKelas_Model',
-            'SoalKunci_Model'
+            'SoalKunci_Model',
+            'Ujian_Model'
         ]);
     }
 
-    public function lihatjawaban($id_tugas)
+    public function lihatjawaban($id_ujian)
     {
+        $id_tugas = $this->Ujian_Model->getData(['id_ujian' => $id_ujian])->row('id_tugas');
         // ambil data user guru
         $id_guru = $this->session->userdata('id_user');
         // // cek apakah apakah halaman yang diakses sesuai dengan id_user
-        $guru = $this->PenugasanGuru_Model->getData_by(['id_tugas' => $id_tugas])->row();
+        $guru = $this->PenugasanGuru_Model->getViewData_by(['id_tugas' => $id_tugas])->row();
         if ($id_guru != $guru->id_user) {
             show_404();
         }
@@ -27,10 +29,13 @@ class DataSiswaJawaban extends CI_Controller
             'kode_kelas' => $guru->kode_kelas,
             'kode_ta' => $guru->kode_ta
         ])->result();
-        $jenisUjian = $this->Ujian_Model->getData(['id_tugas' => $id_tugas])->result();
-        if (empty($jenisUjian) || empty($jenisUjian)) {
-            return redirect('welcome');
-        }
+
+        $data = [
+            'siswa' => $siswa,
+            'soal'  => $this->SoalKunci_Model->getData(['id_ujian' => $id_ujian])->result(),
+            'mapel' => "Mapel $guru->nama_mapel Kelas " . str_replace("_", " ", $guru->kode_kelas)
+        ];
+
         // untuk sidebar
         if ($this->session->userdata('level') == 'guru') {
             $id_user = $this->session->userdata('id_user');
@@ -38,11 +43,9 @@ class DataSiswaJawaban extends CI_Controller
             $data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
         }
         // /sidebar
-
-
-        $this->load->view('templates/header', compact('siswa', 'jenisUjian'));
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('SiswaNilai/index');
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('SiswaJawaban/index');
         $this->load->view('templates/footer');
     }
 }

@@ -39,7 +39,7 @@ class Login extends CI_Controller
                 redirect('Welcome');
             } else if (is_object($validationSiswa)) {
                 $newdata = array(
-                    'id_user'     => $validationSiswa->id_siswa,
+                    'id_siswa'     => $validationSiswa->id_siswa,
                     'username'  => $validationSiswa->username,
                     'level' => 'siswa'
                 );

@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Data Soal</h1>
+          <h1><?= $ubah['nama_mapel'] ?></h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -41,7 +41,7 @@
         <div class="card">
           <div class="card-header">
 
-            <h5 class="card-title">Tambah Soal <?= $ubah['nama_mapel'] ?></h5>
+            <h5 class="card-title">Tambah Soal </h5>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
@@ -56,7 +56,7 @@
                 <form action="<?= base_url() ?>DataSoalKunci/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
 
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                       <label for="exampleInputPassword1">Id Ujian</label>
                       <input type="text" class="form-control" id="exampleInputPassword1" name="id_ujian" value="<?= $id_ujian ?>" readonly>
                     </div>
