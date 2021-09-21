@@ -160,6 +160,66 @@
 		});
 	<?php endif; ?>
 
+	<?php if ($this->uri->segment(1) == "DataSoalKunci") { ?>
+		let id_soal = null;
+
+		$(function() {
+			getSoal(null, 1);
+		});
+
+		function getSoal(id, number) {
+			let jawaban = $('#jawaban');
+			if (jawaban.val() != '') {
+				$.ajax({
+					url: "<?= base_url('DataJawabanSiswa/store') ?>",
+					type: "POST",
+					data: {
+						'id_soal': id_soal,
+						'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+						'jawaban': jawaban.val(),
+					}
+				});
+				// resetjawaban
+				jawaban.val('');
+			}
+
+			$.ajax({
+				url: "<?= base_url('DataSoalKunci/getSoal') ?>",
+				type: "POST",
+				data: {
+					'id_soal': id,
+					'id_ujian': "<?= $this->uri->segment(3) ?>",
+					'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+				},
+				dataType: "JSON",
+				success: function(data) {
+					$("#number").text(number);
+					$("#soal").text(data.soal);
+					$("#jawaban").attr('data-id', data.id);
+					$("#jawaban").val(data.jawaban);
+					id_soal = data.id;
+				}
+			});
+			getListSoal();
+		}
+
+		function getListSoal() {
+			// $("#listnumber").empty();
+			$.ajax({
+				url: "<?= base_url('DataSoalKunci/getListSoal') ?>",
+				type: "POST",
+				data: {
+					'id_ujian': "<?= $this->uri->segment(3) ?>",
+					'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+				},
+				dataType: "JSON",
+				success: function(data) {
+					$("#listnumber").html(data);
+				}
+			})
+		}
+	<?php } ?>
+
 
 	//notif hapus data relasi
 	$('.hapus').click(function() {

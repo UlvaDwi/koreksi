@@ -218,6 +218,7 @@
 					</li>
 					<?php
 					if (!empty($menu_mapels)) {
+						$id_tugas = null;
 						foreach ($menu_mapels as $menu_mapel) {
 					?>
 							<!-- ------------------ -->
@@ -226,24 +227,25 @@
 									<i class="fas fa-file-alt"></i>
 									<p> <?= "$menu_mapel->nama_mapel ($menu_mapel->kode_kelas)" ?> <i class="right fas fa-angle-left"></i></p>
 								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href='<?= base_url("DataSiswaNilai/index/$menu_mapel->id_tugas") ?>' class="nav-link ml-3">
-											<i class="fas fa-chalkboard-teacher"></i>
-											<p>
-												Daftar Siswa
-											</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="<?= base_url('DataSoalKunci/jenis/') . $menu_mapel->id_tugas ?>" class="nav-link ml-3">
-											<i class="fas fa-users"></i>
-											<p>
-												Ujian Siswa
-											</p>
-										</a>
-									</li>
-								</ul>
+
+								<?php
+								if (!empty($menu_mapel->ujian)) { ?>
+									<ul class="nav nav-treeview">
+										<?php foreach ($menu_mapel->ujian as  $ujian) : ?>
+											<li class="nav-item">
+												<a href='<?= base_url("DataSoalKunci/tampilujian/$ujian->id_ujian") ?>' class="nav-link ml-3">
+													<i class="fas fa-chalkboard-teacher"></i>
+													<p>
+														<?= $ujian->kode_jenis ?>
+													</p>
+												</a>
+											</li>
+										<?php endforeach; ?>
+									</ul>
+								<?php
+								}
+								?>
+
 							</li>
 						<?php
 						}

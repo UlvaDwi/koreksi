@@ -7,6 +7,7 @@ class SoalKunci_Model extends CI_Model
 {
 	public function getData($where = [])
 	{
+		$this->db->order_by('id_soal');
 		return $this->db->get_where('a_soalkunci', $where);
 	}
 

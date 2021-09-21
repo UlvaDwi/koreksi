@@ -25,6 +25,15 @@ class PenugasanGuru_Model extends CI_Model
 		return $this->db->get_where('v_penugasan', $where);
 	}
 
+	public function getUjianSiswa(array $where)
+	{
+		$dataMapels = $this->getViewData_by($where)->result();
+		foreach ($dataMapels as $dataMapel) {
+			$dataMapel->ujian = $this->db->get_where('a_ujian', ['id_tugas' => $dataMapel->id_tugas])->result();
+		}
+		return $dataMapels;
+	}
+
 	public function getViewPenugasanUjian_by(array $where)
 	{
 		return $this->db->get_where('v_penugasanujian', $where);

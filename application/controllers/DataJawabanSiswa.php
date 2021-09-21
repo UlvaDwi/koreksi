@@ -39,39 +39,29 @@ class DataJawabanSiswa extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function validation_form()
+	public function store()
 	{
-
-		$this->form_validation->set_rules("id_ujian_siswa", "id ujian siswa", "required");
-		$this->form_validation->set_rules("id_soal", "id soal", "required");
-		$this->form_validation->set_rules("jawaban", "jawaban", "required");
-		$this->form_validation->set_rules("skor_siswa", "skor siswa", "required");
-
+		$id_soal = $this->input->post('id_soal');
+		$id_ujian_siswa = $this->input->post('id_ujian_siswa');
 		$jawaban = $this->input->post('jawaban');
 
-		// $query = $this->db->query('select *from a_jawabansiswa order by id_jawaban_siswa desc');
-		// if ($query->num_rows() == 0) {
-		// 	$id = 1;
-		// } else {
-		// 	$id = $query->row('id_jawaban_siswa') + 1;
-		// }
+		$this->JawabanSiswa_Model->upsert([
+			'id_soal' => $id_soal,
+			'id_ujian_siswa' => $id_ujian_siswa,
+			'jawaban' => $jawaban,
+			'skor_siswa' => 0,
+		]);
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->index();
-		} else {
-			$this->JawabanSiswa_Model->tambah_data();
+		// $hasiltoken = $this->tokenizing($jawaban);
 
-			$hasiltoken = $this->tokenizing($jawaban);
+		// $hasilfilter = $this->filtering($hasiltoken);
 
-			$hasilfilter = $this->filtering($hasiltoken);
+		// $hasilstemming = $this->stemming($hasilfilter);
 
-			$hasilstemming = $this->stemming($hasilfilter);
+		// $this->PreJawabanSiswa_Model->tambah_data($hasiltoken, $hasilfilter, $hasilstemming);
 
-			$this->PreJawabanSiswa_Model->tambah_data($hasiltoken, $hasilfilter, $hasilstemming);
-
-			$this->session->set_flashdata('flash_jawabansiswa', 'Disimpan');
-			redirect('DataJawabanSiswa');
-		}
+		// $this->session->set_flashdata('flash_jawabansiswa', 'Disimpan');
+		// redirect('DataJawabanSiswa');
 	}
 	public function hitung()
 	{

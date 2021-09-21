@@ -120,7 +120,7 @@
                   $no = 1;
                   foreach ($soalkunci as $row) { ?>
                     <tr>
-                      <td><?= $no ?></td>
+                      <td><?= $no++ ?></td>
                       <!-- <td><?= $row['id_soal'] ?></td> -->
                       <!-- <td><= $row['id_mapel_ujian'] ?></td> -->
                       <td><?= $row['soal'] ?></td>

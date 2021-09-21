@@ -18,9 +18,6 @@ class Welcome extends CI_Controller
 
 	public function index()
 	{
-
-
-
 		$data = [
 			'menu_mapels' => []
 		];
@@ -32,7 +29,7 @@ class Welcome extends CI_Controller
 		} elseif ($this->session->userdata('level') == 'siswa') {
 			$id_user = $this->session->userdata('id_siswa');
 			$kode_kelas = $this->HistoriKelas_Model->getData_by(['id_siswa' => $id_user, 'kode_ta' => $kode_ta])->row('kode_kelas');
-			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getUjianSiswa(['v_penugasan.kode_kelas' => $kode_kelas, 'v_penugasan.kode_ta' => $kode_ta]);
 		}
 
 		$this->load->view("templates/header", $data);

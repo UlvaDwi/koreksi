@@ -10,6 +10,14 @@ class DataSoalKunci extends CI_Controller
 	private $arrayfiltered = array();
 	private $arraystemmed = array();
 
+	private $number = 1;
+	private $id_soal = null;
+	private $soal = null;
+	private $jawaban = null;
+	private $id_ujian = null;
+	private $id_ujian_siswa = null;
+
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,13 +31,16 @@ class DataSoalKunci extends CI_Controller
 			'PenugasanGuru_Model',
 			'TahunAjaran_Model',
 			'UjianSiswa_Model',
-			'HistoriKelas_Model'
+			'HistoriKelas_Model',
+			'JawabanSiswa_Model'
 		]);
 		$this->load->library('form_validation');
+
+		// get first question
+		// $this->
 	}
 	function indexpre()
 	{
-
 		$data['prekunci'] = $this->PreSoalKunci_Model->getAllData();
 		$this->load->view('templates/header');
 		$this->load->view('templates/sidebar');
@@ -39,12 +50,9 @@ class DataSoalKunci extends CI_Controller
 
 	function index()
 	{
+		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
 		$id_guru = $this->session->userdata('id_user');
-		$data['mapel'] = $this->Mapel_Model->getDashboard($id_guru);
-
-		// var_dump($data);
-		// die();
-
+		$data['mapel'] = $this->Mapel_Model->getDashboard($id_guru, $kode_ta);
 		// untuk sidebar
 		if ($this->session->userdata('level') == 'guru') {
 			$id_user = $this->session->userdata('id_user');
@@ -58,8 +66,9 @@ class DataSoalKunci extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function tampilujiansiswa()
+	public function tampilUjian($id_ujian)
 	{
+		$this->id_ujian = $id_ujian;
 		$data['soal'] = $this->SoalKunci_Model->getData();
 
 		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
@@ -69,11 +78,82 @@ class DataSoalKunci extends CI_Controller
 			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
 		}
+		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
 		// /sidebar
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
-		$this->load->view('soalkunci/ujiansiswa');
+		$this->load->view('soalkunci/ujian');
 		$this->load->view('templates/footer');
+	}
+
+	public function tampilSoal($id_ujian)
+	{
+		$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'id_siswa' => $this->session->userdata('id_siswa')])->row();
+		if (empty($ujian)) {
+			$this->UjianSiswa_Model->store([
+				'id_ujian' => $id_ujian,
+				'id_siswa' => $this->session->userdata('id_siswa')
+			]);
+			// echo "hallo";
+			$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'id_siswa' => $this->session->userdata('id_siswa')])->row();
+		}
+
+
+		$data['soal'] = $this->SoalKunci_Model->getData();
+
+		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+		if ($this->session->userdata('level') == 'siswa') {
+			$id_user = $this->session->userdata('id_siswa');
+			$kode_kelas = $this->HistoriKelas_Model->getData_by(['id_siswa' => $id_user, 'kode_ta' => $kode_ta])->row('kode_kelas');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
+		}
+		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
+		$data['id_ujian_siswa'] = $ujian->id_ujian_siswa;
+
+		// /sidebar
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/soalUjian');
+		$this->load->view('templates/footer');
+	}
+
+	public function getSoal()
+	{
+		$id_soal = $this->input->post('id_soal');
+		if ($id_soal) {
+			$soal = $this->SoalKunci_Model->getData(['id_soal' => $id_soal])->row();
+		} else if ($this->input->post('id_ujian')) {
+			$soal = $this->SoalKunci_Model->getData(['id_ujian' => $this->input->post('id_ujian')])->row();
+			$id_soal = $soal->id_soal;
+		}
+		$jawaban = $this->JawabanSiswa_Model->getDataBy([
+			'id_soal' => $id_soal,
+			'id_ujian_siswa' => $this->input->post('id_ujian_siswa')
+		])->row('jawaban');
+		$data = [
+			'soal' => $soal->soal,
+			'id' => $soal->id_soal,
+			'jawaban' => $jawaban,
+		];
+		echo json_encode($data);
+	}
+
+	public function getListSoal()
+	{
+		$id_ujian = $this->input->post('id_ujian');
+		$soal = $this->SoalKunci_Model->getData(['id_ujian' => $id_ujian])->result();
+		$data = "";
+		foreach ($soal as $key => $value) {
+			$no = $key + 1;
+			$jawaban = $this->JawabanSiswa_Model->getDataBy([
+				'id_soal' => $value->id_soal,
+				'id_ujian_siswa' => $this->input->post('id_ujian_siswa')
+			])->row('jawaban');
+			$btnType = ($jawaban) ? 'btn-success' : 'btn-default';
+			$data .= "<button onclick='getSoal($value->id_soal, $no)' class='m-1 btn $btnType col-2'>$no</button>";
+		}
+		echo json_encode($data);
 	}
 
 	function jenis($id_tugas)
@@ -144,7 +224,6 @@ class DataSoalKunci extends CI_Controller
 		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian);
 		$data['id_ujian'] = $id_ujian;
 
-
 		// untuk sidebar
 		if ($this->session->userdata('level') == 'guru') {
 			$id_user = $this->session->userdata('id_user');
@@ -152,7 +231,6 @@ class DataSoalKunci extends CI_Controller
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
 		}
 		// /sidebar
-
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
 		$this->load->view('soalkunci/tambah');
@@ -161,7 +239,6 @@ class DataSoalKunci extends CI_Controller
 
 	public function validation_form()
 	{
-
 		$this->form_validation->set_rules("id_ujian", "id mapel ujian", "required");
 		$this->form_validation->set_rules("soal", "soal", "required");
 		$this->form_validation->set_rules("kunci_jawaban", "kunci_jawaban", "required");
@@ -189,18 +266,12 @@ class DataSoalKunci extends CI_Controller
 
 			$this->PreSoalKunci_Model->tambah_data($id, $hasiltoken, $hasilfilter, $hasilstemming);
 
-
 			$kalimat = $hasilstemming;
 			$arr_kalimat = explode(" ", $hasilstemming);
-
-
 			$this->Tfidf_Model->tambah_data($arr_kalimat);
 
 			// var_dump($arr_kalimat);
 			// die();
-
-
-
 			$this->session->set_flashdata('flash_soalkunci', 'Disimpan');
 			redirect('DataSoalKunci/tambah/' . $this->input->post('id_ujian'));
 		}
@@ -210,7 +281,7 @@ class DataSoalKunci extends CI_Controller
 	{
 		$this->SoalKunci_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_soalkunci', 'Dihapus');
-		redirect('DataSoalKunci');
+		redirect('DataSoalKunci/tambah/' . $this->input->post('id_ujian'));
 	}
 
 	public function ubah($kd)
