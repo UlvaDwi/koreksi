@@ -7,10 +7,10 @@ class Ujian_Model extends CI_Model
 {
 	public function getData(array $where = [])
 	{
-		if (!empty($where)) {
-			$this->db->where($where);
-		}
-		return $this->db->get('a_ujian');
+		// if (!empty($where)) {
+		// 	$this->db->where($where);
+		// }
+		return $this->db->get_where('a_ujian', $where);
 	}
 	// public function getAllData()
 	// {
@@ -29,6 +29,9 @@ class Ujian_Model extends CI_Model
 		$data = [
 			'id_tugas' => $this->input->post('id_tugas'),
 			'kode_jenis' => $this->input->post('kode_jenis'),
+			'tgl_pelaksanaan' => $this->input->post('tgl_pelaksanaan'),
+			'tgl_selesai' => $this->input->post('tgl_selesai'),
+			'durasi' => $this->input->post('durasi')
 		];
 		$this->db->insert('a_ujian', $data);
 		$insert_id = $this->db->insert_id();
@@ -40,7 +43,10 @@ class Ujian_Model extends CI_Model
 		$data = array(
 			'id_ujian' => $this->input->post('id_ujian'),
 			'id_tugas' => $this->input->post('id_tugas'),
-			'kode_jenis' => $this->input->post('kode_jenis')
+			'kode_jenis' => $this->input->post('kode_jenis'),
+			'tgl_pelaksanaan' => $this->input->post('tgl_pelaksanaan'),
+			'tgl_selesai' => $this->input->post('tgl_selesai'),
+			'durasi' => $this->input->post('durasi')
 		);
 		$this->db->where('id_ujian', $this->input->post('id_ujian', true));
 		$this->db->update('a_ujian', $data);

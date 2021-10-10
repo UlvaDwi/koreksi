@@ -39,7 +39,7 @@
 
                 <form action="<?= base_url('Login/validation') ?>" method="post">
                     <div class="input-group mb-3">
-                        <input name="username" type="text" class="form-control" placeholder="Username">
+                        <input name="username" type="text" class="form-control" placeholder="Username" required />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <i class="fas fa-user"></i>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input name="password" type="password" class="form-control" placeholder="Password">
+                        <input name="password" type="password" class="form-control" placeholder="Password" required />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

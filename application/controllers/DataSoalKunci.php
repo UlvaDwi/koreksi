@@ -118,6 +118,20 @@ class DataSoalKunci extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	// public function time()
+	// {
+	// 	$tanggal_start = $this->input->post('tgl_pelaksanaan');
+	// 	$waktu_start = $this->input->post('durasi');
+	// 	$s = strtotime("$waktu_start $tanggal_start");
+	// 	$start = array('waktu' => date('Y:m:d H:i:s', $s));
+	// 	$result = $this->mcountdown->time($start);
+	// 	if ($result == true) {
+	// 		redirect(site_url('countdown/lihat_countdown'));
+	// 	} else {
+	// 		redirect(site_url());
+	// 	}
+	// }
+
 	public function getSoal()
 	{
 		$id_soal = $this->input->post('id_soal');
@@ -182,7 +196,6 @@ class DataSoalKunci extends CI_Controller
 		}
 		// /sidebar
 
-
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
 		$this->load->view('soalkunci/jenis');
@@ -204,6 +217,7 @@ class DataSoalKunci extends CI_Controller
 				'nilai' => null
 			]);
 		}
+
 		return redirect("DataSoalKunci/jenis/$id_tugas");
 	}
 
@@ -276,13 +290,15 @@ class DataSoalKunci extends CI_Controller
 			redirect('DataSoalKunci/tambah/' . $this->input->post('id_ujian'));
 		}
 	}
-
+	//hapus soal
 	public function hapus($kd)
 	{
+		$id_ujian = $this->SoalKunci_Model->getData(['id_soal' => $kd])->row('id_ujian');
 		$this->SoalKunci_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_soalkunci', 'Dihapus');
-		redirect('DataSoalKunci/tambah/' . $this->input->post('id_ujian'));
+		redirect("DataSoalKunci/tambah/$id_ujian");
 	}
+
 
 	public function ubah($kd)
 	{
@@ -313,6 +329,36 @@ class DataSoalKunci extends CI_Controller
 			redirect('DataSoalKunci');
 		}
 	}
+	public function ubahjenis($kd)
+	{
+
+		$this->form_validation->set_rules("id_ujian", "id ujian", "required");
+		$this->form_validation->set_rules("id_tugas", "id_tugas", "required");
+		$this->form_validation->set_rules("kode_jenis", "kode_jenis", "required");
+		$this->form_validation->set_rules("tgl_pelaksanaan", "tanggal pelaksanaan", "required");
+		$this->form_validation->set_rules("tgl_selesai", "tanggal selesai", "required");
+
+		// untuk sidebar
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		}
+		// /sidebar
+
+		if ($this->form_validation->run() == FALSE) {
+			$data['ubah'] = $this->Ujian_Model->detail_data($kd);
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar');
+			$this->load->view('soalkunci/ubahjenis');
+			$this->load->view('templates/footer');
+		} else {
+			$this->Ujian_Model->ubah_data();
+			$this->session->set_flashdata('flash_soalkunci', 'DiUbah');
+			redirect("DataSoalKunci/jenis/");
+		}
+	}
+
 
 	/*------------TOKENIZING------------*/
 	public function tokenizing()

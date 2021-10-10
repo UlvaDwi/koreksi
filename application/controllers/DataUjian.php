@@ -45,9 +45,11 @@ class DataUjian extends CI_Controller
 			show_404();
 		}
 
-		$this->form_validation->set_rules("id_tugas", "id tugas", "callback_check_select_jurusan");
-		$this->form_validation->set_rules("kode_jenis", "Nama ujian", "callback_check_select_jenis");
-
+		$this->form_validation->set_rules("id_tugas", "id tugas");
+		$this->form_validation->set_rules("kode_jenis", "Nama ujian");
+		$this->form_validation->set_rules("tgl_pelaksanaan", "tanggal pelaksanaan");
+		$this->form_validation->set_rules("tgl_selesai", "Tanggal selesai");
+		$this->form_validation->set_rules("durasi", "Durasi");
 		if (!$this->form_validation->run()) {
 			$this->index();
 		} else {
@@ -78,7 +80,8 @@ class DataUjian extends CI_Controller
 
 	public function hapus($kd)
 	{
-		$id_tugas = $this->Ujian_Model->getData(['id_ujian', $kd])->row('id_tugas');
+
+		$id_tugas = $this->Ujian_Model->getData(['id_ujian' => $kd])->row('id_tugas');
 		$this->UjianSiswa_Model->destroy(['id_ujian' => $kd]);
 		$this->Ujian_Model->hapus_data($kd);
 		$this->session->set_flashdata('flash_ujian', 'Dihapus');

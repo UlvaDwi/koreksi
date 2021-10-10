@@ -37,22 +37,8 @@
 							<p> Mastering <i class="right fas fa-angle-left"></i></p>
 						</a> -->
 					<!-- <ul class="nav nav-treeview"> -->
-					<li class="nav-item">
-						<a href="<?= base_url() ?>DataUser" class="nav-link ">
-							<i class="fas fa-chalkboard-teacher"></i>
-							<p>
-								Data Guru
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="<?= base_url() ?>DataSiswa" class="nav-link ">
-							<i class="fas fa-users"></i>
-							<p>
-								Data Siswa
-							</p>
-						</a>
-					</li>
+
+
 					<li class="nav-item">
 						<a href="<?= base_url() ?>DataJurusan" class="nav-link ">
 							<i class="fas fa-address-card"></i>
@@ -78,6 +64,22 @@
 						</a>
 					</li>
 					<li class="nav-item">
+						<a href="<?= base_url() ?>DataSiswa" class="nav-link ">
+							<i class="fas fa-users"></i>
+							<p>
+								Data Siswa
+							</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="<?= base_url() ?>DataUser" class="nav-link ">
+							<i class="fas fa-chalkboard-teacher"></i>
+							<p>
+								Data Guru
+							</p>
+						</a>
+					</li>
+					<li class="nav-item">
 						<a href="<?= base_url() ?>DataMapel" class="nav-link ">
 							<i class="fas fa-book-open"></i>
 							<p>
@@ -93,9 +95,6 @@
 							</p>
 						</a>
 					</li>
-
-
-
 					<li class="nav-item">
 						<a href="<?= base_url() ?>DataKataDasar" class="nav-link">
 							<i class="fas fa-atlas"></i>

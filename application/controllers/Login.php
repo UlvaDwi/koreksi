@@ -46,7 +46,8 @@ class Login extends CI_Controller
                 $this->session->set_userdata($newdata);
                 redirect('Welcome');
             } else {
-                redirect('Welcome');
+
+                redirect('Login');
             }
         }
     }
