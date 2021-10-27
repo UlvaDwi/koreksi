@@ -79,6 +79,7 @@ class DataSoalKunci extends CI_Controller
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
 		}
 		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
+		$data['ujianSiswa'] =  $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'id_siswa' => $id_user])->row();
 		// /sidebar
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
@@ -108,14 +109,26 @@ class DataSoalKunci extends CI_Controller
 			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
 		}
-		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
+		$data['ujian'] = $penugasanUjian = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
 		$data['id_ujian_siswa'] = $ujian->id_ujian_siswa;
-
-		// /sidebar
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('soalkunci/soalUjian');
-		$this->load->view('templates/footer');
+		$data['id_ujian'] = $id_ujian;
+		date_default_timezone_set("Asia/Jakarta");
+		$now = date_create();
+		$pelaksanaan = date_create($penugasanUjian->tgl_pelaksanaan);
+		$selesai = date_create($penugasanUjian->tgl_selesai);
+		$mulai = date_diff($now, $pelaksanaan)->format("%R");
+		$selesai = date_diff($now, $selesai)->format("%R");
+		if ($mulai == '+' || $selesai == '-') {
+			return redirect("DataSoalKunci/tampilujian/$id_ujian");
+		} else if ($ujian->status == 'selesai') {
+			show_404();
+		} else {
+			// /sidebar
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar');
+			$this->load->view('soalkunci/soalUjian');
+			$this->load->view('templates/footer');
+		}
 	}
 
 	// public function time()
@@ -168,6 +181,13 @@ class DataSoalKunci extends CI_Controller
 			$data .= "<button onclick='getSoal($value->id_soal, $no)' class='m-1 btn $btnType col-2'>$no</button>";
 		}
 		echo json_encode($data);
+	}
+
+	public function selesaiUjian()
+	{
+		$update = $this->UjianSiswa_Model->update(['id_ujian_siswa' => $this->input->post('id_ujian_siswa')], ['status' => 'selesai']);
+		$response = ['status' => 'sucess', 'message' => 'updated'];
+		echo json_encode($response);
 	}
 
 	function jenis($id_tugas)

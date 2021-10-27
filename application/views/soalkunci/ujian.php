@@ -24,11 +24,39 @@
 			<table class="table table-striped mx-5 table-bordered">
 				<tr>
 					<td>Ujian</td>
+					<td>Mulai Ujian</td>
+					<td>Batas Ujian</td>
+					<td>Durasi Ujian</td>
+					<td>Nilai</td>
+					<td>Status</td>
 					<td>Action</td>
 				</tr>
 				<tr>
 					<td><?= $ujian->kode_jenis ?></td>
-					<td><a class="btn btn-primary" href="<?= base_url("DataSoalKunci/tampilSoal/$ujian->id_ujian") ?>">mulai Ujian</a></td>
+					<td><?= $ujian->tgl_pelaksanaan ?></td>
+					<td><?= $ujian->tgl_selesai ?></td>
+					<td><?= $ujian->durasi ?></td>
+					<td><?= $ujianSiswa->nilai ?? '0'  ?></td>
+					<td><?= $ujianSiswa->status ?? 'Belum Ujian' ?></td>
+					<?php
+					$disabled  = null;
+					$textButton  = "Mulai Ujian";
+					date_default_timezone_set("Asia/Jakarta");
+					$now = date_create();
+					$pelaksanaan = date_create($ujian->tgl_pelaksanaan);
+					$selesai = date_create($ujian->tgl_selesai);
+					$mulai = date_diff($now, $pelaksanaan)->format("%R");
+					$selesai = date_diff($now, $selesai)->format("%R");
+					if ($mulai == '+' || $selesai == '-' || $ujianSiswa->status == 'selesai') {
+						$disabled = 'disabled';
+					}
+					?>
+
+					<td>
+						<a class="btn btn-primary <?= $disabled ?>" href="<?= base_url("DataSoalKunci/tampilSoal/$ujian->id_ujian") ?>">
+							<?= $textButton ?>
+						</a>
+					</td>
 				</tr>
 			</table>
 		</div>
