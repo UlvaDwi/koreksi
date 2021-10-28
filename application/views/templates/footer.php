@@ -218,6 +218,59 @@
 				}
 			})
 		}
+
+		<?php if ($this->uri->segment(2) == "tampilSoal") { ?>
+			$(function() {
+				countTimer("<?= $ujian->durasi * 60000 ?>")
+			});
+			let jam = 0;
+			let menit = 0;
+			let detik = 0;
+			let sisaWaktu = 0;
+
+			let _detik = 1000;
+			let _menit = 60 * _detik;
+			let _jam = 60 * _menit;
+			let _hari = 24 * _jam;
+
+			function countTimer(durasi) {
+				$('#jam').text(Math.floor((durasi % _hari) / _jam));
+				$('#menit').text(Math.floor((durasi % _jam) / _menit));
+				$('#detik').text(Math.floor((durasi % _menit) / _detik));
+				if (durasi == 0) {
+					return
+				}
+				durasi = durasi - 1000
+				setTimeout(() => {
+					countTimer(durasi);
+				}, 1000);
+			}
+
+			function selesai(id_dosen) {
+				Swal.fire({
+					title: 'Apakah anda Yakin Menyelesaikan Ujian',
+					text: "Anda tidak bisa mengulang Ujian ini",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Selesaikan'
+				}).then((result) => {
+					$.ajax({
+						url: "<?= base_url('DataSoalKunci/selesaiUjian') ?>",
+						type: "POST",
+						data: {
+							// 'id_ujian': "<?= $this->uri->segment(3) ?>",
+							'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+						},
+						dataType: "JSON",
+						success: function(data) {
+							window.location.href = "<?= base_url('DataSoalKunci/tampilujian/' . $this->uri->segment(3)); ?>";
+						}
+					});
+				});
+			}
+		<?php } ?>
 	<?php } ?>
 
 

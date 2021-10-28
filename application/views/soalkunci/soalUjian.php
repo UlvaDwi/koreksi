@@ -35,11 +35,15 @@
 			</div>
 		<?php } ?>
 		<!-- tambah data -->
-
 		<div>
 			<div class="row">
 				<div class="col-9">
 					<div class="card">
+						<div class="card-header">
+							<div class="text-right">
+								<span id="jam"></span> Jam <span id="menit"></span> Menit <span id="detik"></span> Detik
+							</div>
+						</div>
 						<div class="card-header">
 							<h3>Soal <span id="number">...</span></h3>
 						</div>
@@ -65,9 +69,7 @@
 							<div id="listnumber"></div>
 						</div>
 						<div class="card-footer">
-							<button onclick="selesai()" class="btn btn-primary">
-								Selesaikan Ujian
-							</button>
+							<button type="button" onclick="selesai()" class="btn btn-primary">Selesai Ujian</button>
 						</div>
 					</div>
 				</div>

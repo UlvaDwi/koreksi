@@ -16,4 +16,9 @@ class UjianSiswa_Model extends CI_Model
 		$this->db->where($where);
 		$this->db->delete('a_ujian_siswa');
 	}
+
+	public function update(array $where, $data)
+	{
+		$this->db->update('a_ujian_siswa', $data, $where);
+	}
 }
