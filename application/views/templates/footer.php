@@ -168,7 +168,7 @@
 			let dataId = null;
 			let dataNumber = null;
 			$(function() {
-				getSoal(null, 1);
+				getSoal(<?= $idSoalPertama ?>, 1);
 			});
 
 			function getSoal(id, number) {
@@ -178,6 +178,8 @@
 					// resetjawaban
 					$('#jawaban').val('');
 				}
+				// list for sidebar
+				getListSoal();
 				$.ajax({
 					url: "<?= base_url('DataSoalKunci/getSoal') ?>",
 					type: "POST",
@@ -195,8 +197,7 @@
 						id_soal = data.id;
 					}
 				});
-				// list for sidebar
-				getListSoal();
+
 			}
 
 			function storeJawaban() {
@@ -274,19 +275,22 @@
 					cancelButtonColor: '#d33',
 					confirmButtonText: 'Selesaikan'
 				}).then((result) => {
-					preprocessing()
-					$.ajax({
-						url: "<?= base_url('DataSoalKunci/selesaiUjian') ?>",
-						type: "POST",
-						data: {
-							// 'id_ujian': "<?= $this->uri->segment(3) ?>",
-							'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
-						},
-						dataType: "JSON",
-						success: function(data) {
-							window.location.href = "<?= base_url('DataSoalKunci/tampilujian/' . $this->uri->segment(3)); ?>";
-						}
-					});
+					if (result.isConfirmed) {
+						preprocessing()
+						$.ajax({
+
+							url: "<?= base_url('DataSoalKunci/selesaiUjian') ?>",
+							type: "POST",
+							data: {
+								// 'id_ujian': "<?= $this->uri->segment(3) ?>",
+								'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+							},
+							dataType: "JSON",
+							success: function(data) {
+								window.location.href = "<?= base_url('DataSoalKunci/tampilujian/' . $this->uri->segment(3)); ?>";
+							}
+						});
+					}
 				});
 			}
 		<?php } ?>
