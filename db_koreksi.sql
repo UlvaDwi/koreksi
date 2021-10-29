@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2021 at 08:57 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Waktu pembuatan: 29 Okt 2021 pada 08.07
+-- Versi server: 10.4.18-MariaDB
+-- Versi PHP: 7.4.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_guru`
+-- Struktur dari tabel `a_guru`
 --
 
 CREATE TABLE `a_guru` (
@@ -33,10 +33,10 @@ CREATE TABLE `a_guru` (
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `level` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_guru`
+-- Dumping data untuk tabel `a_guru`
 --
 
 INSERT INTO `a_guru` (`id_user`, `nama_guru`, `username`, `password`, `level`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `a_guru` (`id_user`, `nama_guru`, `username`, `password`, `level`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_histori_kelas`
+-- Struktur dari tabel `a_histori_kelas`
 --
 
 CREATE TABLE `a_histori_kelas` (
@@ -55,10 +55,10 @@ CREATE TABLE `a_histori_kelas` (
   `kode_kelas` varchar(20) NOT NULL,
   `id_siswa` varchar(50) NOT NULL,
   `kode_ta` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_histori_kelas`
+-- Dumping data untuk tabel `a_histori_kelas`
 --
 
 INSERT INTO `a_histori_kelas` (`id_histori`, `kode_kelas`, `id_siswa`, `kode_ta`) VALUES
@@ -72,7 +72,7 @@ INSERT INTO `a_histori_kelas` (`id_histori`, `kode_kelas`, `id_siswa`, `kode_ta`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_jawabansiswa`
+-- Struktur dari tabel `a_jawabansiswa`
 --
 
 CREATE TABLE `a_jawabansiswa` (
@@ -81,32 +81,32 @@ CREATE TABLE `a_jawabansiswa` (
   `id_soal` int(50) NOT NULL,
   `jawaban` text NOT NULL,
   `skor_siswa` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_jenisujian`
+-- Struktur dari tabel `a_jenisujian`
 --
 
 CREATE TABLE `a_jenisujian` (
   `kode_jenis` varchar(20) NOT NULL,
   `nama_jenis` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_jurusan`
+-- Struktur dari tabel `a_jurusan`
 --
 
 CREATE TABLE `a_jurusan` (
   `kode_jurusan` varchar(20) NOT NULL,
   `nama_jurusan` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_jurusan`
+-- Dumping data untuk tabel `a_jurusan`
 --
 
 INSERT INTO `a_jurusan` (`kode_jurusan`, `nama_jurusan`) VALUES
@@ -117,16 +117,16 @@ INSERT INTO `a_jurusan` (`kode_jurusan`, `nama_jurusan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_katadasar`
+-- Struktur dari tabel `a_katadasar`
 --
 
 CREATE TABLE `a_katadasar` (
   `id_katadasar` int(10) NOT NULL,
   `kata_katadasar` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_katadasar`
+-- Dumping data untuk tabel `a_katadasar`
 --
 
 INSERT INTO `a_katadasar` (`id_katadasar`, `kata_katadasar`) VALUES
@@ -30076,7 +30076,7 @@ INSERT INTO `a_katadasar` (`id_katadasar`, `kata_katadasar`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_kelas`
+-- Struktur dari tabel `a_kelas`
 --
 
 CREATE TABLE `a_kelas` (
@@ -30084,10 +30084,10 @@ CREATE TABLE `a_kelas` (
   `kelas` varchar(5) NOT NULL,
   `kode_jurusan` varchar(20) NOT NULL,
   `nama_kelas` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_kelas`
+-- Dumping data untuk tabel `a_kelas`
 --
 
 INSERT INTO `a_kelas` (`kode_kelas`, `kelas`, `kode_jurusan`, `nama_kelas`) VALUES
@@ -30102,16 +30102,16 @@ INSERT INTO `a_kelas` (`kode_kelas`, `kelas`, `kode_jurusan`, `nama_kelas`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_mapel`
+-- Struktur dari tabel `a_mapel`
 --
 
 CREATE TABLE `a_mapel` (
   `id_mapel` varchar(20) NOT NULL,
   `nama_mapel` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_mapel`
+-- Dumping data untuk tabel `a_mapel`
 --
 
 INSERT INTO `a_mapel` (`id_mapel`, `nama_mapel`) VALUES
@@ -30123,7 +30123,7 @@ INSERT INTO `a_mapel` (`id_mapel`, `nama_mapel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_pre_jawabansiswa`
+-- Struktur dari tabel `a_pre_jawabansiswa`
 --
 
 CREATE TABLE `a_pre_jawabansiswa` (
@@ -30132,12 +30132,12 @@ CREATE TABLE `a_pre_jawabansiswa` (
   `token` text DEFAULT NULL,
   `filter` text DEFAULT NULL,
   `stem` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_pre_soalkunci`
+-- Struktur dari tabel `a_pre_soalkunci`
 --
 
 CREATE TABLE `a_pre_soalkunci` (
@@ -30146,10 +30146,10 @@ CREATE TABLE `a_pre_soalkunci` (
   `token` text NOT NULL,
   `filter` text NOT NULL,
   `stem` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_pre_soalkunci`
+-- Dumping data untuk tabel `a_pre_soalkunci`
 --
 
 INSERT INTO `a_pre_soalkunci` (`id_pre_soalkunci`, `id_soal`, `token`, `filter`, `stem`) VALUES
@@ -30159,7 +30159,7 @@ INSERT INTO `a_pre_soalkunci` (`id_pre_soalkunci`, `id_soal`, `token`, `filter`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_siswa`
+-- Struktur dari tabel `a_siswa`
 --
 
 CREATE TABLE `a_siswa` (
@@ -30168,10 +30168,10 @@ CREATE TABLE `a_siswa` (
   `kode_jurusan` varchar(20) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_siswa`
+-- Dumping data untuk tabel `a_siswa`
 --
 
 INSERT INTO `a_siswa` (`id_siswa`, `nama_siswa`, `kode_jurusan`, `username`, `password`) VALUES
@@ -30188,7 +30188,7 @@ INSERT INTO `a_siswa` (`id_siswa`, `nama_siswa`, `kode_jurusan`, `username`, `pa
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_soalkunci`
+-- Struktur dari tabel `a_soalkunci`
 --
 
 CREATE TABLE `a_soalkunci` (
@@ -30197,29 +30197,29 @@ CREATE TABLE `a_soalkunci` (
   `soal` text NOT NULL,
   `kunci_jawaban` text NOT NULL,
   `skor_soal` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_soalkunci`
+-- Dumping data untuk tabel `a_soalkunci`
 --
 
 INSERT INTO `a_soalkunci` (`id_soal`, `id_ujian`, `soal`, `kunci_jawaban`, `skor_soal`) VALUES
 (1, 58, 'apa yang disebut metamorfosis', 'perubahan bentuk pada hewan', 20),
-(2, 58, 'mengapa tumpuhan butuh matahari', 'untuk memasak makanan', 20);
+(2, 58, 'jelaskan yang dimaksud gambar latar', 'gambar yang menjadi  background dari sebuah gambar besar yang sangat menentukan nilai estetika secara keseluruhan', 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_stopwords`
+-- Struktur dari tabel `a_stopwords`
 --
 
 CREATE TABLE `a_stopwords` (
   `id_stopwords` int(11) NOT NULL,
   `kata_stopwords` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_stopwords`
+-- Dumping data untuk tabel `a_stopwords`
 --
 
 INSERT INTO `a_stopwords` (`id_stopwords`, `kata_stopwords`) VALUES
@@ -31406,17 +31406,17 @@ INSERT INTO `a_stopwords` (`id_stopwords`, `kata_stopwords`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_tahun_ajaran`
+-- Struktur dari tabel `a_tahun_ajaran`
 --
 
 CREATE TABLE `a_tahun_ajaran` (
   `kode_ta` int(15) NOT NULL,
   `tahun_ajaran` varchar(15) NOT NULL,
   `status` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_tahun_ajaran`
+-- Dumping data untuk tabel `a_tahun_ajaran`
 --
 
 INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
@@ -31427,19 +31427,19 @@ INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_tfidf`
+-- Struktur dari tabel `a_tfidf`
 --
 
 CREATE TABLE `a_tfidf` (
   `id_tfidf` int(11) NOT NULL,
   `kata` varchar(100) NOT NULL,
   `jumlah` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_tugasguru`
+-- Struktur dari tabel `a_tugasguru`
 --
 
 CREATE TABLE `a_tugasguru` (
@@ -31448,10 +31448,10 @@ CREATE TABLE `a_tugasguru` (
   `id_mapel` varchar(10) NOT NULL,
   `kode_kelas` varchar(20) NOT NULL,
   `kode_ta` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_tugasguru`
+-- Dumping data untuk tabel `a_tugasguru`
 --
 
 INSERT INTO `a_tugasguru` (`id_tugas`, `id_user`, `id_mapel`, `kode_kelas`, `kode_ta`) VALUES
@@ -31463,7 +31463,7 @@ INSERT INTO `a_tugasguru` (`id_tugas`, `id_user`, `id_mapel`, `kode_kelas`, `kod
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_ujian`
+-- Struktur dari tabel `a_ujian`
 --
 
 CREATE TABLE `a_ujian` (
@@ -31472,41 +31472,43 @@ CREATE TABLE `a_ujian` (
   `kode_jenis` varchar(20) NOT NULL,
   `tgl_pelaksanaan` datetime NOT NULL,
   `tgl_selesai` datetime NOT NULL,
-  `durasi` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `durasi` int(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_ujian`
+-- Dumping data untuk tabel `a_ujian`
 --
 
 INSERT INTO `a_ujian` (`id_ujian`, `id_tugas`, `kode_jenis`, `tgl_pelaksanaan`, `tgl_selesai`, `durasi`) VALUES
-(58, 33, 'uts', '2021-09-22 20:00:00', '2021-09-30 20:00:00', '2021-10-01 17:00:00');
+(58, 33, 'UTS GENAP', '2021-10-29 09:02:11', '2021-11-30 23:00:00', 30);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `a_ujian_siswa`
+-- Struktur dari tabel `a_ujian_siswa`
 --
 
 CREATE TABLE `a_ujian_siswa` (
   `id_ujian_siswa` int(15) NOT NULL,
   `id_ujian` int(20) NOT NULL,
   `id_siswa` varchar(50) NOT NULL,
-  `nilai` int(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nilai` int(15) DEFAULT NULL,
+  `status` enum('selesai','belum') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data for table `a_ujian_siswa`
+-- Dumping data untuk tabel `a_ujian_siswa`
 --
 
-INSERT INTO `a_ujian_siswa` (`id_ujian_siswa`, `id_ujian`, `id_siswa`, `nilai`) VALUES
-(58, 58, '9', NULL);
+INSERT INTO `a_ujian_siswa` (`id_ujian_siswa`, `id_ujian`, `id_siswa`, `nilai`, `status`) VALUES
+(60, 58, '9', NULL, 'selesai'),
+(61, 0, '9', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `v_histori`
--- (See below for the actual view)
+-- Stand-in struktur untuk tampilan `v_histori`
+-- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_histori` (
 `id_histori` int(10)
@@ -31520,8 +31522,8 @@ CREATE TABLE `v_histori` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `v_penugasan`
--- (See below for the actual view)
+-- Stand-in struktur untuk tampilan `v_penugasan`
+-- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_penugasan` (
 `id_tugas` int(20)
@@ -31537,8 +31539,8 @@ CREATE TABLE `v_penugasan` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `v_penugasanujian`
--- (See below for the actual view)
+-- Stand-in struktur untuk tampilan `v_penugasanujian`
+-- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_penugasanujian` (
 `id_tugas` int(20)
@@ -31551,12 +31553,15 @@ CREATE TABLE `v_penugasanujian` (
 ,`tahun_ajaran` varchar(15)
 ,`id_ujian` int(20)
 ,`kode_jenis` varchar(20)
+,`tgl_pelaksanaan` datetime
+,`tgl_selesai` datetime
+,`durasi` int(20)
 );
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `v_histori`
+-- Struktur untuk view `v_histori`
 --
 DROP TABLE IF EXISTS `v_histori`;
 
@@ -31565,7 +31570,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `v_penugasan`
+-- Struktur untuk view `v_penugasan`
 --
 DROP TABLE IF EXISTS `v_penugasan`;
 
@@ -31574,200 +31579,200 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Structure for view `v_penugasanujian`
+-- Struktur untuk view `v_penugasanujian`
 --
 DROP TABLE IF EXISTS `v_penugasanujian`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_penugasanujian`  AS SELECT `a_tugasguru`.`id_tugas` AS `id_tugas`, `a_guru`.`id_user` AS `id_user`, `a_guru`.`nama_guru` AS `nama_guru`, `a_mapel`.`id_mapel` AS `id_mapel`, `a_mapel`.`nama_mapel` AS `nama_mapel`, `a_kelas`.`kode_kelas` AS `kode_kelas`, `a_tahun_ajaran`.`kode_ta` AS `kode_ta`, `a_tahun_ajaran`.`tahun_ajaran` AS `tahun_ajaran`, `a_ujian`.`id_ujian` AS `id_ujian`, `a_ujian`.`kode_jenis` AS `kode_jenis` FROM (((((`a_tugasguru` join `a_guru` on(`a_tugasguru`.`id_user` = `a_guru`.`id_user`)) join `a_mapel` on(`a_mapel`.`id_mapel` = `a_tugasguru`.`id_mapel`)) join `a_kelas` on(convert(`a_kelas`.`kode_kelas` using utf8mb4) = `a_tugasguru`.`kode_kelas`)) join `a_tahun_ajaran` on(`a_tahun_ajaran`.`kode_ta` = `a_tugasguru`.`kode_ta`)) join `a_ujian` on(`a_ujian`.`id_tugas` = `a_tugasguru`.`id_tugas`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_penugasanujian`  AS SELECT `a_tugasguru`.`id_tugas` AS `id_tugas`, `a_guru`.`id_user` AS `id_user`, `a_guru`.`nama_guru` AS `nama_guru`, `a_mapel`.`id_mapel` AS `id_mapel`, `a_mapel`.`nama_mapel` AS `nama_mapel`, `a_kelas`.`kode_kelas` AS `kode_kelas`, `a_tahun_ajaran`.`kode_ta` AS `kode_ta`, `a_tahun_ajaran`.`tahun_ajaran` AS `tahun_ajaran`, `a_ujian`.`id_ujian` AS `id_ujian`, `a_ujian`.`kode_jenis` AS `kode_jenis`, `a_ujian`.`tgl_pelaksanaan` AS `tgl_pelaksanaan`, `a_ujian`.`tgl_selesai` AS `tgl_selesai`, `a_ujian`.`durasi` AS `durasi` FROM (((((`a_tugasguru` join `a_guru` on(`a_tugasguru`.`id_user` = `a_guru`.`id_user`)) join `a_mapel` on(`a_mapel`.`id_mapel` = `a_tugasguru`.`id_mapel`)) join `a_kelas` on(convert(`a_kelas`.`kode_kelas` using utf8mb4) = `a_tugasguru`.`kode_kelas`)) join `a_tahun_ajaran` on(`a_tahun_ajaran`.`kode_ta` = `a_tugasguru`.`kode_ta`)) join `a_ujian` on(`a_ujian`.`id_tugas` = `a_tugasguru`.`id_tugas`)) ;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `a_guru`
+-- Indeks untuk tabel `a_guru`
 --
 ALTER TABLE `a_guru`
-  ADD PRIMARY KEY (`id_user`);
+  ADD PRIMARY KEY (`id_user`) USING BTREE;
 
 --
--- Indexes for table `a_histori_kelas`
+-- Indeks untuk tabel `a_histori_kelas`
 --
 ALTER TABLE `a_histori_kelas`
-  ADD PRIMARY KEY (`id_histori`);
+  ADD PRIMARY KEY (`id_histori`) USING BTREE;
 
 --
--- Indexes for table `a_jawabansiswa`
+-- Indeks untuk tabel `a_jawabansiswa`
 --
 ALTER TABLE `a_jawabansiswa`
-  ADD PRIMARY KEY (`id_jawaban_siswa`);
+  ADD PRIMARY KEY (`id_jawaban_siswa`) USING BTREE;
 
 --
--- Indexes for table `a_jenisujian`
+-- Indeks untuk tabel `a_jenisujian`
 --
 ALTER TABLE `a_jenisujian`
-  ADD PRIMARY KEY (`kode_jenis`);
+  ADD PRIMARY KEY (`kode_jenis`) USING BTREE;
 
 --
--- Indexes for table `a_jurusan`
+-- Indeks untuk tabel `a_jurusan`
 --
 ALTER TABLE `a_jurusan`
-  ADD PRIMARY KEY (`kode_jurusan`);
+  ADD PRIMARY KEY (`kode_jurusan`) USING BTREE;
 
 --
--- Indexes for table `a_katadasar`
+-- Indeks untuk tabel `a_katadasar`
 --
 ALTER TABLE `a_katadasar`
-  ADD PRIMARY KEY (`id_katadasar`);
+  ADD PRIMARY KEY (`id_katadasar`) USING BTREE;
 
 --
--- Indexes for table `a_kelas`
+-- Indeks untuk tabel `a_kelas`
 --
 ALTER TABLE `a_kelas`
-  ADD PRIMARY KEY (`kode_kelas`),
-  ADD KEY `kode_jurusan` (`kode_jurusan`);
+  ADD PRIMARY KEY (`kode_kelas`) USING BTREE,
+  ADD KEY `kode_jurusan` (`kode_jurusan`) USING BTREE;
 
 --
--- Indexes for table `a_mapel`
+-- Indeks untuk tabel `a_mapel`
 --
 ALTER TABLE `a_mapel`
-  ADD PRIMARY KEY (`id_mapel`);
+  ADD PRIMARY KEY (`id_mapel`) USING BTREE;
 
 --
--- Indexes for table `a_pre_jawabansiswa`
+-- Indeks untuk tabel `a_pre_jawabansiswa`
 --
 ALTER TABLE `a_pre_jawabansiswa`
-  ADD PRIMARY KEY (`id_pre_jawabansiswa`);
+  ADD PRIMARY KEY (`id_pre_jawabansiswa`) USING BTREE;
 
 --
--- Indexes for table `a_pre_soalkunci`
+-- Indeks untuk tabel `a_pre_soalkunci`
 --
 ALTER TABLE `a_pre_soalkunci`
-  ADD PRIMARY KEY (`id_pre_soalkunci`);
+  ADD PRIMARY KEY (`id_pre_soalkunci`) USING BTREE;
 
 --
--- Indexes for table `a_siswa`
+-- Indeks untuk tabel `a_siswa`
 --
 ALTER TABLE `a_siswa`
-  ADD PRIMARY KEY (`id_siswa`);
+  ADD PRIMARY KEY (`id_siswa`) USING BTREE;
 
 --
--- Indexes for table `a_soalkunci`
+-- Indeks untuk tabel `a_soalkunci`
 --
 ALTER TABLE `a_soalkunci`
-  ADD PRIMARY KEY (`id_soal`);
+  ADD PRIMARY KEY (`id_soal`) USING BTREE;
 
 --
--- Indexes for table `a_stopwords`
+-- Indeks untuk tabel `a_stopwords`
 --
 ALTER TABLE `a_stopwords`
-  ADD PRIMARY KEY (`id_stopwords`);
+  ADD PRIMARY KEY (`id_stopwords`) USING BTREE;
 
 --
--- Indexes for table `a_tahun_ajaran`
+-- Indeks untuk tabel `a_tahun_ajaran`
 --
 ALTER TABLE `a_tahun_ajaran`
-  ADD PRIMARY KEY (`kode_ta`);
+  ADD PRIMARY KEY (`kode_ta`) USING BTREE;
 
 --
--- Indexes for table `a_tfidf`
+-- Indeks untuk tabel `a_tfidf`
 --
 ALTER TABLE `a_tfidf`
-  ADD PRIMARY KEY (`id_tfidf`);
+  ADD PRIMARY KEY (`id_tfidf`) USING BTREE;
 
 --
--- Indexes for table `a_tugasguru`
+-- Indeks untuk tabel `a_tugasguru`
 --
 ALTER TABLE `a_tugasguru`
-  ADD PRIMARY KEY (`id_tugas`);
+  ADD PRIMARY KEY (`id_tugas`) USING BTREE;
 
 --
--- Indexes for table `a_ujian`
+-- Indeks untuk tabel `a_ujian`
 --
 ALTER TABLE `a_ujian`
-  ADD PRIMARY KEY (`id_ujian`);
+  ADD PRIMARY KEY (`id_ujian`) USING BTREE;
 
 --
--- Indexes for table `a_ujian_siswa`
+-- Indeks untuk tabel `a_ujian_siswa`
 --
 ALTER TABLE `a_ujian_siswa`
-  ADD PRIMARY KEY (`id_ujian_siswa`);
+  ADD PRIMARY KEY (`id_ujian_siswa`) USING BTREE;
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `a_guru`
+-- AUTO_INCREMENT untuk tabel `a_guru`
 --
 ALTER TABLE `a_guru`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `a_histori_kelas`
+-- AUTO_INCREMENT untuk tabel `a_histori_kelas`
 --
 ALTER TABLE `a_histori_kelas`
   MODIFY `id_histori` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `a_jawabansiswa`
+-- AUTO_INCREMENT untuk tabel `a_jawabansiswa`
 --
 ALTER TABLE `a_jawabansiswa`
-  MODIFY `id_jawaban_siswa` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_jawaban_siswa` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `a_katadasar`
+-- AUTO_INCREMENT untuk tabel `a_katadasar`
 --
 ALTER TABLE `a_katadasar`
   MODIFY `id_katadasar` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29933;
 
 --
--- AUTO_INCREMENT for table `a_pre_jawabansiswa`
+-- AUTO_INCREMENT untuk tabel `a_pre_jawabansiswa`
 --
 ALTER TABLE `a_pre_jawabansiswa`
   MODIFY `id_pre_jawabansiswa` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `a_pre_soalkunci`
+-- AUTO_INCREMENT untuk tabel `a_pre_soalkunci`
 --
 ALTER TABLE `a_pre_soalkunci`
   MODIFY `id_pre_soalkunci` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
--- AUTO_INCREMENT for table `a_soalkunci`
+-- AUTO_INCREMENT untuk tabel `a_soalkunci`
 --
 ALTER TABLE `a_soalkunci`
-  MODIFY `id_soal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_soal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `a_stopwords`
+-- AUTO_INCREMENT untuk tabel `a_stopwords`
 --
 ALTER TABLE `a_stopwords`
   MODIFY `id_stopwords` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1183;
 
 --
--- AUTO_INCREMENT for table `a_tfidf`
+-- AUTO_INCREMENT untuk tabel `a_tfidf`
 --
 ALTER TABLE `a_tfidf`
-  MODIFY `id_tfidf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=266;
+  MODIFY `id_tfidf` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `a_tugasguru`
+-- AUTO_INCREMENT untuk tabel `a_tugasguru`
 --
 ALTER TABLE `a_tugasguru`
   MODIFY `id_tugas` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT for table `a_ujian`
+-- AUTO_INCREMENT untuk tabel `a_ujian`
 --
 ALTER TABLE `a_ujian`
   MODIFY `id_ujian` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
--- AUTO_INCREMENT for table `a_ujian_siswa`
+-- AUTO_INCREMENT untuk tabel `a_ujian_siswa`
 --
 ALTER TABLE `a_ujian_siswa`
-  MODIFY `id_ujian_siswa` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_ujian_siswa` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
