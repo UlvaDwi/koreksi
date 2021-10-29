@@ -118,6 +118,8 @@ class DataSoalKunci extends CI_Controller
 		$selesai = date_create($penugasanUjian->tgl_selesai);
 		$mulai = date_diff($now, $pelaksanaan)->format("%R");
 		$selesai = date_diff($now, $selesai)->format("%R");
+		// inisialisasi id pertama soal
+		$data['idSoalPertama'] = $this->SoalKunci_Model->getData(['id_ujian' =>  $id_ujian])->row('id_soal');
 		if ($mulai == '+' || $selesai == '-') {
 			return redirect("DataSoalKunci/tampilujian/$id_ujian");
 		} else if ($ujian->status == 'selesai') {
