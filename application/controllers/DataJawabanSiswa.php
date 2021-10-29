@@ -51,31 +51,18 @@ class DataJawabanSiswa extends CI_Controller
 			'jawaban' => $jawaban,
 			'skor_siswa' => 0,
 		]);
-
-		// $hasiltoken = $this->tokenizing($jawaban);
-
-		// $hasilfilter = $this->filtering($hasiltoken);
-
-		// $hasilstemming = $this->stemming($hasilfilter);
-
-		// $this->PreJawabanSiswa_Model->tambah_data($hasiltoken, $hasilfilter, $hasilstemming);
-
-		// $this->session->set_flashdata('flash_jawabansiswa', 'Disimpan');
-		// redirect('DataJawabanSiswa');
 	}
+
 	public function hitung()
 	{
-		$jawaban = $this->db->query('select jawaban from a_jawabansiswa');
-		$hasiltoken = $this->tokenizing($jawaban);
-
-		$hasilfilter = $this->filtering($hasiltoken);
-
-		$hasilstemming = $this->stemming($hasilfilter);
-
-		$this->PreJawabanSiswa_Model->tambah_data($hasiltoken, $hasilfilter, $hasilstemming);
-
-		$this->session->set_flashdata('flash_jawabansiswa', 'Disimpan');
-		redirect('DataJawabanSiswa');
+		$data = $this->JawabanSiswa_Model->getDataBy(['id_ujian_siswa' => $this->input->post('id_ujian_siswa')])->result();
+		foreach ($data as $value) {
+			$hasiltoken = $this->tokenizing($value->jawaban);
+			$hasilfilter = $this->filtering($hasiltoken);
+			$hasilstemming = $this->stemming($hasilfilter);
+			$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming);
+			$this->arraystemmed = [];
+		}
 	}
 
 	public function hapus($kd)
@@ -108,9 +95,8 @@ class DataJawabanSiswa extends CI_Controller
 		}
 	}
 	/*------------TOKENIZING------------*/
-	public function tokenizing()
+	public function tokenizing($jawaban)
 	{
-		$jawaban = $this->input->post('jawaban');
 		$lowercase = strtolower($jawaban);
 		$tokens = preg_replace('/\s+/', ' ', $lowercase);
 		$tokens = preg_replace('/[^a-z]/', ' ', $tokens);
