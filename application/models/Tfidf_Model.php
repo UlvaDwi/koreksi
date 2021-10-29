@@ -10,7 +10,42 @@ class Tfidf_Model extends CI_Model
         return $this->db->get('a_tfidf')->result();
     }
 
+    public function getMaxdataSoal(){
+        
+        $query = "SELECT id_soal FROM `a_soalkunci` WHERE id_soal IN (SELECT MAX(id_soal) FROM `a_soalkunci`)";
+		return $this->db->query($query)->row_array();
+    }
+
+    public function getJumlahKata($id_soal){
+        
+        //$query = "SELECT sum(jumlah) FROM `a_tfidf` WHERE id_soal = '$id_soal'";
+        $query = "SELECT sum(jumlah) as sum FROM `a_tfidf` WHERE id_soal = '55'";
+		return $this->db->query($query)->row_array();
+    }
+
     public function tambah_data($arr_kalimat)
+    {
+        $getIdSoal = $this->Tfidf_Model->getMaxdataSoal();
+        $id_soal = $getIdSoal['id_soal'];
+        $data = array();
+            $jumlah = array_count_values($arr_kalimat);
+            foreach ($jumlah as $baris=>$value) {
+
+                var_dump($baris);
+                $data[] = array(
+                    'kata' => $baris,
+                    'jumlah' => $value,
+                    'id_soal' => $getIdSoal['id_soal'],
+                );
+        }
+        $this->db->insert_batch('a_tfidf', $data);
+        $getSumKata = $this->Tfidf_Model->getJumlahKata($id_soal);
+        var_dump($getSumKata['sum']);
+        die();
+        
+    }
+
+    public function tambah_data_siswa($arr_kalimat)
     {
         $data = array();
             $jumlah = array_count_values($arr_kalimat);
