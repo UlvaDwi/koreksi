@@ -16,6 +16,7 @@ class DataJawabanSiswa extends CI_Controller
 
 		$this->load->model('JawabanSiswa_Model');
 		$this->load->model('PreJawabanSiswa_Model');
+		$this->load->model('Tfidf_Model');
 		$this->load->library('form_validation');
 	}
 
@@ -61,6 +62,11 @@ class DataJawabanSiswa extends CI_Controller
 			$hasilfilter = $this->filtering($hasiltoken);
 			$hasilstemming = $this->stemming($hasilfilter);
 			$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming);
+
+			$kalimat = $hasilstemming;
+			$arr_kalimat = explode(" ", $hasilstemming);
+			$this->Tfidf_Model->tambah_data_siswa($arr_kalimat);
+
 			$this->arraystemmed = [];
 		}
 	}

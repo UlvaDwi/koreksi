@@ -45,10 +45,7 @@ class Tfidf_Model extends CI_Model
         var_dump($getSumKata['sum']);
         die();
     }
-    public function getDataJawaban()
-    {
-        return $this->db->get('a_tfidf_siswa')->result();
-    }
+
 
     public function getMaxdataJawaban()
     {
@@ -77,12 +74,12 @@ class Tfidf_Model extends CI_Model
             $data[] = array(
                 'kata' => $baris,
                 'jumlah' => $value,
-                'id_jawaban' => $getIdJawaban['id_jawaban'],
+                'id_jawaban_siswa' => $getIdJawaban['id_jawaban_siswa'],
             );
         }
         $this->db->insert_batch('a_tfidf_siswa', $data);
         $getSumKata = $this->Tfidf_Model->getJumlahKataJawaban($id_jawaban_siswa);
-        var_dump($getSumKata['sum']);
-        die();
+        // var_dump($getSumKata['sum']);
+        // die();
     }
 }
