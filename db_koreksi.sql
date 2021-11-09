@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Okt 2021 pada 08.07
+-- Waktu pembuatan: 29 Okt 2021 pada 14.39
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -82,6 +82,14 @@ CREATE TABLE `a_jawabansiswa` (
   `jawaban` text NOT NULL,
   `skor_siswa` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data untuk tabel `a_jawabansiswa`
+--
+
+INSERT INTO `a_jawabansiswa` (`id_jawaban_siswa`, `id_ujian_siswa`, `id_soal`, `jawaban`, `skor_siswa`) VALUES
+(24, 60, 1, 'perubahan bentuk pada hewan', 0),
+(25, 60, 2, 'gambar yang mendukung gambar utama', 0);
 
 -- --------------------------------------------------------
 
@@ -30134,6 +30142,13 @@ CREATE TABLE `a_pre_jawabansiswa` (
   `stem` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
+--
+-- Dumping data untuk tabel `a_pre_jawabansiswa`
+--
+
+INSERT INTO `a_pre_jawabansiswa` (`id_pre_jawabansiswa`, `id_jawaban_siswa`, `token`, `filter`, `stem`) VALUES
+(18, 24, 'perubahan bentuk pada hewan', 'perubahan bentuk hewan', 'ubah bentuk hewan');
+
 -- --------------------------------------------------------
 
 --
@@ -31433,8 +31448,31 @@ INSERT INTO `a_tahun_ajaran` (`kode_ta`, `tahun_ajaran`, `status`) VALUES
 CREATE TABLE `a_tfidf` (
   `id_tfidf` int(11) NOT NULL,
   `kata` varchar(100) NOT NULL,
-  `jumlah` int(11) DEFAULT NULL
+  `jumlah` int(11) DEFAULT NULL,
+  `id_soal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `a_tfidf_siswa`
+--
+
+CREATE TABLE `a_tfidf_siswa` (
+  `id_tfidf_siswa` int(11) NOT NULL,
+  `kata` varchar(20) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `id_jawaban_siswa` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `a_tfidf_siswa`
+--
+
+INSERT INTO `a_tfidf_siswa` (`id_tfidf_siswa`, `kata`, `jumlah`, `id_jawaban_siswa`) VALUES
+(7, 'ubah', 1, 25),
+(8, 'bentuk', 1, 25),
+(9, 'hewan', 1, 25);
 
 -- --------------------------------------------------------
 
@@ -31501,7 +31539,7 @@ CREATE TABLE `a_ujian_siswa` (
 --
 
 INSERT INTO `a_ujian_siswa` (`id_ujian_siswa`, `id_ujian`, `id_siswa`, `nilai`, `status`) VALUES
-(60, 58, '9', NULL, 'selesai'),
+(60, 58, '9', NULL, NULL),
 (61, 0, '9', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -31681,6 +31719,12 @@ ALTER TABLE `a_tfidf`
   ADD PRIMARY KEY (`id_tfidf`) USING BTREE;
 
 --
+-- Indeks untuk tabel `a_tfidf_siswa`
+--
+ALTER TABLE `a_tfidf_siswa`
+  ADD PRIMARY KEY (`id_tfidf_siswa`);
+
+--
 -- Indeks untuk tabel `a_tugasguru`
 --
 ALTER TABLE `a_tugasguru`
@@ -31718,7 +31762,7 @@ ALTER TABLE `a_histori_kelas`
 -- AUTO_INCREMENT untuk tabel `a_jawabansiswa`
 --
 ALTER TABLE `a_jawabansiswa`
-  MODIFY `id_jawaban_siswa` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_jawaban_siswa` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_katadasar`
@@ -31730,7 +31774,7 @@ ALTER TABLE `a_katadasar`
 -- AUTO_INCREMENT untuk tabel `a_pre_jawabansiswa`
 --
 ALTER TABLE `a_pre_jawabansiswa`
-  MODIFY `id_pre_jawabansiswa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pre_jawabansiswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_pre_soalkunci`
@@ -31755,6 +31799,12 @@ ALTER TABLE `a_stopwords`
 --
 ALTER TABLE `a_tfidf`
   MODIFY `id_tfidf` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `a_tfidf_siswa`
+--
+ALTER TABLE `a_tfidf_siswa`
+  MODIFY `id_tfidf_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `a_tugasguru`

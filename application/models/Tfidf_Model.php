@@ -20,8 +20,24 @@ class Tfidf_Model extends CI_Model
     public function getJumlahKata($id_soal)
     {
 
+        $query = "SELECT sum(jumlah) as sum FROM `a_tfidf` WHERE id_soal = '$id_soal'";
+        //$query = "SELECT sum(jumlah) as sum FROM `a_tfidf` WHERE id_soal = '55'";
+        return $this->db->query($query)->row_array();
+    }
+
+    
+    public function getMaxdataJawaban()
+    {
+
+        $query = "SELECT id_jawaban_siswa FROM `a_jawabansiswa` WHERE id_jawaban_siswa IN (SELECT MAX(id_jawaban_siswa) FROM `a_jawabansiswa`)";
+        return $this->db->query($query)->row_array();
+    }
+
+    public function getJumlahKataJawaban($id_jawaban_siswa)
+    {
+
         //$query = "SELECT sum(jumlah) FROM `a_tfidf` WHERE id_soal = '$id_soal'";
-        $query = "SELECT sum(jumlah) as sum FROM `a_tfidf` WHERE id_soal = '55'";
+        $query = "SELECT sum(jumlah) as sum FROM `a_tfidf_siswa` WHERE id_jawaban_siswa = '$id_jawaban_siswa'";
         return $this->db->query($query)->row_array();
     }
 
@@ -42,25 +58,26 @@ class Tfidf_Model extends CI_Model
         }
         $this->db->insert_batch('a_tfidf', $data);
         $getSumKata = $this->Tfidf_Model->getJumlahKata($id_soal);
-        var_dump($getSumKata['sum']);
-        die();
+       
+        foreach ($jumlah as $baris => $value) {
+            echo $value;
+            echo "tes";
+            echo $getSumKata['sum'];
+            //die();
+            $pxc_guru = $value/$getSumKata['sum'];
+
+            $pembagi = $getSumKata['sum'] + $getSumKata['sum'];
+            //$pc_guru = $pxc_guru/$pembagi;
+            //$px = $pxc_guru/$pembagi;
+            $data2[] = array(
+                '$id_soal' => $id_soal,
+                'pxc_guru' => $pxc_guru,        
+            );
+        }
+        $this->db->insert_batch('a_perhitungan', $data2);
     }
 
 
-    public function getMaxdataJawaban()
-    {
-
-        $query = "SELECT id_jawaban_siswa FROM `a_jawabansiswa` WHERE id_jawaban_siswa IN (SELECT MAX(id_jawaban_siswa) FROM `a_jawabansiswa`)";
-        return $this->db->query($query)->row_array();
-    }
-
-    public function getJumlahKataJawaban($id_jawaban_siswa)
-    {
-
-        //$query = "SELECT sum(jumlah) FROM `a_tfidf` WHERE id_soal = '$id_soal'";
-        $query = "SELECT sum(jumlahjawaban) as sum FROM `a_tfidf_siswa` WHERE id_jawaban_siswa = '$id_jawaban_siswa'";
-        return $this->db->query($query)->row_array();
-    }
 
     public function tambah_data_siswa($arr_kalimat)
     {
@@ -68,6 +85,7 @@ class Tfidf_Model extends CI_Model
         $id_jawaban_siswa = $getIdJawaban['id_jawaban_siswa'];
         $data = array();
         $jumlah = array_count_values($arr_kalimat);
+
         foreach ($jumlah as $baris => $value) {
 
             var_dump($baris);
@@ -79,7 +97,19 @@ class Tfidf_Model extends CI_Model
         }
         $this->db->insert_batch('a_tfidf_siswa', $data);
         $getSumKata = $this->Tfidf_Model->getJumlahKataJawaban($id_jawaban_siswa);
-        // var_dump($getSumKata['sum']);
-        // die();
+        foreach ($jumlah as $baris => $value) {
+            $pxc_siswa = $value/$getSumKata['sum'];
+
+            $pembagi = $getSumKata['sum'] + $getSumKata['sum'];
+            $pc_siswa = $pxc_siswa/$pembagi;
+            $px = $pxc_siswa/$pembagi;
+            $data2[] = array(
+                'pxc_siswa' => $pxc_siswa,
+                'pc_siswa' => $pc_siswa,
+                'px' => $px
+            );
+        }
+        $this->db->insert_batch('a_perhitungan_siswa', $data2);
+
     }
 }
