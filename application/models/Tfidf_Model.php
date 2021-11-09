@@ -103,13 +103,19 @@ class Tfidf_Model extends CI_Model
             $pembagi = $getSumKata['sum'] + $getSumKata['sum'];
             $pc_siswa = $pxc_siswa/$pembagi;
             $px = $pxc_siswa/$pembagi;
+            // menghitung probabilitas pxc x pc / px
+            $prob = $pxc_siswa * $pc_siswa / $px;
             $data2[] = array(
                 'pxc_siswa' => $pxc_siswa,
                 'pc_siswa' => $pc_siswa,
-                'px' => $px
+                'px' => $px,
+                'probabilitas' => $prob
             );
+
+            //add update to a_perhitungan untuk pc. sedangkan px tidak perlu krena sama dengan punya siswa
         }
         $this->db->insert_batch('a_perhitungan_siswa', $data2);
+        
 
     }
 }
