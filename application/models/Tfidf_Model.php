@@ -37,7 +37,7 @@ class Tfidf_Model extends CI_Model
             $data[] = array(
                 'kata' => $baris,
                 'jumlah' => $value,
-                'id_soal' => $getIdSoal['id_soal'],
+                'id_soal' => $getIdSoal['id_soal']
             );
         }
         $this->db->insert_batch('a_tfidf', $data);
@@ -58,7 +58,7 @@ class Tfidf_Model extends CI_Model
     {
 
         //$query = "SELECT sum(jumlah) FROM `a_tfidf` WHERE id_soal = '$id_soal'";
-        $query = "SELECT sum(jumlahjawaban) as sum FROM `a_tfidf_siswa` WHERE id_jawaban_siswa = '$id_jawaban_siswa'";
+        $query = "SELECT sum(jumlah) as sum FROM `a_tfidf_siswa` WHERE id_jawaban_siswa = '$id_jawaban_siswa'";
         return $this->db->query($query)->row_array();
     }
 
@@ -74,7 +74,7 @@ class Tfidf_Model extends CI_Model
             $data[] = array(
                 'kata' => $baris,
                 'jumlah' => $value,
-                'id_jawaban_siswa' => $getIdJawaban['id_jawaban_siswa'],
+                'id_jawaban_siswa' => $getIdJawaban['id_jawaban_siswa']
             );
         }
         $this->db->insert_batch('a_tfidf_siswa', $data);

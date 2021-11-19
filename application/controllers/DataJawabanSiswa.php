@@ -56,6 +56,7 @@ class DataJawabanSiswa extends CI_Controller
 
 	public function hitung()
 	{
+
 		$data = $this->JawabanSiswa_Model->getDataBy(['id_ujian_siswa' => $this->input->post('id_ujian_siswa')])->result();
 		foreach ($data as $value) {
 			$hasiltoken = $this->tokenizing($value->jawaban);
@@ -63,8 +64,8 @@ class DataJawabanSiswa extends CI_Controller
 			$hasilstemming = $this->stemming($hasilfilter);
 			$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming);
 
-			$kalimat = $hasilstemming;
 			$arr_kalimat = explode(" ", $hasilstemming);
+
 			$this->Tfidf_Model->tambah_data_siswa($arr_kalimat);
 
 			$this->arraystemmed = [];
