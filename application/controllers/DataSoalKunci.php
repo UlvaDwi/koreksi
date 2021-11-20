@@ -300,11 +300,11 @@ class DataSoalKunci extends CI_Controller
 
 			$hasilstemming = $this->stemming($hasilfilter);
 
-			$this->PreSoalKunci_Model->tambah_data($id, $hasiltoken, $hasilfilter, $hasilstemming);
 
 			$kalimat = $hasilstemming;
 			$arr_kalimat = explode(" ", $hasilstemming);
-			$this->Tfidf_Model->tambah_data($arr_kalimat);
+			$jumlah_kata = $this->Tfidf_Model->tambah_data($arr_kalimat);
+			$this->PreSoalKunci_Model->tambah_data($id, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
 
 			// var_dump($arr_kalimat);
 			// die();
@@ -387,8 +387,9 @@ class DataSoalKunci extends CI_Controller
 	{
 		$kunci_jawaban = $this->input->post('kunci_jawaban');
 		$lowercase = strtolower($kunci_jawaban);
-		$tokens = preg_replace('/\s+/', ' ', $lowercase);
-		$tokens = preg_replace('/[^a-z]/', ' ', $tokens);
+		$tokens = preg_replace('/[^A-Za-z0-9\  ]/', '', $lowercase);
+		// $tokens = preg_replace('/\s+/', ' ', $lowercase);
+		// $tokens = preg_replace('/[^a-z]/', ' ', $tokens);
 		//$tokens = preg_replace('/[^a-zA-Z0-9]+/',' ', $tokens);
 		return $tokens;
 	}

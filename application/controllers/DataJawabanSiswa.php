@@ -56,18 +56,14 @@ class DataJawabanSiswa extends CI_Controller
 
 	public function hitung()
 	{
-
 		$data = $this->JawabanSiswa_Model->getDataBy(['id_ujian_siswa' => $this->input->post('id_ujian_siswa')])->result();
 		foreach ($data as $value) {
 			$hasiltoken = $this->tokenizing($value->jawaban);
 			$hasilfilter = $this->filtering($hasiltoken);
 			$hasilstemming = $this->stemming($hasilfilter);
-			$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming);
-
 			$arr_kalimat = explode(" ", $hasilstemming);
-
-			$this->Tfidf_Model->tambah_data_siswa($arr_kalimat);
-
+			$jumlah_kata = $this->Tfidf_Model->tambah_data_siswa($arr_kalimat, $value->id_jawaban_siswa);
+			$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
 			$this->arraystemmed = [];
 		}
 	}
@@ -105,8 +101,8 @@ class DataJawabanSiswa extends CI_Controller
 	public function tokenizing($jawaban)
 	{
 		$lowercase = strtolower($jawaban);
-		$tokens = preg_replace('/\s+/', ' ', $lowercase);
-		$tokens = preg_replace('/[^a-z]/', ' ', $tokens);
+		$tokens = preg_replace('/[^A-Za-z0-9\  ]/', '', $lowercase);
+		// $tokens = preg_replace('/\s+/', ' ', $lowercase);
 		//$tokens = preg_replace('/[^a-zA-Z0-9]+/',' ', $tokens);
 		return $tokens;
 	}

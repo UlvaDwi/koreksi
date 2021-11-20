@@ -31,19 +31,21 @@ class Tfidf_Model extends CI_Model
         $id_soal = $getIdSoal['id_soal'];
         $data = array();
         $jumlah = array_count_values($arr_kalimat);
+        $jumlah_kata = 0;
         foreach ($jumlah as $baris => $value) {
-
             var_dump($baris);
             $data[] = array(
                 'kata' => $baris,
                 'jumlah' => $value,
                 'id_soal' => $getIdSoal['id_soal']
             );
+            $jumlah_kata += $value;
         }
         $this->db->insert_batch('a_tfidf', $data);
-        $getSumKata = $this->Tfidf_Model->getJumlahKata($id_soal);
-        var_dump($getSumKata['sum']);
-        die();
+        // $getSumKata = $this->Tfidf_Model->getJumlahKata($id_soal);
+        // var_dump($getSumKata['sum']);
+        // die();
+        return $jumlah_kata;
     }
 
 
@@ -62,24 +64,27 @@ class Tfidf_Model extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function tambah_data_siswa($arr_kalimat)
+    public function tambah_data_siswa($arr_kalimat, $id_jawaban_siswa)
     {
-        $getIdJawaban = $this->Tfidf_Model->getMaxdataJawaban();
-        $id_jawaban_siswa = $getIdJawaban['id_jawaban_siswa'];
+        // $getIdJawaban = $this->Tfidf_Model->getMaxdataJawaban();
+        // $id_jawaban_siswa = $getIdJawaban['id_jawaban_siswa'];
         $data = array();
         $jumlah = array_count_values($arr_kalimat);
+        $jumlah_kata = 0;
         foreach ($jumlah as $baris => $value) {
 
             var_dump($baris);
             $data[] = array(
                 'kata' => $baris,
                 'jumlah' => $value,
-                'id_jawaban_siswa' => $getIdJawaban['id_jawaban_siswa']
+                'id_jawaban_siswa' => $id_jawaban_siswa
             );
+            $jumlah_kata += $value;
         }
         $this->db->insert_batch('a_tfidf_siswa', $data);
-        $getSumKata = $this->Tfidf_Model->getJumlahKataJawaban($id_jawaban_siswa);
+        // $getSumKata = $this->Tfidf_Model->getJumlahKataJawaban($id_jawaban_siswa);
         // var_dump($getSumKata['sum']);
         // die();
+        return $jumlah_kata;
     }
 }
