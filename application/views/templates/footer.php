@@ -276,7 +276,7 @@
 					confirmButtonText: 'Selesaikan'
 				}).then((result) => {
 					if (result.isConfirmed) {
-						preprocessing()
+						preprocessing();
 						$.ajax({
 
 							url: "<?= base_url('DataSoalKunci/selesaiUjian') ?>",
