@@ -3,6 +3,7 @@ class UjianSiswa_Model extends CI_Model
 {
 	public function getData(array $where = [])
 	{
+		$this->db->join('a_siswa', 'a_siswa.id_siswa =  a_ujian_siswa.id_siswa');
 		return $this->db->get_where('a_ujian_siswa', $where);
 	}
 

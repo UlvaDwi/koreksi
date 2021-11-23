@@ -72,6 +72,7 @@ class DataSoalKunci extends CI_Controller
 		$data['soal'] = $this->SoalKunci_Model->getData();
 
 		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+
 		if ($this->session->userdata('level') == 'siswa') {
 			$id_user = $this->session->userdata('id_siswa');
 			$kode_kelas = $this->HistoriKelas_Model->getData_by(['id_siswa' => $id_user, 'kode_ta' => $kode_ta])->row('kode_kelas');
@@ -79,7 +80,7 @@ class DataSoalKunci extends CI_Controller
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['kode_kelas' => $kode_kelas, 'kode_ta' => $kode_ta])->result();
 		}
 		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
-		$data['ujianSiswa'] =  $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'id_siswa' => $id_user])->row();
+		$data['ujianSiswa'] =  $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $id_user])->row();
 		// /sidebar
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
@@ -89,14 +90,14 @@ class DataSoalKunci extends CI_Controller
 
 	public function tampilSoal($id_ujian)
 	{
-		$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'id_siswa' => $this->session->userdata('id_siswa')])->row();
+		$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $this->session->userdata('id_siswa')])->row();
 		if (empty($ujian)) {
 			$this->UjianSiswa_Model->store([
 				'id_ujian' => $id_ujian,
 				'id_siswa' => $this->session->userdata('id_siswa')
 			]);
 			// echo "hallo";
-			$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'id_siswa' => $this->session->userdata('id_siswa')])->row();
+			$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $this->session->userdata('id_siswa')])->row();
 		}
 
 

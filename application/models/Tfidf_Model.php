@@ -10,6 +10,21 @@ class Tfidf_Model extends CI_Model
         return $this->db->get('a_tfidf')->result();
     }
 
+    public function getDataBy(array $where)
+    {
+        return $this->db->get_where('a_tfidf', $where);
+    }
+
+    public function getAllDataSiswa()
+    {
+        return $this->db->get('a_tfidf_siswa')->result();
+    }
+
+    public function getDataSiswaBy(array $where)
+    {
+        return $this->db->get_where('a_tfidf_siswa', $where);
+    }
+
     public function getMaxdataSoal()
     {
 
