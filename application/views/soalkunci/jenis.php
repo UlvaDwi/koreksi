@@ -79,7 +79,7 @@
 										<a href="<?= base_url("DataSoalKunci/ubahjenis/$ujian->id_ujian") ?>" class="btn btn-secondary">Update Ujian</a>
 										<a href="<?= base_url("DataUjian/hapus/$ujian->id_ujian") ?>" class="btn btn-danger">Hapus Ujian</a>
 										<a href="<?= base_url("DataSiswaJawaban/lihatjawaban/$ujian->id_ujian") ?>" class="btn btn-warning">Lihat Ujian Siswa</a>
-										<?php if (date($ujian->tgl_selesai) < date("Y-m-d h:i:sa")) : ?>
+										<?php if (date("Y-m-d h:i:sa", strtotime($ujian->tgl_selesai)) < date("Y-m-d h:i:sa")) : ?>
 											<a href="<?= base_url("Perhitungan/index/$ujian->id_ujian") ?>" class="btn btn-info">Hitung Ujian</a>
 										<?php endif; ?>
 									</td>
