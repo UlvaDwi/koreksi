@@ -51,11 +51,17 @@
 						$disabled = 'disabled';
 					}
 					?>
-
 					<td>
-						<a class="btn btn-primary <?= $disabled ?>" href="<?= base_url("DataSoalKunci/tampilSoal/$ujian->id_ujian") ?>">
-							<?= $textButton ?>
-						</a>
+						<?php if ($ujianSiswa->status == 'selesai') { ?>
+							<a class="btn btn-default" href="<?= base_url("DataSoalKunci/detailUjian/$ujian->id_ujian") ?>">
+								Detail Ujian
+							</a>
+						<?php } else { ?>
+							<a class="btn btn-primary <?= $disabled ?>" href="<?= base_url("DataSoalKunci/tampilSoal/$ujian->id_ujian") ?>">
+								<?= $textButton ?>
+							</a>
+
+						<?php } ?>
 					</td>
 				</tr>
 			</table>
