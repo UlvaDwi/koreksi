@@ -32,11 +32,13 @@ class Perhitungan extends CI_Controller
 			$dataSoalKunci->jawabansiswa = $jawabanSiswa;
 		}
 		$hasil = $this->naivebayes->hitung($soalKunci);
+
 		$this->updateSkorJawaban($hasil);
 		$nilaiAkhir = $this->db->query("SELECT a_ujian.id_ujian,a_ujian_siswa.id_ujian_siswa, SUM(skor_siswa) as totalakhir from a_jawabansiswa 
 		INNER JOIN a_ujian_siswa on a_jawabansiswa.id_ujian_siswa = a_ujian_siswa.id_ujian_siswa 
 		INNER JOIN a_ujian on a_ujian.id_ujian = a_ujian_siswa.id_ujian 
-		WHERE a_ujian.id_ujian = 58 GROUP BY a_ujian_siswa.id_ujian_siswa")->result();
+		WHERE a_ujian.id_ujian = $id_ujian GROUP BY a_ujian_siswa.id_ujian_siswa")->result();
+		// print_r($nilaiAkhir);
 		$this->updateNilaiAkhir($nilaiAkhir);
 	}
 

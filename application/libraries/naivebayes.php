@@ -9,11 +9,12 @@ class Naivebayes
 			// echo "<pre>";
 			// print_r($dataUjian);
 			$skorPerKata = round($dataUjian->skor_soal / $dataUjian->jumlah_kata, 2);
-			echo $skorPerKata;
-			echo '<br>';
+			// echo $skorPerKata;
+			// echo '<br>';
 			// echo "</pre>";
 			foreach ($dataUjian->jawabansiswa as $jawabanSiswa) {
 				$this->step1($dataUjian->preprocessing, $jawabanSiswa, $skorPerKata);
+				echo "===================================================================<br>";
 			}
 		}
 		return $this->hasilAkhir;
@@ -26,15 +27,18 @@ class Naivebayes
 		// echo "<br>";
 		// print_r($jawabanGuru);
 		// echo "<br>";
-		// echo "jawaban siswa";
-		// echo "<br>";
-		// echo $jawabanSiswa->id_jawaban_siswa;
 		// echo "</pre>";
 		$total = [];
 		$databobot = [];
 		$totalKataGuru = 0;
 		$totalKataSiswa = 0;
 		$total = 0;
+		echo "<table>";
+		echo "<tr>";
+		echo "<td>kata</td>";
+		echo "<td>jumlah kata guru</td>";
+		echo "<td>jumlah kata siswa</td>";
+		echo "</tr>";
 		foreach ($jawabanGuru as $dataJawabanGuru) {
 			// cari data
 			$key = array_search($dataJawabanGuru->kata, array_column($jawabanSiswa->preprocessing, 'kata'));
@@ -56,14 +60,29 @@ class Naivebayes
 				'siswa' => $jumlahKata,
 				'jumlah' => $jumlah
 			];
-			// echo $dataJawabanGuru->kata . " : " . $dataJawabanGuru->jumlah . " | " . $jumlahKata;
-			// echo "<br>";
+			echo "<tr>";
+			echo "<td>{$dataJawabanGuru->kata}</td>";
+			echo "<td>{$dataJawabanGuru->jumlah}</td>";
+			echo "<td>{$jumlahKata}</td>";
+			echo "</tr>";
 		}
 		$total = [
 			'totalKataSiswa' => $totalKataSiswa,
 			'totalKataGuru' => $totalKataGuru,
 			'total' => $total
 		];
+		echo "<tr>";
+		echo "<td>total </td>";
+		echo "<td>{$total['totalKataGuru']}</td>";
+		echo "<td>{$total['totalKataSiswa']}</td>";
+		echo "</tr>";
+		echo "<tr>";
+		echo "<td>total keseluruhan </td>";
+		echo "<td> </td>";
+		echo "<td>{$total['total']}</td>";
+		echo "</tr>";
+		echo "<table>";
+
 		echo "<pre>";
 		echo "total";
 		echo "<br>";

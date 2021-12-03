@@ -81,6 +81,15 @@ class DataSoalKunci extends CI_Controller
 		}
 		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
 		$data['ujianSiswa'] =  $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $id_user])->row();
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$data['mapel'] = $this->Mapel_Model->getDashboard($id_user, $kode_ta);
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		} elseif ($this->session->userdata('level') == 'siswa') {
+			$id_user = $this->session->userdata('id_siswa');
+			$kode_kelas = $this->HistoriKelas_Model->getData_by(['id_siswa' => $id_user, 'kode_ta' => $kode_ta])->row('kode_kelas');
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getUjianSiswa(['v_penugasan.kode_kelas' => $kode_kelas, 'v_penugasan.kode_ta' => $kode_ta]);
+		}
 		// /sidebar
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
