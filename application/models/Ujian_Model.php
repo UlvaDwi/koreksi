@@ -61,4 +61,9 @@ class Ujian_Model extends CI_Model
 	{
 		return $this->db->get_where('a_ujian', ['id_ujian' => $kd])->row_array();
 	}
+
+	public function penugasanUjian()
+	{
+		# code...
+	}
 }

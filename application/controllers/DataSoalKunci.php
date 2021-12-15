@@ -81,6 +81,7 @@ class DataSoalKunci extends CI_Controller
 		}
 		$data['ujian'] = $this->PenugasanGuru_Model->getViewPenugasanUjian_by(['id_ujian' => $id_ujian])->row();
 		$data['ujianSiswa'] =  $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $id_user])->row();
+
 		if ($this->session->userdata('level') == 'guru') {
 			$id_user = $this->session->userdata('id_user');
 			$data['mapel'] = $this->Mapel_Model->getDashboard($id_user, $kode_ta);
@@ -1233,8 +1234,9 @@ class DataSoalKunci extends CI_Controller
 		return $kata;
 	}
 
-	public function detailUjian($id_ujian)
+	public function detailUjian($id_ujian, $id_siswa = null)
 	{
+		$this->load->library('naivebayes');
 		// untuk sidebar
 		if ($this->session->userdata('level') == 'guru') {
 			$id_user = $this->session->userdata('id_user');
@@ -1242,13 +1244,19 @@ class DataSoalKunci extends CI_Controller
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
 		}
 		// /sidebar
+
 		if ($this->session->userdata('level') == 'siswa') {
-			$data['ujiansiswa'] = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_ujian_siswa.id_siswa' => $this->session->userdata('id_siswa')])->row();
-			// print_r($data['ujiansiswa']);
-			$data['ujian'] = $this->db->get_where('v_penugasanujian', ['id_ujian' => $id_ujian])->row();
-			$data['soal'] = $this->db->from('a_jawabansiswa')->join('a_soalkunci', 'a_soalkunci.id_soal=a_jawabansiswa.id_soal')->where(['a_jawabansiswa.id_ujian_siswa' => $data['ujiansiswa']->id_ujian_siswa])->get()->result();
+			$id_siswa = $this->session->userdata('id_siswa');
 		}
-		// die;
+		$data['ujiansiswa'] = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_ujian_siswa.id_siswa' => $id_siswa])->row();
+		// print_r($data['ujiansiswa']);
+		$data['ujian'] = $this->db->get_where('v_penugasanujian', ['id_ujian' => $id_ujian])->row();
+		$data['soal'] = $this->db->select('a_soalkunci.*,a_jawabansiswa.*,a_pre_jawabansiswa.token as token_siswa,a_pre_jawabansiswa.filter as filter_siswa,a_pre_jawabansiswa.stem as stem_siswa,a_pre_soalkunci.token as token_guru,a_pre_soalkunci.filter as filter_guru,a_pre_soalkunci.stem as stem_guru, a_pre_soalkunci.jumlah_kata')
+			->from('a_jawabansiswa')
+			->join('a_soalkunci', 'a_soalkunci.id_soal=a_jawabansiswa.id_soal')
+			->join('a_pre_jawabansiswa', 'a_jawabansiswa.id_jawaban_siswa=a_pre_jawabansiswa.id_jawaban_siswa')
+			->join('a_pre_soalkunci', 'a_soalkunci.id_soal=a_pre_soalkunci.id_soal')
+			->where(['a_jawabansiswa.id_ujian_siswa' => $data['ujiansiswa']->id_ujian_siswa])->get()->result();
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar');
 		$this->load->view('soalkunci/detailUjian');
