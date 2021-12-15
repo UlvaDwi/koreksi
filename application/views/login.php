@@ -19,14 +19,15 @@
     <link rel="stylesheet" href="<?= base_url('assets/') ?>dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
 </head>
 
 <body class="hold-transition login-page">
+
     <img src="<?= base_url() ?>assets/dist/img/logo.png" alt="AdminLTE Logo" style="opacity: .8" width="10%">
     <div class="login-box">
         <div class="login-logo">
-
-
 
             <a href="<?= base_url('assets/') ?>index2.html"><b>SMK Muhammadiyah 2 Pagak</b></a>
             <p style="font-size: smaller;"><b>Sistem Koreksi Jawaban Esai</b></p>
