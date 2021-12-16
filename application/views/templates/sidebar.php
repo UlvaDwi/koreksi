@@ -111,9 +111,23 @@
 							</p>
 						</a>
 					</li>
-
-
 					<li class="nav-item">
+						<a href="<?= base_url() ?>DataUjianSiswa" class="nav-link">
+							<i class="fas fa-question-circle"></i>
+							<p>
+								Data Ujian Siswa
+							</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="<?= base_url() ?>DataHasilPembelajaran" class="nav-link">
+							<i class="fas fa-question-circle"></i>
+							<p>
+								Data Hasil Pembelajaran
+							</p>
+						</a>
+					</li>
+					<!-- <li class="nav-item">
 						<a href="<?= base_url() ?>DataSoalKunci" class="nav-link">
 							<i class="fas fa-question-circle"></i>
 							<p>
@@ -144,7 +158,7 @@
 								Preprocessing Jawaban Siswa
 							</p>
 						</a>
-					</li>
+					</li> -->
 					<!--  -->
 				<?php } ?>
 				<!-- </ul> -->

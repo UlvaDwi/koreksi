@@ -20,7 +20,9 @@
 
 		<div>
 			<div class="row">
-				<?php foreach ($soal as $index => $dataSoal) : ?>
+
+				<?php
+				foreach ($soal as $index => $dataSoal) : ?>
 					<div class="col-12">
 						<div class="card">
 							<div class="card-header">
@@ -48,6 +50,45 @@
 								</div>
 							</div>
 							<div class="card-footer">
+								<table class="table table-striped table-bordered">
+									<tr>
+										<th colspan="3" class="text-center">Jawaban Guru</th>
+									</tr>
+									<tr>
+										<th>Tokenizing</th>
+										<th>Filtering</th>
+										<th>Stemming</th>
+									</tr>
+									<tr>
+										<th><?= $dataSoal->token_guru ?></th>
+										<th><?= $dataSoal->filter_guru ?></th>
+										<th><?= $dataSoal->stem_guru ?></th>
+									</tr>
+								</table>
+								<table class="table table-striped table-bordered">
+									<tr>
+										<th colspan="3" class="text-center">Jawaban Siswa</th>
+									</tr>
+									<tr>
+										<th>Tokenizing</th>
+										<th>Filtering</th>
+										<th>Stemming</th>
+									</tr>
+									<tr>
+										<th><?= $dataSoal->token_siswa ?></th>
+										<th><?= $dataSoal->filter_siswa ?></th>
+										<th><?= $dataSoal->stem_siswa ?></th>
+									</tr>
+								</table>
+								Perhitungan :
+								<?php
+								$skorPerKata = round($dataSoal->skor_soal / $dataSoal->jumlah_kata, 2);
+								$tfidfGuru = $this->db->from('a_tfidf')->where('id_soal', $dataSoal->id_soal)->get()->result();
+								$tfidfSiswa = new \stdClass();
+								$tfidfSiswa->preprocessing = $this->db->from('a_tfidf_siswa')->where('id_jawaban_siswa', $dataSoal->id_jawaban_siswa)->get()->result();
+								$tfidfSiswa->id_jawaban_siswa = $dataSoal->id_jawaban_siswa;
+								$this->naivebayes->step1($tfidfGuru, $tfidfSiswa, $skorPerKata);
+								?>
 
 							</div>
 						</div>
