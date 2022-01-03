@@ -10,6 +10,11 @@ class User_Model extends CI_Model
         return $this->db->get('a_guru')->result();
     }
 
+    public function getWhere(array $where = [])
+    {
+        return $this->db->get_where('a_guru', $where);
+    }
+
     public function user_data()
     {
         echo $_SESSION['level'];

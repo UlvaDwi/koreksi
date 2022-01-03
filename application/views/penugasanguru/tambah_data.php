@@ -98,14 +98,16 @@
                                 <th>Mapel</th>
                                 <th>Kelas</th>
                                 <th>Action</th>
-
                             </tr>
                             <?php
                             $no = 1;
+                            if (empty($tugas_guru)) { ?>
+                                <td colspan="4" align="center">Tidak ada penugasan</td>
+                            <?php }
                             foreach ($tugas_guru as $row) { ?>
                                 <tr>
                                     <td><?= $no ?></td>
-                                    <td><?= $row->id_mapel ?></td>
+                                    <td><?= $row->nama_mapel ?></td>
                                     <td><?= $row->kode_kelas ?></td>
                                     <td>
                                         <a href="<?= base_url() ?>DataPenugasanGuru/hapus/<?= $row->id_tugas ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>

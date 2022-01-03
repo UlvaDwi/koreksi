@@ -88,7 +88,7 @@
               <table id="example1" class="table table-bordered table-striped responsive">
                 <thead>
                   <tr>
-                    <th>No</th>
+                    <!-- <th>No</th> -->
                     <th>Id Kata Dasar</th>
                     <th>Kata Dasar</th>
                     <th>Action</th>
@@ -96,10 +96,10 @@
                 </thead>
                 <tbody>
                   <?php
-                  $no = 1;
+                  // $no = 1;
                   foreach ($katadasar as $row) { ?>
                     <tr>
-                      <td><?= $no ?></td>
+                      <!-- <td><?= $no ?></td> -->
                       <td><?= $row->id_katadasar ?></td>
                       <td><?= $row->kata_katadasar ?></td>
 
@@ -110,14 +110,14 @@
                           <a href="<?= base_url() ?>DataKataDasar/ubah/<?= $row->id_katadasar ?>" class="btn btn-warning">update</a>
                         </div>
                       </td>
-                    <?php
-                  }
-                    ?>
-                    </tr>
-                    <?php
-                    $no++;
 
-                    ?>
+
+                    </tr>
+                  <?php
+                  }
+                  // $no++;
+
+                  ?>
                 </tbody>
               </table>
             </div>

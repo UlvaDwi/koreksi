@@ -166,18 +166,24 @@
 		<?php if ($this->uri->segment(2) == "tampilSoal") { ?>
 			let id_soal = null;
 			let dataId = null;
+
+			function disableF5(e) {
+				if ((e.which || e.keyCode) == 116) e.preventDefault();
+			};
+			$(document).on("keydown", disableF5);
+
 			let dataNumber = null;
 			$(function() {
 				getSoal(<?= $idSoalPertama ?>, 1);
 			});
 
 			function getSoal(id, number) {
-				if ($('#jawaban').val() != '') {
-					// simpan jawaban
-					storeJawaban();
-					// resetjawaban
-					$('#jawaban').val('');
-				}
+				// if ($('#jawaban').val() != '') {
+				// simpan jawaban
+				storeJawaban();
+				// 	// resetjawaban
+				// 	$('#jawaban').val('');
+				// }
 				// list for sidebar
 				getListSoal();
 				$.ajax({
@@ -256,12 +262,39 @@
 				$('#menit').text(Math.floor((durasi % _jam) / _menit));
 				$('#detik').text(Math.floor((durasi % _menit) / _detik));
 				if (durasi == 0) {
-					return
+					storeJawaban();
+					cekJawaban();
+					preprocessing();
+					$.ajax({
+						url: "<?= base_url('DataSoalKunci/selesaiUjian') ?>",
+						type: "POST",
+						data: {
+							// 'id_ujian': "<?= $this->uri->segment(3) ?>",
+							'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+						},
+						dataType: "JSON",
+						success: function(data) {
+							window.location.href = "<?= base_url('DataSoalKunci/tampilujian/' . $this->uri->segment(3)); ?>";
+						}
+					});
 				}
 				durasi = durasi - 1000
 				setTimeout(() => {
 					countTimer(durasi);
 				}, 1000);
+			}
+
+			function cekJawaban() {
+				$.ajax({
+					url: "<?= base_url('DataJawabanSiswa/cekJawaban') ?>",
+					type: "POST",
+					data: {
+						'id_ujian': "<?= $this->uri->segment(3) ?>",
+						'id_ujian_siswa': "<?= $id_ujian_siswa ?>",
+					},
+					dataType: "JSON",
+					success: function(data) {}
+				});
 			}
 
 			function selesai(id_dosen) {
@@ -276,6 +309,7 @@
 					confirmButtonText: 'Selesaikan'
 				}).then((result) => {
 					if (result.isConfirmed) {
+						cekJawaban();
 						preprocessing();
 						$.ajax({
 

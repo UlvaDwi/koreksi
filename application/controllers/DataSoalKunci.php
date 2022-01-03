@@ -98,6 +98,19 @@ class DataSoalKunci extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	// public function isiJawabanSiswa($id_ujian, $id_ujian_siswa)
+	// {
+	// 	$soal = $this->db->select('id_soal')->from('a_soalkunci')->where('id_ujian', $id_ujian)->get()->result();
+	// 	foreach ($soal as $value) {
+	// 		$data[] =  [
+	// 			'id_soal' => $value->id_soal,
+	// 			'id_ujian_siswa' => $id_ujian_siswa,
+	// 			'jawaban' => '',
+	// 		];
+	// 	}
+	// 	$this->db->insert('a_jawabansiswa', $data);
+	// }
+
 	public function tampilSoal($id_ujian)
 	{
 		$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $this->session->userdata('id_siswa')])->row();
@@ -106,7 +119,6 @@ class DataSoalKunci extends CI_Controller
 				'id_ujian' => $id_ujian,
 				'id_siswa' => $this->session->userdata('id_siswa')
 			]);
-			// echo "hallo";
 			$ujian = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_siswa.id_siswa' => $this->session->userdata('id_siswa')])->row();
 		}
 
@@ -213,7 +225,9 @@ class DataSoalKunci extends CI_Controller
 		$guru = $this->PenugasanGuru_Model->getViewData_by(['id_tugas' => $id_tugas])->row();
 
 		if ($id_guru != $tempIdGuru) {
-			show_404();
+			if ($this->session->userdata('level') != 'admin') {
+				show_404();
+			}
 		}
 		$data = [
 			'ujians' => $this->Ujian_Model->getData(['id_tugas' => $id_tugas])->result(),
@@ -1231,5 +1245,52 @@ class DataSoalKunci extends CI_Controller
 			return $term;
 		}
 		return $kata;
+	}
+	public function detailUjian($id_ujian, $id_siswa = null)
+	{
+		$this->load->library('naivebayes');
+		// untuk sidebar
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		}
+		// /sidebar
+
+		if ($this->session->userdata('level') == 'siswa') {
+			$id_siswa = $this->session->userdata('id_siswa');
+		}
+		$data['ujiansiswa'] = $this->UjianSiswa_Model->getData(['id_ujian' => $id_ujian, 'a_ujian_siswa.id_siswa' => $id_siswa])->row();
+		// print_r($data['ujiansiswa']);
+		$data['ujian'] = $this->db->get_where('v_penugasanujian', ['id_ujian' => $id_ujian])->row();
+		$data['soal'] = $this->db->select('a_soalkunci.*,a_jawabansiswa.*,a_pre_jawabansiswa.token as token_siswa,a_pre_jawabansiswa.filter as filter_siswa,a_pre_jawabansiswa.stem as stem_siswa,a_pre_soalkunci.token as token_guru,a_pre_soalkunci.filter as filter_guru,a_pre_soalkunci.stem as stem_guru, a_pre_soalkunci.jumlah_kata')
+			->from('a_jawabansiswa')
+			->join('a_soalkunci', 'a_soalkunci.id_soal=a_jawabansiswa.id_soal')
+			->join('a_pre_jawabansiswa', 'a_jawabansiswa.id_jawaban_siswa=a_pre_jawabansiswa.id_jawaban_siswa')
+			->join('a_pre_soalkunci', 'a_soalkunci.id_soal=a_pre_soalkunci.id_soal')
+			->where(['a_jawabansiswa.id_ujian_siswa' => $data['ujiansiswa']->id_ujian_siswa])->get()->result();
+
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/detailUjian');
+		$this->load->view('templates/footer');
+	}
+
+	public function list_soal($id_ujian)
+	{
+		$data['nama_ujian'] = $this->db->get_where('v_penugasanujian', ['id_ujian' => $id_ujian])->row();
+		$data['soalkunci'] = $this->SoalKunci_Model->getAllData($id_ujian);
+		// untuk sidebar
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		}
+		// /sidebar
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/listsoal');
+		$this->load->view('templates/footer');
 	}
 }

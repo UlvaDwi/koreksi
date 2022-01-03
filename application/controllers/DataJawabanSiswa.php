@@ -43,15 +43,17 @@ class DataJawabanSiswa extends CI_Controller
 	public function store()
 	{
 		$id_soal = $this->input->post('id_soal');
-		$id_ujian_siswa = $this->input->post('id_ujian_siswa');
-		$jawaban = $this->input->post('jawaban');
+		if ($id_soal) {
+			$id_ujian_siswa = $this->input->post('id_ujian_siswa');
+			$jawaban = $this->input->post('jawaban');
 
-		$this->JawabanSiswa_Model->upsert([
-			'id_soal' => $id_soal,
-			'id_ujian_siswa' => $id_ujian_siswa,
-			'jawaban' => $jawaban,
-			'skor_siswa' => 0,
-		]);
+			$this->JawabanSiswa_Model->upsert([
+				'id_soal' => $id_soal,
+				'id_ujian_siswa' => $id_ujian_siswa,
+				'jawaban' => $jawaban,
+				'skor_siswa' => 0,
+			]);
+		}
 	}
 
 	public function hitung()
@@ -934,5 +936,28 @@ class DataJawabanSiswa extends CI_Controller
 			return $term;
 		}
 		return $kata;
+	}
+
+	public function cekJawaban()
+	{
+		$id_ujian_siswa = $this->input->post('id_ujian_siswa');
+		$id_ujian = $this->input->post('id_ujian');
+		// $soal = $this->db->select('id_soal')->from('a_soalkunci')->where('id_ujian', $id_ujian)->get()->result();
+		// $id_soal = array_column($soal, 'id_soal');
+		// var_dump($id_soal);
+		// $jawaban = $this->db->from('a_jawabansiswa')
+		$ujian = $this->db->select('a_soalkunci.id_soal')->from('a_soalkunci')->join('a_jawabansiswa', "a_jawabansiswa.id_soal = a_soalkunci.id_soal AND a_jawabansiswa.id_ujian_siswa = $id_ujian_siswa", 'left')->where('id_ujian', $id_ujian)->where('id_jawaban_siswa', null)->get()->result();
+		$data = [];
+		foreach ($ujian as $value) {
+			$data[] =  [
+				'id_soal' => $value->id_soal,
+				'id_ujian_siswa' => $id_ujian_siswa,
+				'jawaban' => '',
+			];
+		}
+		// echo '<pre>';
+		// var_dump($data);
+		// echo '</pre>';
+		$this->db->insert_batch('a_jawabansiswa', $data);
 	}
 }

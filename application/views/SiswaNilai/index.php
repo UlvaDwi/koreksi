@@ -51,14 +51,14 @@
 											<td><?= $no ?></td>
 											<td><?= $row->nama_siswa ?></td>
 											<?php foreach ($jenisUjian as $valueJenisUjian) : ?>
-												<th><?php
+												<td><?php
 													$id_ujian = $valueJenisUjian->id_ujian;
 													$id_siswa = $row->id_siswa;
 													$ujianSiswa = array_filter($nilaiUjianSiswa, function ($value) use ($id_ujian, $id_siswa) {
 														return ($value->id_ujian == $id_ujian && $value->id_siswa == $id_siswa);
 													});
 													echo array_column($ujianSiswa, 'nilai')[0];
-													?></th>
+													?></td>
 											<?php endforeach; ?>
 										</tr>
 									<?php

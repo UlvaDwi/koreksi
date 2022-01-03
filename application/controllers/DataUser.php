@@ -8,12 +8,12 @@ class DataUser extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->has_userdata('id_user')) {
-            redirect('Login');
-        }
-        if ($this->session->userdata('level') != 'admin') {
-            show_404();
-        }
+        // if (!$this->session->has_userdata('id_user')) {
+        //     redirect('Login');
+        // }
+        // if ($this->session->userdata('level') != 'admin') {
+        //     show_404();
+        // }
 
         $this->load->model('User_Model');
         $this->load->library('form_validation');
@@ -78,5 +78,31 @@ class DataUser extends CI_Controller
             $this->session->set_flashdata('flash_user', 'DiUbah');
             redirect('DataUser');
         }
+    }
+
+    public function akun()
+    {
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('user/resetPassword');
+        $this->load->view('templates/footer');
+    }
+
+    public function resetPassword()
+    {
+        switch ($this->session->userdata('level')) {
+            case 'admin':
+                $this->User_Model->ubah_data($this->session->userdata('id_user'), ['password' => $this->input->post('password')]);
+                break;
+            case 'guru':
+                $this->User_Model->ubah_data($this->session->userdata('id_user'), ['password' => $this->input->post('password')]);
+                break;
+            case 'siswa':
+                $this->db->where('id_siswa', $this->session->userdata('id_siswa'));
+                $this->db->update('a_siswa', ['password' => $this->input->post('password')]);
+                break;
+        }
+        $this->session->set_flashdata('flash_user', 'DiUbah');
+        redirect('DataUser/akun');
     }
 }

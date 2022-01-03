@@ -23,7 +23,8 @@
 
 </head>
 
-<body class="hold-transition login-page">
+<body style="background-image: url(assets/dist/img/bgweb.png);  background-repeat: no-repeat; background-size: cover;
+" class="hold-transition login-page">
 
     <img src="<?= base_url() ?>assets/dist/img/logo.png" alt="AdminLTE Logo" style="opacity: .8" width="10%">
     <div class="login-box">

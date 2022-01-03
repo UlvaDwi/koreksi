@@ -9,11 +9,10 @@ class Welcome extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('TahunAjaran_Model');
-
 		$this->load->model('PenugasanGuru_Model');
-
 		$this->load->model('HistoriKelas_Model');
 		$this->load->model('Mapel_Model');
+		$this->load->model('User_Model');
 	}
 
 	public function index()
@@ -22,7 +21,16 @@ class Welcome extends CI_Controller
 			'menu_mapels' => []
 		];
 		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
-		if ($this->session->userdata('level') == 'guru') {
+		if ($this->session->userdata('level') == 'admin') {
+			$data['jumlahSiswa'] = count($this->HistoriKelas_Model->getData_by(['kode_ta' => $this->TahunAjaran_Model->tahunAjaranAktif])->result());
+			$data['jumlahGuru'] = count($this->User_Model->getWhere(['level' => 'guru'])->result());
+			$data['jumlahMapel'] = count($this->Mapel_Model->getAllData());
+			$data['jumlahUjian'] = count($this->PenugasanGuru_Model->getViewPenugasanUjian_by(['kode_ta' => $kode_ta])->result());
+			// echo "<pre>";
+			// print_r($data);
+			// echo "</pre>";
+			// die;
+		} elseif ($this->session->userdata('level') == 'guru') {
 			$id_user = $this->session->userdata('id_user');
 			$data['mapel'] = $this->Mapel_Model->getDashboard($id_user, $kode_ta);
 			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();

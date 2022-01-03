@@ -31,29 +31,29 @@ Content Wrapper. Contains page content -->
             <div class="row">
               <div class="col-md-8">
                 <?= validation_errors(); ?>
-                <form action="<?= base_url('DataUser/ubah/') . $ubah['id_user'] ?>" method="post" accept-charset="utf-8">
+                <form action="<?= base_url('DataUser/ubah/') . $ubah->id_user ?>" method="post" accept-charset="utf-8">
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="id_user">NIK</label>
-                      <input type="text" class="form-control disable" id="id_user" name="id_user" value="<?= $ubah['id_user'] ?>" readonly>
+                      <label for="id_user">ID Guru</label>
+                      <input type="text" class="form-control disable" id="id_user" name="id_user" value="<?= $ubah->id_user ?>" readonly>
                     </div>
                     <div class="form-group">
                       <label for="nama_guru">Nama Guru</label>
-                      <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="<?= $ubah['nama_guru'] ?>">
+                      <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="<?= $ubah->nama_guru ?>">
                     </div>
                     <div class="form-group">
                       <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" name="username" value="<?= $ubah['username'] ?>">
+                      <input type="text" class="form-control" id="username" name="username" value="<?= $ubah->username ?>">
                     </div>
                     <div class="form-group">
                       <label for="password">Password</label>
-                      <input type="text" class="form-control" id="password" name="password" value="<?= $ubah['password'] ?>">
+                      <input type="text" class="form-control" id="password" name="password" value="<?= $ubah->password ?>">
                     </div>
                     <div class="form-group">
                       <label for="level">Admin</label>
                       <select class="form-control" name="level">
                         <?php
-                        if ($ubah['level'] == 'admin') {
+                        if ($ubah->level == 'admin') {
                           echo "<option value = 'admin' selected>Admin</option>
                           <option value ='guru'>Guru</option>";
                         } else {

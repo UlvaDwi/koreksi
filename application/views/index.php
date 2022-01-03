@@ -1,4 +1,5 @@
-<div class="content-wrapper">
+<div style="background-image: url(assets/dist/img/bgweb.png);  background-repeat: no-repeat; background-size: cover;
+" class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -8,7 +9,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item">Home</a></li>
+            <li class="breadcrumb-item"></a></li>
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -19,70 +20,125 @@
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <div class="col-md-12">
-        <center>
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div>
-                    <center>
-                      <p></p>
-                      <h1 style="font-family: 'Times New Roman', Times, serif;"><b>--SELAMAT DATANG <?= $this->session->userdata('username') ?>--</b></h1>
-                      <h1 style="font-family: 'Times New Roman', Times, serif;"><b>di Sistem Koreksi Esai Otomatis</b></h1>
-                      <h2 style="font-family: 'Times New Roman', Times, serif;"><b>SMK Muhammadiyah 2 Pagak</b></h2>
-                      <p></p>
-                    </center>
-
-                  </div>
-
-                </div>
+      <div class="row">
+        <?php if ($this->session->userdata('level') == 'admin') : ?>
+          <div class="col-3">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>
+                  <td><?= $jumlahSiswa ?></td>
+                </h3>
+                <p>
+                  <td>Jumlah Siswa</td>
+                </p>
               </div>
+              <div class="icon">
+                <i class="fas fa-user-graduate"></i>
+              </div>
+              <a href="<?= base_url('DataSiswa/') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-        </center>
-      </div>
-      <?php if ($this->session->userdata('level') == 'admin' || $this->session->userdata('level') == 'guru') {
-        if (!empty($mapel)) {
-      ?>
-          <!-- Info boxes -->
-          <div class="row">
-            <?php foreach ($mapel as $row) { ?>
+          <div class="col-3">
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>
+                  <td><?= $jumlahGuru ?></td>
+                </h3>
+                <p>
+                  <td>Jumlah Guru</td>
+                </p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-user-tie"></i>
+              </div>
+              <a href="<?= base_url('DataUser/') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>
+                  <td><?= $jumlahMapel ?></td>
+                </h3>
+                <p>
+                  <td>Jumlah Mapel</td>
+                </p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-book"></i>
+              </div>
+              <a href="<?= base_url('DataMapel/') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>
+                  <td><?= $jumlahUjian ?></td>
+                </h3>
+                <p>
+                  <td>Jumlah Ujian</td>
+                </p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <a href="<?= base_url('DataUjianSiswa/') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <?php elseif ($this->session->userdata('level') == 'guru') :
+          if (!empty($mapel)) {
+            foreach ($mapel as $row) { ?>
               <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
                     <h3>
-                      <td><?= $row['kode_kelas']; ?></td>
+                      <?= $row['kode_kelas']; ?>
                     </h3>
                     <p>
-                      <td><?= $row['nama_mapel']; ?></td>
+                      <?= $row['nama_mapel']; ?>
                     </p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-user-graduate"></i>
                   </div>
-                  <!-- <a href="<?= base_url() ?>DataSoalKunci/jenis?id=<?= $row['id_mapel']; ?>&id_tugas=<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                   <a href="<?= base_url() ?>DataSoalKunci/jenis/<?= $row['id_tugas']; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                  <!-- <a href="<= base_url('DataSoalKunci/tambah') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
                 </div>
               </div>
               <!-- /.col -->
             <?php }
-          } else {
-            ?>
-
+          } else { ?>
             Belum mendapatkan Penugasan
+            <?php }
+        elseif ($this->session->userdata('level') == 'siswa') :
+          if (!empty($menu_mapels)) {
+            foreach ($menu_mapels as $row) { ?>
 
-          <?php
-          }
-
-          ?>
-          </div>
-          <!-- /.row -->
-        <?php
-      } ?>
-
+              <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3>
+                      <?= $row->kode_kelas; ?>
+                    </h3>
+                    <p>
+                      <?= $row->nama_mapel; ?>
+                    </p>
+                  </div>
+                  <div class="icon">
+                    <i class="fas fa-user-graduate"></i>
+                  </div>
+                  <a href="<?= base_url() ?>DataSoalKunci/jenis/<?= $row->id_tugas; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
+            <?php }
+          } else { ?>
+            Belum ada Mapel
+        <?php }
+        endif; ?>
+      </div>
+      <!-- /.row -->
     </div>
     <!--/. container-fluid -->
   </section>

@@ -70,7 +70,7 @@ class DataPenugasanGuru extends CI_Controller
 	{
 
 		// tampil list penugasan guru
-		$data['tugas_guru'] = $this->PenugasanGuru_Model->gettugasguru($id_guru);
+		$data['tugas_guru'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_guru, 'kode_ta' => $this->TahunAjaran_Model->tahunAjaranAktif])->result();
 		$data['guru'] = $this->User_Model->detail_data($id_guru);
 		$data['mapel'] = $this->Mapel_Model->getAllData();
 		$data['kelas'] = $this->Kelas_Model->getAllData();

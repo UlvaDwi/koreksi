@@ -15,6 +15,10 @@ class Perhitungan extends CI_Controller
 		$this->load->model('UjianSiswa_Model');
 	}
 
+	public function cekJawaban($id_ujian)
+	{
+	}
+
 	function index($id_ujian)
 	{
 		// $soal = $this->SoalKunci_Model->getData(['id_ujian' => $id])->result();

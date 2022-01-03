@@ -91,7 +91,7 @@
               <table id="example1" class="table table-bordered table-striped responsive">
                 <thead>
                   <tr>
-                    <th>No</th>
+                    <!-- <th>No</th> -->
                     <th>Id Stopwords</th>
                     <th>Nama Stopwords</th>
                     <th>Action</th>
@@ -102,7 +102,7 @@
                   $no = 1;
                   foreach ($stopwords as $row) { ?>
                     <tr>
-                      <td><?= $no ?></td>
+                      <!-- <td><?= $no ?></td> -->
                       <td><?= $row->id_stopwords ?></td>
                       <td><?= $row->kata_stopwords ?></td>
 
@@ -118,7 +118,7 @@
                     ?>
                     </tr>
                     <?php
-                    $no++;
+                    // $no++;
 
                     ?>
                 </tbody>

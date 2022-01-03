@@ -31,12 +31,6 @@
 							</p>
 						</a>
 					</li>
-					<!-- <li class="nav-item"> -->
-					<!-- <a href="#" class="nav-link">
-							<i class="fas fa-file-alt"></i>
-							<p> Mastering <i class="right fas fa-angle-left"></i></p>
-						</a> -->
-					<!-- <ul class="nav nav-treeview"> -->
 
 
 					<li class="nav-item">
@@ -44,14 +38,6 @@
 							<i class="fas fa-address-card"></i>
 							<p>
 								Data Jurusan
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="<?= base_url() ?>DataKelas" class="nav-link ">
-							<i class="fas fa-home"></i>
-							<p>
-								Data Kelas
 							</p>
 						</a>
 					</li>
@@ -68,6 +54,14 @@
 							<i class="fas fa-users"></i>
 							<p>
 								Data Siswa
+							</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="<?= base_url() ?>DataKelas" class="nav-link ">
+							<i class="fas fa-home"></i>
+							<p>
+								Data Kelas
 							</p>
 						</a>
 					</li>
@@ -121,48 +115,15 @@
 					</li>
 					<li class="nav-item">
 						<a href="<?= base_url() ?>DataHasilPembelajaran" class="nav-link">
-							<i class="fas fa-question-circle"></i>
+							<i class="fas fa-address-book"></i>
 							<p>
 								Data Hasil Pembelajaran
 							</p>
 						</a>
 					</li>
-					<!-- <li class="nav-item">
-						<a href="<?= base_url() ?>DataSoalKunci" class="nav-link">
-							<i class="fas fa-question-circle"></i>
-							<p>
-								Soal & Kunci Jawaban
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="<?= base_url() ?>DataSoalKunci/indexpre" class="nav-link">
-							<i class="fas fa-key"></i>
-							<p>
-								Preprocessing Kunci
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="<?= base_url() ?>DataJawabanSiswa" class="nav-link">
-							<i class="fas fa-tasks"></i>
-							<p>
-								Jawaban Siswa
-							</p>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="<?= base_url() ?>DataJawabanSiswa/indexpre" class="nav-link">
-							<i class="fas fa-stack-exchange"></i>
-							<p>
-								Preprocessing Jawaban Siswa
-							</p>
-						</a>
-					</li> -->
-					<!--  -->
+
 				<?php } ?>
-				<!-- </ul> -->
-				<!-- </li> -->
+
 				<?php if ($this->session->userdata('level') == 'guru') { ?>
 
 					<li class="nav-item has-treeview menu-open">
@@ -267,6 +228,7 @@
 					} else {
 						?>
 						<li class="nav-item">
+							<!-- <i class="fas fa-chalkboard-teacher"></i> -->
 							<a href="#" class="nav-link">
 								<p>Belum Ada Ujian</p>
 							</a>
@@ -275,10 +237,14 @@
 					}
 				}
 				?>
-
-
-
-
+				<li class="nav-item">
+					<a href="<?= base_url('DataUser/akun') ?>" class="nav-link ">
+						<i class="fas fa-user"></i>
+						<p>
+							Setting Akun
+						</p>
+					</a>
+				</li>
 		</nav>
 		<!-- /.sidebar-menu -->
 	</div>

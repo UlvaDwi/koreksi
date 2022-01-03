@@ -13,9 +13,19 @@ class Naivebayes
 			// echo '<br>';
 			// echo "</pre>";
 			foreach ($dataUjian->jawabansiswa as $jawabanSiswa) {
-				$this->step1($dataUjian->preprocessing, $jawabanSiswa, $skorPerKata);
+				if ($jawabanSiswa->jawaban == "") {
+					$this->hasilAkhir[] = [
+						'id_jawaban_siswa' => $jawabanSiswa->id_jawaban_siswa,
+						'hasil_akhir' => 0
+					];
+				} else {
+					$this->step1($dataUjian->preprocessing, $jawabanSiswa, $skorPerKata);
+				}
+				// die;
 			}
 		}
+		// var_dump($this->hasilAkhir);
+		// die;
 		return $this->hasilAkhir;
 	}
 
@@ -173,7 +183,7 @@ class Naivebayes
 		// echo "<td colspan='4' class='text-right'>" . $hasil . "</td>";
 		// echo "</tr>";
 		// echo "</table>";
-		// return $this->hasilAkhir;
+		return $this->hasilAkhir;
 	}
 
 	function tampilPerhitungan($jawabanGuru, $jawabanSiswa, $skorPerKata)

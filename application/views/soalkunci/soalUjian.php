@@ -54,10 +54,10 @@
 								<textarea id="jawaban" class="form-control" data-id="" rows="3"></textarea>
 							</div>
 						</div>
-						<div class="card-footer">
+						<!-- <div class="card-footer">
 							<a class="btn btn-default float-left"><i class="fas fa-arrow-circle-left"></i> Sebelumnya</a>
 							<a class="btn btn-default float-right">Selanjutnya <i class="fas fa-arrow-circle-right"></i></a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="col-3">

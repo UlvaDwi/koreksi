@@ -53,7 +53,7 @@
                 <form action="<?= base_url() ?>DataUser/validation_form" method="post" accept-charset="utf-8">
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="username">NIK</label>
+                      <label for="username">ID Guru</label>
                       <input type="text" class="form-control" id="id_user" name="id_user">
                     </div>
                     <div class="form-group">
@@ -103,7 +103,7 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>NIK</th>
+                    <th>ID Guru</th>
                     <th>Nama Guru</th>
                     <th>Username</th>
                     <th>Password</th>

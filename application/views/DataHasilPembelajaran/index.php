@@ -22,13 +22,18 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-body">
-						<form class="form-inline">
-							<div class="form-group">
-								<div class="form-group">
-									<label for="">Pilih Kelas</label>
-									<select class="form-control">
-										<option>Pilik Kelas</option>
+						<form method="get" action="<?= base_url('DataHasilPembelajaran') ?>">
+							<div class="row">
+								<div class="form-group col-md-10 col-12">
+									<select name="select_kelas" class="form-control">
+										<option value="">Semua Kelas</option>
+										<?php foreach ($kelas as $item) : ?>
+											<option value="<?= $item->kode_kelas ?>" <?= ($k === $item->kode_kelas) ? 'selected' :  '' ?>><?= str_replace("_", " ", $item->kode_kelas) ?></option>
+										<?php endforeach; ?>
 									</select>
+								</div>
+								<div class="col-md-2 col-12">
+									<button class="btn btn-primary" type="submit">Cari</button>
 								</div>
 							</div>
 						</form>
@@ -47,10 +52,10 @@
 								foreach ($penugasans as $key => $penugasan) : ?>
 									<tr>
 										<th><?= $key + 1 ?></th>
-										<th><?= $penugasan->nama_guru ?></th>
-										<th><?= $penugasan->kode_kelas ?></th>
-										<th><?= $penugasan->nama_mapel ?></th>
-										<th><a class="btn btn-primary" href="<?= base_url("DataSiswaNilai/index/$penugasan->id_tugas") ?>">Lihat Hasil Pembelajaran</a></th>
+										<td><?= $penugasan->nama_guru ?></td>
+										<td><?= str_replace("_", ' ', $penugasan->kode_kelas)  ?></td>
+										<td><?= $penugasan->nama_mapel ?></td>
+										<td><a class="btn btn-primary" href="<?= base_url("DataSiswaNilai/index/$penugasan->id_tugas") ?>">Lihat Hasil Pembelajaran</a></td>
 									</tr>
 								<?php endforeach; ?>
 							</tbody>

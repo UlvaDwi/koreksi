@@ -55,7 +55,7 @@ class Mapel_Model extends CI_Model
 			
 		JOIN a_tahun_ajaran ON
 			
-				a_tahun_ajaran.kode_ta = a_tugasguru.kode_ta WHERE a_guru.id_user= $id_guru && a_tahun_ajaran.kode_ta=$kode_ta
+				a_tahun_ajaran.kode_ta = a_tugasguru.kode_ta WHERE a_guru.id_user= '$id_guru' && a_tahun_ajaran.kode_ta=$kode_ta
 			
 		";
 		return $this->db->query($query)->result_array();

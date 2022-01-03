@@ -32,7 +32,7 @@ class Login extends CI_Controller
             if (is_object($validation)) {
                 $newdata = array(
                     'id_user'     => $validation->id_user,
-                    'username'  => $validation->username,
+                    'username'  => $validation->nama_guru,
                     'level' => $validation->level
                 );
                 $this->session->set_userdata($newdata);
@@ -40,7 +40,7 @@ class Login extends CI_Controller
             } else if (is_object($validationSiswa)) {
                 $newdata = array(
                     'id_siswa'     => $validationSiswa->id_siswa,
-                    'username'  => $validationSiswa->username,
+                    'username'  => $validationSiswa->nama_siswa,
                     'level' => 'siswa'
                 );
                 $this->session->set_userdata($newdata);
