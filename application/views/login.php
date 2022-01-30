@@ -23,7 +23,7 @@
 
 </head>
 
-<body style="background-image: url(assets/dist/img/bgweb.png);  background-repeat: no-repeat; background-size: cover;
+<body style="background-image: url(assets/dist/img/bgweb.webp);  background-repeat: no-repeat; background-size: cover;
 " class="hold-transition login-page">
 
     <img src="<?= base_url() ?>assets/dist/img/logo.png" alt="AdminLTE Logo" style="opacity: .8" width="10%">

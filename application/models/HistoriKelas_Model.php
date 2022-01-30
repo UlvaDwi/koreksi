@@ -7,6 +7,7 @@ class HistoriKelas_Model extends CI_Model
 {
 	public function getData_by(array $where = [])
 	{
+		$this->db->order_by('nama_siswa', 'asc');
 		return $this->db->get_where('v_histori', $where);
 	}
 	public function siswaNaikKelas($kelas, $jurusan, $tahun_ajaran)

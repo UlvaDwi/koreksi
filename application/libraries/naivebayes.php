@@ -107,9 +107,9 @@ class Naivebayes
 		$hasilDesimal = [];
 		foreach ($databobot as $key => $item) {
 			$hasilDesimal[$key] = [
-				'guru' => round($item['guru'] / $total['totalKataGuru'], 2),
-				'siswa' => round($item['siswa'] / $total['totalKataSiswa'], 2),
-				'jumlah' => round($item['jumlah'] / $total['total'], 2)
+				'guru' => ($total['totalKataGuru'] > 0) ? round($item['guru'] / $total['totalKataGuru'], 2) : 0,
+				'siswa' => ($total['totalKataSiswa'] > 0) ? round($item['siswa'] / $total['totalKataSiswa'], 2) : 0,
+				'jumlah' => ($total['total'] > 0) ? round($item['jumlah'] / $total['total'], 2) : 0
 			];
 		}
 
@@ -188,6 +188,7 @@ class Naivebayes
 
 	function tampilPerhitungan($jawabanGuru, $jawabanSiswa, $skorPerKata)
 	{
+		echo "<h3>$skorPerKata</h3>";
 		// echo "===================================================================<br>";
 		// echo "<pre>";
 		// echo "Pre Processing";
@@ -279,9 +280,9 @@ class Naivebayes
 		$hasilDesimal = [];
 		foreach ($databobot as $key => $item) {
 			$hasilDesimal[$key] = [
-				'guru' => round($item['guru'] / $total['totalKataGuru'], 2),
-				'siswa' => round($item['siswa'] / $total['totalKataSiswa'], 2),
-				'jumlah' => round($item['jumlah'] / $total['total'], 2)
+				'guru' => ($total['totalKataGuru'] > 0) ? round($item['guru'] / $total['totalKataGuru'], 2) : 0,
+				'siswa' => ($total['totalKataSiswa'] > 0) ? round($item['siswa'] / $total['totalKataSiswa'], 2) : 0,
+				'jumlah' => ($total['total'] > 0) ? round($item['jumlah'] / $total['total'], 2) : 0
 			];
 		}
 

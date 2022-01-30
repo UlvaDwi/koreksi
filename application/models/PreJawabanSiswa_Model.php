@@ -22,4 +22,16 @@ class PreJawabanSiswa_Model extends CI_Model
 
 		$this->db->insert('a_pre_jawabansiswa', $data);
 	}
+
+	public function ubah_data($idJawabanSiswa, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata)
+	{
+		$data = array(
+			'token' => $hasiltoken,
+			'filter' => $hasilfilter,
+			'stem' => $hasilstemming,
+			'jumlah_kata' => $jumlah_kata
+		);
+		$this->db->where('id_jawaban_siswa', $idJawabanSiswa);
+		$this->db->update('a_pre_jawabansiswa', $data);
+	}
 }

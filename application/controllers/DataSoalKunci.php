@@ -98,6 +98,32 @@ class DataSoalKunci extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	public function listUjian($idTugas)
+	{
+		$this->db->join('a_ujian_siswa', 'a_ujian_siswa.id_ujian = v_penugasanujian.id_ujian');
+		$this->db->where('v_penugasanujian.id_tugas', $idTugas);
+		$this->db->where('a_ujian_siswa.id_siswa', $this->session->userdata('id_siswa'));
+		$this->db->select('v_penugasanujian.*, a_ujian_siswa.nilai, a_ujian_siswa.status');
+		$data['ujians'] = $this->db->get('v_penugasanujian')->result();
+		$kode_ta = $this->TahunAjaran_Model->tahunAjaranAktif;
+
+		if ($this->session->userdata('level') == 'guru') {
+			$id_user = $this->session->userdata('id_user');
+			$data['mapel'] = $this->Mapel_Model->getDashboard($id_user, $kode_ta);
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getViewData_by(['id_user' => $id_user, 'kode_ta' => $kode_ta])->result();
+		} elseif ($this->session->userdata('level') == 'siswa') {
+			$id_user = $this->session->userdata('id_siswa');
+			$kode_kelas = $this->HistoriKelas_Model->getData_by(['id_siswa' => $id_user, 'kode_ta' => $kode_ta])->row('kode_kelas');
+			$data['menu_mapels'] = $this->PenugasanGuru_Model->getUjianSiswa(['v_penugasan.kode_kelas' => $kode_kelas, 'v_penugasan.kode_ta' => $kode_ta]);
+		}
+		// /sidebar
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('soalkunci/listujian');
+		$this->load->view('templates/footer');
+	}
+
+
 	// public function isiJawabanSiswa($id_ujian, $id_ujian_siswa)
 	// {
 	// 	$soal = $this->db->select('id_soal')->from('a_soalkunci')->where('id_ujian', $id_ujian)->get()->result();
@@ -149,9 +175,9 @@ class DataSoalKunci extends CI_Controller
 			show_404();
 		} else {
 			// /sidebar
-			$this->load->view('templates/header', $data);
-			$this->load->view('templates/sidebar');
-			$this->load->view('soalkunci/soalUjian');
+			$this->load->view('templates/header');
+			// $this->load->view('templates/sidebar');
+			$this->load->view('soalkunci/soalUjian',  $data);
 			$this->load->view('templates/footer');
 		}
 	}
@@ -325,8 +351,6 @@ class DataSoalKunci extends CI_Controller
 
 			$hasilstemming = $this->stemming($hasilfilter);
 
-
-			$kalimat = $hasilstemming;
 			$arr_kalimat = explode(" ", $hasilstemming);
 			$jumlah_kata = $this->Tfidf_Model->tambah_data($arr_kalimat);
 			$this->PreSoalKunci_Model->tambah_data($id, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
@@ -347,7 +371,7 @@ class DataSoalKunci extends CI_Controller
 	}
 
 
-	public function ubah($kd)
+	public function ubah($kd, $id_ujian)
 	{
 
 		$this->form_validation->set_rules("id_soal", "id soal", "required");
@@ -371,14 +395,40 @@ class DataSoalKunci extends CI_Controller
 			$this->load->view('soalkunci/ubah');
 			$this->load->view('templates/footer');
 		} else {
-			$this->SoalKunci_Model->ubah_data();
+			$idsoal = $this->input->post('id_soal', true);
+			$kuncijawaban = $this->input->post('kunci_jawaban');
+
+			$data = array(
+				'soal' => $this->input->post('soal', true),
+				'kunci_jawaban' => $kuncijawaban,
+				'skor_soal' => $this->input->post('skor_soal', true)
+			);
+
+			$hasiltoken = $this->tokenizing($kuncijawaban);
+			$hasilfilter = $this->filtering($hasiltoken);
+			$hasilstemming = $this->stemming($hasilfilter);
+
+			$arr_kalimat = explode(" ", $hasilstemming);
+
+			// ubah data soal kunci 
+			$this->SoalKunci_Model->ubah_data($data);
+
+			// delete data tfidf
+			$this->db->delete('a_tfidf', ['id_soal' => $idsoal]);
+
+			// tambah data tfidf	
+			$jumlah_kata = $this->Tfidf_Model->ubah_data($arr_kalimat, $idsoal);
+
+			// ubah data presoalkunci
+			$this->PreSoalKunci_Model->ubah_data($idsoal, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
+
+
 			$this->session->set_flashdata('flash_soalkunci', 'DiUbah');
-			redirect('DataSoalKunci');
+			redirect("DataSoalKunci/tambah/$id_ujian");
 		}
 	}
 	public function ubahjenis($kd)
 	{
-
 		$this->form_validation->set_rules("id_ujian", "id ujian", "required");
 		$this->form_validation->set_rules("id_tugas", "id_tugas", "required");
 		$this->form_validation->set_rules("kode_jenis", "kode_jenis", "required");
@@ -393,8 +443,9 @@ class DataSoalKunci extends CI_Controller
 		}
 		// /sidebar
 
+		$data['ubah'] = $this->Ujian_Model->detail_data($kd);
+		$id_tugas = $data['ubah']['id_tugas'];
 		if ($this->form_validation->run() == FALSE) {
-			$data['ubah'] = $this->Ujian_Model->detail_data($kd);
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/sidebar');
 			$this->load->view('soalkunci/ubahjenis');
@@ -402,7 +453,7 @@ class DataSoalKunci extends CI_Controller
 		} else {
 			$this->Ujian_Model->ubah_data();
 			$this->session->set_flashdata('flash_soalkunci', 'DiUbah');
-			redirect("DataSoalKunci/jenis/");
+			redirect("DataSoalKunci/jenis/$id_tugas");
 		}
 	}
 

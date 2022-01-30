@@ -96,7 +96,7 @@
                 </thead>
                 <tbody>
                   <?php
-                  // $no = 1;
+                  $no = 1;
                   foreach ($katadasar as $row) { ?>
                     <tr>
                       <!-- <td><?= $no ?></td> -->
@@ -110,14 +110,11 @@
                           <a href="<?= base_url() ?>DataKataDasar/ubah/<?= $row->id_katadasar ?>" class="btn btn-warning">update</a>
                         </div>
                       </td>
-
-
                     </tr>
-                  <?php
-                  }
-                  // $no++;
-
-                  ?>
+                    <!-- <?php
+                          $no++;
+                        }
+                          ?> -->
                 </tbody>
               </table>
             </div>

@@ -1,4 +1,4 @@
-<div style="background-image: url(assets/dist/img/bgweb.png);  background-repeat: no-repeat; background-size: cover;
+<div style="background-image: url(assets/dist/img/bgweb.webp);  background-repeat: no-repeat; background-size: cover;
 " class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
@@ -86,7 +86,8 @@
               <a href="<?= base_url('DataUjianSiswa/') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <?php elseif ($this->session->userdata('level') == 'guru') :
+          <?php
+        elseif ($this->session->userdata('level') == 'guru') :
           if (!empty($mapel)) {
             foreach ($mapel as $row) { ?>
               <div class="col-lg-3 col-6">
@@ -114,22 +115,21 @@
         elseif ($this->session->userdata('level') == 'siswa') :
           if (!empty($menu_mapels)) {
             foreach ($menu_mapels as $row) { ?>
-
               <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
-                    <h3>
-                      <?= $row->kode_kelas; ?>
-                    </h3>
+                    <h4>
+                      <?= $row->nama_mapel ?>
+                    </h4>
                     <p>
-                      <?= $row->nama_mapel; ?>
+                      <?= str_replace('_', ' ', $row->kode_kelas) ?>
                     </p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-user-graduate"></i>
                   </div>
-                  <a href="<?= base_url() ?>DataSoalKunci/jenis/<?= $row->id_tugas; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="<?= base_url() ?>DataSoalKunci/listUjian/<?= $row->id_tugas; ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
             <?php }

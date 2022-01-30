@@ -23,4 +23,17 @@ class PreSoalKunci_Model extends CI_Model
 
 		$this->db->insert('a_pre_soalkunci', $data);
 	}
+
+	public function ubah_data($id, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata)
+	{
+
+		$data = array(
+			'token' => $hasiltoken,
+			'filter' => $hasilfilter,
+			'stem' => $hasilstemming,
+			'jumlah_kata' => $jumlah_kata
+		);
+		$this->db->where('id_soal', $id);
+		$this->db->update('a_pre_soalkunci', $data);
+	}
 }

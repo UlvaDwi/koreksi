@@ -36,6 +36,7 @@
 								<thead>
 									<tr>
 										<th>No</th>
+										<th>NIM</th>
 										<th>Nama Siswa</th>
 										<?php foreach ($jenisUjian as $valueJenisUjian) : ?>
 											<th><?= $valueJenisUjian->kode_jenis ?></th>
@@ -49,6 +50,7 @@
 									foreach ($siswa as $row) { ?>
 										<tr>
 											<td><?= $no ?></td>
+											<td><?= $row->id_siswa ?></td>
 											<td><?= $row->nama_siswa ?></td>
 											<?php foreach ($jenisUjian as $valueJenisUjian) : ?>
 												<td><?php

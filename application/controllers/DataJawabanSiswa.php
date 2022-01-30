@@ -59,13 +59,24 @@ class DataJawabanSiswa extends CI_Controller
 	public function hitung()
 	{
 		$data = $this->JawabanSiswa_Model->getDataBy(['id_ujian_siswa' => $this->input->post('id_ujian_siswa')])->result();
+
 		foreach ($data as $value) {
 			$hasiltoken = $this->tokenizing($value->jawaban);
 			$hasilfilter = $this->filtering($hasiltoken);
 			$hasilstemming = $this->stemming($hasilfilter);
 			$arr_kalimat = explode(" ", $hasilstemming);
+			$checkTfidf = $this->db->get_where('a_tfidf_siswa', ['id_jawaban_siswa' => $value->id_jawaban_siswa])->result();
+			if (count($checkTfidf) > 0) {
+				$this->db->delete('a_tfidf_siswa', ['id_jawaban_siswa' => $value->id_jawaban_siswa]);
+			}
 			$jumlah_kata = $this->Tfidf_Model->tambah_data_siswa($arr_kalimat, $value->id_jawaban_siswa);
-			$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
+			$checkpre = $this->db->get_where('a_pre_jawabansiswa', ['id_jawaban_siswa' => $value->id_jawaban_siswa])->result();
+			if (count($checkpre) > 0) {
+				$this->PreJawabanSiswa_Model->ubah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
+			} else {
+				$this->PreJawabanSiswa_Model->tambah_data($value->id_jawaban_siswa, $hasiltoken, $hasilfilter, $hasilstemming, $jumlah_kata);
+			}
+			// die;
 			$this->arraystemmed = [];
 		}
 	}

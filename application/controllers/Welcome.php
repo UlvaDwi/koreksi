@@ -26,10 +26,6 @@ class Welcome extends CI_Controller
 			$data['jumlahGuru'] = count($this->User_Model->getWhere(['level' => 'guru'])->result());
 			$data['jumlahMapel'] = count($this->Mapel_Model->getAllData());
 			$data['jumlahUjian'] = count($this->PenugasanGuru_Model->getViewPenugasanUjian_by(['kode_ta' => $kode_ta])->result());
-			// echo "<pre>";
-			// print_r($data);
-			// echo "</pre>";
-			// die;
 		} elseif ($this->session->userdata('level') == 'guru') {
 			$id_user = $this->session->userdata('id_user');
 			$data['mapel'] = $this->Mapel_Model->getDashboard($id_user, $kode_ta);

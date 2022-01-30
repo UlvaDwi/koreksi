@@ -54,7 +54,29 @@ class Tfidf_Model extends CI_Model
                 'jumlah' => $value,
                 'id_soal' => $getIdSoal['id_soal']
             );
-            $jumlah_kata += $value;
+            $jumlah_kata++;
+        }
+        $this->db->insert_batch('a_tfidf', $data);
+        // $getSumKata = $this->Tfidf_Model->getJumlahKata($id_soal);
+        // var_dump($getSumKata['sum']);
+        // die();
+        return $jumlah_kata;
+    }
+
+    public function ubah_data($arr_kalimat, $idSoal)
+    {
+
+        $data = array();
+        $jumlah = array_count_values($arr_kalimat);
+        $jumlah_kata = 0;
+        foreach ($jumlah as $baris => $value) {
+            var_dump($baris);
+            $data[] = array(
+                'kata' => $baris,
+                'jumlah' => $value,
+                'id_soal' => $idSoal
+            );
+            $jumlah_kata++;
         }
         $this->db->insert_batch('a_tfidf', $data);
         // $getSumKata = $this->Tfidf_Model->getJumlahKata($id_soal);
@@ -94,7 +116,7 @@ class Tfidf_Model extends CI_Model
                 'jumlah' => $value,
                 'id_jawaban_siswa' => $id_jawaban_siswa
             );
-            $jumlah_kata += $value;
+            $jumlah_kata++;
         }
         $this->db->insert_batch('a_tfidf_siswa', $data);
         // $getSumKata = $this->Tfidf_Model->getJumlahKataJawaban($id_jawaban_siswa);

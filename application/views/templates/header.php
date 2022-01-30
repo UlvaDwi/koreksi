@@ -32,16 +32,17 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="<?= ($this->uri->segment(2) != 'tampilSoal') ?  'main-header ' : '' ?>navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="Welcome" class="nav-link">DashBoard</a>
-        </li>
-        <!-- <?php if ($this->session->userdata('level') == 'siswa') { ?>
+      <?php if ($this->uri->segment(2) != 'tampilSoal') { ?>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="Welcome" class="nav-link">DashBoard</a>
+          </li>
+          <!-- <?php if ($this->session->userdata('level') == 'siswa') { ?>
           <ul class="navbar-nav ml-auto">
             <li class="nav-item d-none d-sm-inline-block">
               <a href="<?= base_url() ?>DataDPPSiswa/ubahsiswa/<?= $this->session->userdata('id_user') ?>" class="nav-link">Profil</a>
@@ -49,14 +50,20 @@
 
           </ul>
         <?php } ?> -->
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="<?= base_url('Login/logout') ?>" class="nav-link">Log Out</a>
-          </li>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="<?= base_url('Login/logout') ?>" class="nav-link">Log Out</a>
+            </li>
+          </ul>
+        <?php } else { ?>
+          <div class="container d-flex justify-content-center">
+            <h3>Selamat Mengerjakan Ujian</h3>
+          </div>
+        <?php } ?>
+
+
+
+
+
         </ul>
-
-
-
-
-      </ul>
     </nav>

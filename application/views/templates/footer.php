@@ -1,5 +1,5 @@
 <!-- Main Footer -->
-<footer class="main-footer">
+<footer class="main-footer ml-0">
 	<strong>Copyright &copy; 2021 <a href="http://adminlte.io">SMK Muhammadiyah 2 Pagak</a>.</strong>
 	All rights reserved.
 	<div class="float-right d-none d-sm-inline-block">

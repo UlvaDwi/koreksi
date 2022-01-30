@@ -42,11 +42,11 @@
                     </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Soal</label>
-                      <input type="text" class="form-control" name="soal" value="<?= $ubah['soal'] ?>">
+                      <textarea type="text" class="form-control" name="soal"><?= $ubah['soal'] ?></textarea>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Kunci Jawaban</label>
-                      <input type="text" class="form-control" name="kunci_jawaban" value="<?= $ubah['kunci_jawaban'] ?>">
+                      <textarea type="text" class="form-control" name="kunci_jawaban"><?= $ubah['kunci_jawaban'] ?></textarea>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Skor Soal</label>

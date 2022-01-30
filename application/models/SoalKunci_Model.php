@@ -45,14 +45,8 @@ class SoalKunci_Model extends CI_Model
 		$this->db->insert('a_soalkunci', $data);
 	}
 
-	public function ubah_data()
+	public function ubah_data($data)
 	{
-		$data = array(
-			'id_ujian' => $this->input->post('id_ujian', true),
-			'soal' => $this->input->post('soal', true),
-			'kunci_jawaban' => $this->input->post('kunci_jawaban', true),
-			'skor_soal' => $this->input->post('skor_soal', true)
-		);
 		$this->db->where('id_soal', $this->input->post('id_soal', true));
 		$this->db->update('a_soalkunci', $data);
 	}

@@ -113,14 +113,12 @@
                           <a href="<?= base_url() ?>DataStopwords/ubah/<?= $row->id_stopwords ?>" class="btn btn-warning">update</a>
                         </div>
                       </td>
-                    <?php
-                  }
-                    ?>
-                    </tr>
-                    <?php
-                    // $no++;
 
-                    ?>
+                    </tr>
+                  <?php
+                    $no++;
+                  }
+                  ?>
                 </tbody>
               </table>
             </div>

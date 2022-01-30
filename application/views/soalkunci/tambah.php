@@ -66,12 +66,12 @@
                     </div> -->
                     <div class="form-group">
                       <label for="exampleInputPassword1">Soal</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="soal">
+                      <textarea rows="3" class="form-control" id="exampleInputPassword1" name="soal"></textarea>
                     </div>
 
                     <div class="form-group">
                       <label for="exampleInputPassword1">Kunci Jawaban</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="kunci_jawaban">
+                      <textarea class="form-control" rows="3" id="exampleInputPassword1" name="kunci_jawaban"></textarea>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Skor Soal</label>
@@ -130,8 +130,8 @@
                       <td>
                         <div class="btn-group">
 
-                          <a href="<?= base_url() ?>DataSoalKunci/hapus/<?= $row['id_soal'] ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
-                          <a href="<?= base_url() ?>DataSoalKunci/ubah/<?= $row['id_soal'] ?>" class="btn btn-warning">Update</a>
+                          <a href="<?= base_url() ?>DataSoalKunci/hapus/<?= $row['id_soal'] ?>/<?= $row['id_ujian'] ?>" class="btn btn-danger" onclick="return confirm('yakin ?')">Hapus</a>
+                          <a href="<?= base_url() ?>DataSoalKunci/ubah/<?= $row['id_soal'] ?>/<?= $row['id_ujian'] ?>" class="btn btn-warning">Update</a>
                         </div>
                       </td>
                     <?php
